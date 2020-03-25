@@ -1,0 +1,9 @@
+{
+  "name": "nginx",
+  "version": "1.0.0",
+  "scripts": {
+    "nginx:build": "./build.sh",
+    "nginx:pub:SNAPSHOT": "./publish-SNAPSHOT.sh",
+    "nginx:pub:RELEASE": "./publish-RELEASE.sh"
+  }
+}

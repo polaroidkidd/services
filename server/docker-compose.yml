@@ -1,0 +1,168 @@
+version: '3.7'
+
+services:
+###################################################
+  ## BEGIN REVERSE PROXY AND CERTS ##
+  nginx:
+    image: eu.gcr.io/dle-dev/nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - ./volumes/proxy/certs:/etc/letsencrypt
+      - ./volumes/proxy/logs:/var/log/nginx
+      - ./volumes/proxy/acme:/etc/certbot
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - certbot
+      - site
+      - cloud
+      - cloud-db
+      - qbt
+      - cloud-redis
+      - jackett
+      - radarr
+      - sonarr
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+
+  certbot:
+    image: eu.gcr.io/dle-dev/certbot:latest
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ./volumes/proxy/certs:/etc/letsencrypt
+      - ./volumes/proxy/acme:/etc/certbot
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+
+
+###################################################
+  ## BEGINE WEBSITE dle.dev ##
+  site:
+    image: eu.gcr.io/dle-dev/frontend:0.1.11
+    container_name: site
+    restart: unless-stopped
+    expose:
+      - 80
+
+###################################################
+  ## BEGIN NEXTCLOUD ##
+  cloud:
+    image: nextcloud:apache
+    container_name: cloud
+    depends_on:
+      - cloud-db
+    volumes:
+      - ./volumes/cloud/html:/var/www/html
+      - ./volumes/cloud/config:/var/www/html/config
+      - ./volumes/cloud/custom-apps:/var/www/html/custom_apps
+      - ./volumes/cloud/data:/var/www/html/data
+      - ./volumes/cloud/themes:/var/www/html/themes
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - ./.cloud.env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+    restart: unless-stopped
+    expose:
+      - 80
+
+  cloud-db:
+    image: postgres:12.2
+    container_name: cloud-db
+    volumes:
+      - cloud-db:/var/lib/postgresql/data
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - ./.cloud.env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+    restart: unless-stopped
+
+  cloud-redis:
+    image: redis
+    container_name: cloud-redis
+    restart: unless-stopped
+    expose:
+      - 6379
+
+
+###################################################
+## BEGIN qBitTorrent ##
+  qbt:
+    image: linuxserver/qbittorrent:4.3.0202003231504-6896-fbf325cubuntu18.04.1-ls29
+    container_name: qbt
+    volumes:
+      - ./volumes/qbt/config:/config
+      - /home/dle/Media/downloads:/downloads
+      - /home/dle/Media:/Media
+      - ./volumes/qbt/shared:/shared
+    expose:
+      - 8082
+      - 6881
+      - 6881/udp
+    restart: unless-stopped
+    env_file:
+      - .linuxserver.env
+    environment:
+      - UMASK_SET=022
+      - WEBUI_PORT=8082
+
+
+#################################################
+### BEGIN RADARR ###
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    volumes:
+      - ./volumes/radarr/config:/config
+      - /home/dle/Media/downloads:/downloads
+      - /home/dle/Media/Movies:/Media/Movies
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/radarr/shared:/shared
+    expose:
+      - 7878
+    restart: unless-stopped
+    env_file:
+      - .linuxserver.env
+
+
+#################################################
+### BEGIN SONARR ###
+  sonarr:
+    image: linuxserver/sonarr:latest
+    container_name: sonarr
+    volumes:
+      - ./volumes/sonarr/config:/config
+      - /home/dle/Media/downloads:/downloads
+      - /home/dle/Media/Series:/Media/Series
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/sonarr/shared:/shared
+    expose:
+      - 8989
+    restart: unless-stopped
+    env_file:
+      - .linuxserver.env
+
+#################################################
+### BEGIN JACKETT ###
+  jackett:
+    image: linuxserver/jackett:latest
+    container_name: jackett
+    env_file:
+      - .linuxserver.env
+    volumes:
+      - ./volumes/jackett/config:/config
+      - /home/dle/Media/downloads:/downloads
+    expose:
+      - 9117
+    restart: unless-stopped
+
+volumes:
+  cloud-db:
