@@ -1,0 +1,10 @@
+# IDE
+**/*.iml
+**/*.vscode
+**/*.idea
+
+# node
+**/node_modules
+**/package-lock.json
+server/volumes/*
+!server

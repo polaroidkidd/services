@@ -1,0 +1,1 @@
+1 6,18 * * * sleep $(expr $RANDOM % 15)m; /bin/sh /scripts/renew-certs.sh > /dev/stdout
