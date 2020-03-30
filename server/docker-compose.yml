@@ -115,8 +115,8 @@ services:
     container_name: qbt
     volumes:
       - ./volumes/qbt/config:/config
-      - /home/dle/Media/downloads:/downloads
-      - /home/dle/Media:/Media
+      - /home/dle/storage/Media/downloads:/downloads
+      - /home/dle/storage/Media/:/Media
       - ./volumes/qbt/shared:/shared
     expose:
       - 8082
