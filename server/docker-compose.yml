@@ -17,7 +17,7 @@ services:
       - 80:80
       - 443:443
     depends_on:
-      - certbot
+#      - certbot
       - site
       - cloud
       - cloud-db
@@ -29,17 +29,17 @@ services:
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
-  certbot:
-    image: eu.gcr.io/dle-dev/certbot:latest
-    networks:
-      - services-net
-    container_name: certbot
-    restart: unless-stopped
-    volumes:
-      - ./volumes/proxy/certs:/etc/letsencrypt
-      - ./volumes/proxy/acme:/etc/certbot
-    env_file:
-      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+#  certbot:
+#    image: eu.gcr.io/dle-dev/certbot:latest
+#    networks:
+#      - services-net
+#    container_name: certbot
+#    restart: unless-stopped
+#    volumes:
+#      - ./volumes/proxy/certs:/etc/letsencrypt
+#      - ./volumes/proxy/acme:/etc/certbot
+#    env_file:
+#      - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
 
 ###################################################
@@ -133,14 +133,14 @@ services:
 #################################################
 ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:latest
+    image: linuxserver/radarr:amd64-3.0.0.2756-ls1
     networks:
       - services-net
     container_name: radarr
     volumes:
       - ./volumes/radarr/config:/config
-      - /home/dle/Media/downloads:/downloads
-      - /home/dle/Media/Movies:/Media/Movies
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Movies:/Media/Movies
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/radarr/shared:/shared
     expose:
@@ -153,14 +153,14 @@ services:
 #################################################
 ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:latest
+    image: linuxserver/sonarr:amd64-3.0.3.748-ls1
     networks:
       - services-net
     container_name: sonarr
     volumes:
       - ./volumes/sonarr/config:/config
-      - /home/dle/Media/downloads:/downloads
-      - /home/dle/Media/Series:/Media/Series
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media/Series
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/sonarr/shared:/shared
     expose:
@@ -180,7 +180,7 @@ services:
       - .linuxserver.env
     volumes:
       - ./volumes/jackett/config:/config
-      - /home/dle/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/downloads:/downloads
     expose:
       - 9117
     restart: unless-stopped
