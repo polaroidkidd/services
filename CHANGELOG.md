@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/polaroidkidd/services/compare/v1.0.2...v1.0.3) (2020-03-30)
+
+
+### Bug Fixes
+
+* updated qbt paths ([424cfcf](https://github.com/polaroidkidd/services/commit/424cfcfc14d28714bc604d9e5857414c1b2d7b2a))
+
 ### [1.0.2](https://github.com/polaroidkidd/services/compare/v1.0.1...v1.0.2) (2020-03-30)
 
 
