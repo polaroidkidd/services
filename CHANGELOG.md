@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.4](https://github.com/polaroidkidd/services/compare/v1.0.3...v1.0.4) (2020-03-30)
+
+
+### Bug Fixes
+
+* docker does not respect symbolic links in paths ([d0971fa](https://github.com/polaroidkidd/services/commit/d0971fa128de2839011351f500de3142669c64e3))
+
 ### [1.0.3](https://github.com/polaroidkidd/services/compare/v1.0.2...v1.0.3) (2020-03-30)
 
 
