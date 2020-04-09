@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.5](https://github.com/polaroidkidd/services/compare/v1.0.4...v1.0.5) (2020-04-09)
+
+
+### Bug Fixes
+
+* root domain required its own cert ([0f3baa1](https://github.com/polaroidkidd/services/commit/0f3baa19f2a9f5e2dc012efc5fa3bc7511382a8a))
+
 ### [1.0.4](https://github.com/polaroidkidd/services/compare/v1.0.3...v1.0.4) (2020-03-30)
 
 
