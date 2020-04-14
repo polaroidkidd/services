@@ -45,7 +45,7 @@ services:
 ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
-    image: eu.gcr.io/dle-dev/frontend:0.1.11
+    image: eu.gcr.io/dle-dev/frontend:0.1.13
     networks:
       - services-net
     container_name: site
