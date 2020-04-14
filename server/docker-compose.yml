@@ -130,10 +130,10 @@ services:
       - WEBUI_PORT=8082
 
 
-#################################################
-### BEGIN RADARR ###
+  #################################################
+  ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:amd64-3.0.0.2756-ls1
+    image: linuxserver/radarr:amd64-3.0.0.2830-ls4
     networks:
       - services-net
     container_name: radarr
@@ -150,10 +150,10 @@ services:
       - .linuxserver.env
 
 
-#################################################
-### BEGIN SONARR ###
+  #################################################
+  ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:amd64-3.0.3.748-ls1
+    image: linuxserver/sonarr:amd64-3.0.3.754-ls4
     networks:
       - services-net
     container_name: sonarr
