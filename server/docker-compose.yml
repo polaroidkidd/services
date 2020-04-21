@@ -4,7 +4,7 @@ services:
 ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:latest
+    image: eu.gcr.io/dle-dev/nginx:1.1.0
     networks:
       - services-net
     container_name: nginx
@@ -45,7 +45,7 @@ services:
 ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
-    image: eu.gcr.io/dle-dev/frontend:0.1.18
+    image: eu.gcr.io/dle-dev/frontend:0.1.19
     networks:
       - services-net
     container_name: site
@@ -53,6 +53,15 @@ services:
     expose:
       - 80
 
+  ## BEGINE WEBSITE staging.dle.dev ##
+  site-staging:
+    image: eu.gcr.io/dle-dev/frontend:staging
+    networks:
+      - services-net
+    container_name: site-staging
+    restart: unless-stopped
+    expose:
+      - 80
 ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
