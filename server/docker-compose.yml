@@ -118,7 +118,7 @@ services:
 ###################################################
 ## BEGIN qBitTorrent ##
   qbt:
-    image: linuxserver/qbittorrent:4.3.0202003231504-6896-fbf325cubuntu18.04.1-ls29
+    image: linuxserver/qbittorrent:latest
     networks:
       - services-net
     container_name: qbt
@@ -142,7 +142,7 @@ services:
   #################################################
   ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:amd64-3.0.0.2830-ls4
+    image: linuxserver/radarr:3.0.0.2899-ls6
     networks:
       - services-net
     container_name: radarr
@@ -162,7 +162,7 @@ services:
   #################################################
   ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:amd64-3.0.3.754-ls4
+    image: linuxserver/sonarr:3.0.3.784-ls20
     networks:
       - services-net
     container_name: sonarr
