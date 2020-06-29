@@ -144,7 +144,7 @@ services:
   #################################################
   ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:3.0.0.2899-ls6
+    image: linuxserver/radarr:3.0.0.3094-ls12
     networks:
       - services-net
     container_name: radarr
@@ -164,7 +164,7 @@ services:
   #################################################
   ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:3.0.3.784-ls20
+    image: linuxserver/sonarr:3.0.3.896-ls29
     networks:
       - services-net
     container_name: sonarr
