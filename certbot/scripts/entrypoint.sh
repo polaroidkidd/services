@@ -17,7 +17,9 @@ get_certificate() {
       --email certbot@dle.dev \
       --preferred-challenges dns-01 \
       --server https://acme-v02.api.letsencrypt.org/directory \
-      -d "*.dle.dev"
+      --http-01-port 12079 \
+      --expand \
+      -d "*.dle.dev" -d dle.dev
   else
     echo "DEV ENV: Not getting certificates"
   fi

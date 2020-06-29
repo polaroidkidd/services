@@ -27,4 +27,4 @@ EXPOSE 80
 EXPOSE 443
 
 ENTRYPOINT []
-CMD sh -c "/scripts/renew-certs.sh; crond -f"
+CMD sh -c "/scripts/entrypoint.sh; crond -f"

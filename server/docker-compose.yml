@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-###################################################
+  ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
     image: eu.gcr.io/dle-dev/nginx:1.1.0
@@ -17,7 +17,7 @@ services:
       - 80:80
       - 443:443
     depends_on:
-#      - certbot
+      #      - certbot
       - site
       - cloud
       - cloud-db
@@ -29,20 +29,22 @@ services:
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
-#  certbot:
-#    image: eu.gcr.io/dle-dev/certbot:latest
-#    networks:
-#      - services-net
-#    container_name: certbot
-#    restart: unless-stopped
-#    volumes:
-#      - ./volumes/proxy/certs:/etc/letsencrypt
-#      - ./volumes/proxy/acme:/etc/certbot
-#    env_file:
-#      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+  certbot:
+    image: eu.gcr.io/dle-dev/certbot:latest
+    networks:
+      - services-net
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ./volumes/proxy/certs:/etc/letsencrypt
+      - ./volumes/proxy/acme:/etc/certbot
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+    ports:
+      - 12079:12079
 
 
-###################################################
+  ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
     image: eu.gcr.io/dle-dev/frontend:0.1.19
@@ -62,7 +64,7 @@ services:
     restart: unless-stopped
     expose:
       - 80
-###################################################
+  ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
     image: nextcloud:apache
@@ -115,8 +117,8 @@ services:
       - 6379
 
 
-###################################################
-## BEGIN qBitTorrent ##
+  ###################################################
+  ## BEGIN qBitTorrent ##
   qbt:
     image: linuxserver/qbittorrent:latest
     networks:
@@ -178,8 +180,8 @@ services:
     env_file:
       - .linuxserver.env
 
-#################################################
-### BEGIN JACKETT ###
+  #################################################
+  ### BEGIN JACKETT ###
   jackett:
     image: linuxserver/jackett:latest
     networks:
