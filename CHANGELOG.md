@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/polaroidkidd/services/compare/v1.8.0...v1.9.0) (2020-06-29)
+
+
+### Features
+
+* nginx certbot integration ([a54f455](https://github.com/polaroidkidd/services/commit/a54f45501ac395ac8f8e1ca6e29c0336a9e110fc))
+
 ## [1.8.0](https://github.com/polaroidkidd/services/compare/v1.7.0...v1.8.0) (2020-05-03)
 
 
