@@ -19,7 +19,7 @@ get_certificate() {
       --server https://acme-v02.api.letsencrypt.org/directory \
       --http-01-port 12079 \
       --expand \
-      -d "*.dle.dev" -d dle.dev
+      -d "*.dle.dev" -d dle.dev -d "*.polaroidkidd.com" -d polaroidkidd.com --dry-run
   else
     echo "DEV ENV: Not getting certificates"
   fi
