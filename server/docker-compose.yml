@@ -144,7 +144,7 @@ services:
   #################################################
   ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:arm64v8-latest
+    image: linuxserver/radarr:3.0.0.3357-ls18
     networks:
       - services-net
     container_name: radarr
@@ -164,7 +164,7 @@ services:
   #################################################
   ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:arm64v8-latest
+    image: linuxserver/sonarr:3.0.3.905-ls35
     networks:
       - services-net
     container_name: sonarr
@@ -183,7 +183,7 @@ services:
   #################################################
   ### BEGIN JACKETT ###
   jackett:
-    image: linuxserver/jackett:arm64v8-latest
+    image: linuxserver/jackett:latest
     networks:
       - services-net
     container_name: jackett
