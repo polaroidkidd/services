@@ -4,7 +4,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:1.1.0
+    image: eu.gcr.io/dle-dev/nginx:latest
     networks:
       - services-net
     container_name: nginx
@@ -26,6 +26,7 @@ services:
       - jackett
       - radarr
       - sonarr
+      - bitwarden
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
@@ -195,6 +196,22 @@ services:
     expose:
       - 9117
     restart: unless-stopped
+
+  bitwarden:
+    image: bitwardenrs/server:latest
+    networks:
+      - services-net
+    container_name: bitwarden
+    env_file: 
+      - ./bitwarden/.${SERVICES_ENVIRONMENT}.bitwarden.env
+
+    expose:
+      - 80
+      - 3012
+    volumes:
+     - ./volumes/bitwarden/data:/data
+     - ./volumes/bitwarden/attachments:/attachments
+
 
 networks:
   services-net:
