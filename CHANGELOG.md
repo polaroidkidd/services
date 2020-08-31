@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.12.0](https://github.com/polaroidkidd/services/compare/v1.11.0...v1.12.0) (2020-08-31)
+
+
+### Features
+
+* added bitwarden psw service ([e35f663](https://github.com/polaroidkidd/services/commit/e35f663f3552c61a1602bdc4085aac0569170350))
+
 ## [1.11.0](https://github.com/polaroidkidd/services/compare/v1.10.0...v1.11.0) (2020-08-04)
 
 
