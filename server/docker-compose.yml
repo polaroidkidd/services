@@ -203,7 +203,7 @@ services:
       - services-net
     container_name: bitwarden
     env_file: 
-      - ./bitwarden/.${SERVICES_ENVIRONMENT}.bitwarden.env
+      - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
 
     expose:
       - 80
