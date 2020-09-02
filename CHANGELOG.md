@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.2](https://github.com/polaroidkidd/services/compare/v1.12.1...v1.12.2) (2020-09-02)
+
+
+### Bug Fixes
+
+* bitwarden flag added (restart: unless-stopped) ([ee8e2be](https://github.com/polaroidkidd/services/commit/ee8e2be5047a27bd1dec18acc7699fd13437b14d))
+
 ### [1.12.1](https://github.com/polaroidkidd/services/compare/v1.12.0...v1.12.1) (2020-09-01)
 
 
