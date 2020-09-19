@@ -4,7 +4,7 @@ set -e
 # EMAIL environment variable, to register the proper support email address.
 get_certificate() {
   if [ "$VPS_REDICRECT_HTTPS" = "True" ]; then
-    echo "PROD ENV: Getting wildcard certificate for domain *.dle.dev and *.dle.dev on behalf of user certbot@dle.dev"
+    echo "PROD ENV: Getting wildcard certificate for domain *.dle.dev on behalf of user certbot@dle.dev"
     certbot certonly \
       --dns-digitalocean \
       --dns-digitalocean-credentials /scripts/digitalocean.ini \

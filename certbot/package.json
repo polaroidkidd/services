@@ -1,6 +1,6 @@
 {
   "name": "certbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "certbot:build": "./build.sh",
     "certbot:pub:SNAPSHOT": "./publish-SNAPSHOT.sh",
