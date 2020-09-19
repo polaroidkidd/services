@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.12.3](https://github.com/polaroidkidd/services/compare/v1.12.2...v1.12.3) (2020-09-19)
+
+
+### Bug Fixes
+
+* updated digital ocean api key ([a384a86](https://github.com/polaroidkidd/services/commit/a384a86d39ad65e2b2039078c8f8a896baac0d3a))
+
 ### [1.12.2](https://github.com/polaroidkidd/services/compare/v1.12.1...v1.12.2) (2020-09-02)
 
 
