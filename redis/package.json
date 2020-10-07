@@ -1,9 +1,0 @@
-{
-  "name": "redis",
-  "version": "1.0.0",
-  "scripts": {
-    "redis:build": "./build.sh",
-    "redis:pub:SNAPSHOT": "./publish-SNAPSHOT.sh",
-    "redis:pub:RELEASE": "./publish-RELEASE.sh"
-  }
-}
