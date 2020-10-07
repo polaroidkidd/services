@@ -91,6 +91,7 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - REDIS_HOST_PASSWORD=${REDIS_HOST_PASSWORD}
 
     restart: unless-stopped
     expose:
@@ -114,10 +115,11 @@ services:
     restart: unless-stopped
 
   cloud-redis:
-    image: redis
+    image: redis:6.0.8
     networks:
       - services-net
     container_name: cloud-redis
+    command: redis-server --requirepass ${REDIS_HOST_PASSWORD}
     restart: unless-stopped
     expose:
       - 6379
