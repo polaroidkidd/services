@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.15.0](https://github.com/polaroidkidd/services/compare/v1.14.0...v1.15.0) (2020-10-26)
+
+
+### Features
+
+* using preview versions for sonarr and radarr ([3b56e05](https://github.com/polaroidkidd/services/commit/3b56e0586ee1c517087accc35fe2dd4fc9be3849))
+
 ## [1.14.0](https://github.com/polaroidkidd/services/compare/v1.13.0...v1.14.0) (2020-10-07)
 
 
