@@ -9,7 +9,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:latest
+    image: eu.gcr.io/dle-dev/nginx:1.1.1
     networks:
       - services-net
     container_name: nginx
@@ -128,7 +128,7 @@ services:
   ###################################################
   ## BEGIN qBitTorrent ##
   qbt:
-    image: linuxserver/qbittorrent:latest
+    image: linuxserver/qbittorrent:version-4.4.0202010251233-7101-0a2a71e83ubuntu18.04.1
     networks:
       - services-net
     container_name: qbt
