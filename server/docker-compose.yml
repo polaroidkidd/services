@@ -9,7 +9,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:1.1.1
+    image: eu.gcr.io/dle-dev/nginx:latest
     networks:
       - services-net
     container_name: nginx
@@ -26,7 +26,7 @@ services:
       - site
       - cloud
       - cloud-db
-      - qbt
+      - deluge
       - cloud-redis
       - jackett
       - radarr
@@ -126,9 +126,28 @@ services:
 
 
   ###################################################
+  ## BEGIN deluge ##
+  deluge:
+    image: linuxserver/deluge:latest
+    networks:
+      - services-net
+    container_name: deluge
+    volumes:
+      - ./volumes/deluge/config:/config
+      - /home/dle/storage/Media/downloads:/downloads
+      - /home/dle/storage/Media/:/Media
+      - ./volumes/deluge/shared:/shared
+    restart: unless-stopped
+    env_file:
+      - .linuxserver.env
+    environment:
+      - UMASK_SET=022
+      - WEBUI_PORT=8112
+
+      ###################################################
   ## BEGIN qBitTorrent ##
   qbt:
-    image: linuxserver/qbittorrent:version-4.4.0202010251233-7101-0a2a71e83ubuntu18.04.1
+    image: linuxserver/qbittorrent:latest
     networks:
       - services-net
     container_name: qbt
