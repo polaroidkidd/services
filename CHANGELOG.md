@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.16.0](https://github.com/polaroidkidd/services/compare/v1.15.1...v1.16.0) (2020-11-16)
+
+
+### Features
+
+* added deluge as download client ([cf59b5d](https://github.com/polaroidkidd/services/commit/cf59b5de504753d6a2adab3a87288f1b9be08218))
+
 ### [1.15.1](https://github.com/polaroidkidd/services/compare/v1.15.0...v1.15.1) (2020-10-31)
 
 
