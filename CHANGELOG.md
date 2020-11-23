@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.1](https://github.com/polaroidkidd/services/compare/v1.18.0...v1.18.1) (2020-11-23)
+
+
+### Bug Fixes
+
+* docker build & publish script ([0fdb5e7](https://github.com/polaroidkidd/services/commit/0fdb5e723ba7eae2e22f2b5c6060759c77fbb0f8))
+
 ## [1.18.0](https://github.com/polaroidkidd/services/compare/v1.17.0...v1.18.0) (2020-11-23)
 
 
