@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.18.0](https://github.com/polaroidkidd/services/compare/v1.17.0...v1.18.0) (2020-11-23)
+
+
+### Features
+
+* prefixed container names with 'dle' ([b7afc97](https://github.com/polaroidkidd/services/commit/b7afc97205da89768dd905b9d300a4031f72ff9d))
+
 ## [1.17.0](https://github.com/polaroidkidd/services/compare/v1.16.0...v1.17.0) (2020-11-16)
 
 
