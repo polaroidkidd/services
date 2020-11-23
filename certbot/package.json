@@ -1,9 +1,9 @@
 {
   "name": "certbot",
   "version": "1.0.1",
+  "license": "MIT",
   "scripts": {
-    "certbot:build": "./build.sh",
-    "certbot:pub:SNAPSHOT": "./publish-SNAPSHOT.sh",
-    "certbot:pub:RELEASE": "./publish-RELEASE.sh"
+    "certbot:BUILD": "./docker.sh",
+    "certbot:RELEASE": "./docker.sh -p"
   }
 }

@@ -1,9 +1,9 @@
 {
   "name": "nginx",
   "version": "1.1.1",
+  "license": "MIT",
   "scripts": {
-    "nginx:build": "./build.sh",
-    "nginx:pub:SNAPSHOT": "./publish-SNAPSHOT.sh",
-    "nginx:pub:RELEASE": "./publish-RELEASE.sh"
+    "nginx:BUILD": "./docker.sh",
+    "nginx:RELEASE": "./docker.sh -p"
   }
 }

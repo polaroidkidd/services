@@ -15,9 +15,9 @@ COPY ./conf/options-ssl-nginx.conf  /etc/letsencrypt/options-ssl-nginx.conf
 COPY ./scripts /scripts
 # Make scripts runnable
 RUN chmod +x /scripts/*.sh
-ARG DIGITAL_OCEAN_TOKEN
+ARG DIGITALOCEAN_ACCESS_TOKEN
 RUN echo "# DigitalOcean API credentials used by Certbot" >> /scripts/digitalocean.ini
-RUN echo "dns_digitalocean_token = ${DIGITAL_OCEAN_TOKEN}" > /scripts/digitalocean.ini
+RUN echo "dns_digitalocean_token = ${DIGITALOCEAN_ACCESS_TOKEN}" > /scripts/digitalocean.ini
 # Copy crontab
 COPY ./scripts/crontab /etc/cron.d/certbot
 RUN crontab /etc/cron.d/certbot
