@@ -12,7 +12,7 @@ services:
     image: eu.gcr.io/dle-dev/nginx:latest
     networks:
       - services-net
-    container_name: nginx
+    container_name: dle-nginx
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
@@ -39,7 +39,7 @@ services:
     image: eu.gcr.io/dle-dev/certbot:1.0.1
     networks:
       - services-net
-    container_name: certbot
+    container_name: dle-certbot
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
@@ -56,7 +56,7 @@ services:
     image: eu.gcr.io/dle-dev/frontend:0.1.23
     networks:
       - services-net
-    container_name: site
+    container_name: dle-site
     restart: unless-stopped
     expose:
       - 80
@@ -66,7 +66,7 @@ services:
     image: eu.gcr.io/dle-dev/frontend:staging
     networks:
       - services-net
-    container_name: site-staging
+    container_name: dle-site-staging
     restart: unless-stopped
     expose:
       - 80
@@ -76,7 +76,7 @@ services:
     image: nextcloud:apache
     networks:
       - services-net
-    container_name: cloud
+    container_name: dle-cloud
     depends_on:
       - cloud-db
     volumes:
@@ -101,7 +101,7 @@ services:
     image: postgres:12.2
     networks:
       - services-net
-    container_name: cloud-db
+    container_name: dle-cloud-db
     volumes:
       - ./volumes/cloud/db:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
@@ -118,7 +118,7 @@ services:
     image: redis:6.0.8
     networks:
       - services-net
-    container_name: cloud-redis
+    container_name: dle-cloud-redis
     command: redis-server --requirepass ${REDIS_HOST_PASSWORD}
     restart: unless-stopped
     expose:
@@ -131,7 +131,7 @@ services:
     image: linuxserver/deluge:latest
     networks:
       - services-net
-    container_name: deluge
+    container_name: dle-deluge
     volumes:
       - ./volumes/deluge/config:/config
       - /home/dle/storage/Media/downloads:/downloads
@@ -150,7 +150,7 @@ services:
     image: linuxserver/qbittorrent:latest
     networks:
       - services-net
-    container_name: qbt
+    container_name: dle-qbt
     volumes:
       - ./volumes/qbt/config:/config
       - /home/dle/storage/Media/downloads:/downloads
@@ -174,7 +174,7 @@ services:
     image: linuxserver/radarr:preview
     networks:
       - services-net
-    container_name: radarr
+    container_name: dle-radarr
     volumes:
       - ./volumes/radarr/config:/config
       - /mnt/md0/storage/Media/downloads:/downloads
@@ -194,7 +194,7 @@ services:
     image: linuxserver/sonarr:preview
     networks:
       - services-net
-    container_name: sonarr
+    container_name: dle-sonarr
     volumes:
       - ./volumes/sonarr/config:/config
       - /mnt/md0/storage/Media/downloads:/downloads
@@ -213,7 +213,7 @@ services:
     image: linuxserver/jackett:latest
     networks:
       - services-net
-    container_name: jackett
+    container_name: dle-jackett
     env_file:
       - .linuxserver.env
     volumes:
@@ -227,7 +227,7 @@ services:
     image: bitwardenrs/server:latest
     networks:
       - services-net
-    container_name: bitwarden
+    container_name: dle-bitwarden
     restart: unless-stopped
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
@@ -235,6 +235,6 @@ services:
       - 80
       - 3012
     volumes:
-     - ./volumes/bitwarden/data:/data
-     - ./volumes/bitwarden/attachments:/attachments
+      - ./volumes/bitwarden/data:/data
+      - ./volumes/bitwarden/attachments:/attachments
 
