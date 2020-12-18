@@ -31,7 +31,7 @@ mkdir ./conf
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > ./conf/ssl-dhparams.pem
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > ./conf/options-ssl-nginx.conf
 
-docker tag "${TAG_LATEST}" "${TAG_VERSION}"
+#docker tag "${TAG_LATEST}" "${TAG_VERSION}"
 
 
 if [[ $(git rev-parse --abbrev-ref HEAD) == master ]]; then
@@ -43,7 +43,7 @@ if [[ $(git rev-parse --abbrev-ref HEAD) == master ]]; then
   echo "***************************************************"
   echo "******* BUILDING PRODUCTION DOCKER CONTAINER ******"
   echo "***************************************************"
-  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN"= -f ./Dockerfile
+  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN" -f ./Dockerfile
   docker tag "${TAG_LATEST}" "${TAG_VERSION}"
 
   echo "***************************************************"
@@ -60,7 +60,7 @@ else
   echo "***************************************************"
   echo "****** BUILDING DEVELOPMENT DOCKER CONTAINER ******"
   echo "***************************************************"
-  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN"= -f ./Dockerfile
+  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN" -f ./Dockerfile
 
 
 

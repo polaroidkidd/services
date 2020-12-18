@@ -36,7 +36,7 @@ services:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
   certbot:
-    image: eu.gcr.io/dle-dev/certbot:1.0.1
+    image: eu.gcr.io/dle-dev/certbot:1.0.2
     networks:
       - services-net
     container_name: dle-certbot
