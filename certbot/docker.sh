@@ -31,8 +31,6 @@ mkdir ./conf
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot/certbot/ssl-dhparams.pem > ./conf/ssl-dhparams.pem
 curl -s https://raw.githubusercontent.com/certbot/certbot/master/certbot-nginx/certbot_nginx/_internal/tls_configs/options-ssl-nginx.conf > ./conf/options-ssl-nginx.conf
 
-#docker tag "${TAG_LATEST}" "${TAG_VERSION}"
-
 
 if [[ $(git rev-parse --abbrev-ref HEAD) == master ]]; then
   #  We are on master, only prod releases are possible here. Only the -p flag will be respected here.
