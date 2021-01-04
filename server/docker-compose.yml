@@ -73,7 +73,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: nextcloud:apache
+    image: eu.gcr.io/dle-dev/cloud:1.0.0
     networks:
       - services-net
     container_name: dle-cloud
