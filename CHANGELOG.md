@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/polaroidkidd/services/compare/v1.19.0...v1.20.0) (2021-01-04)
+
+
+### Features
+
+* cloud service has access to ffmpeg ([fea3a4a](https://github.com/polaroidkidd/services/commit/fea3a4a0ffb1eee34b355b4303a819946ca60535))
+
 ## [1.19.0](https://github.com/polaroidkidd/services/compare/v1.18.2...v1.19.0) (2020-12-19)
 
 
