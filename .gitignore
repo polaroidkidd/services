@@ -9,3 +9,6 @@
 server/volumes/*
 server/cloud-db-dumps/*
 !server
+
+# nextcloud face-recognition
+./cloud/face-recognition
