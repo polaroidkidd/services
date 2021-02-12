@@ -7,4 +7,8 @@
 **/node_modules
 **/package-lock.json
 server/volumes/*
+server/cloud-db-dumps/*
 !server
+
+# nextcloud face-recognition
+./cloud/face-recognition

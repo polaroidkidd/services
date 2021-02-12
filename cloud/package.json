@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "nginx:BUILD": "./docker.sh",
-    "nginx:RELEASE": "./docker.sh -p"
+    "cloud:BUILD": "./docker.sh",
+    "cloud:RELEASE": "./docker.sh -p"
   }
 }
