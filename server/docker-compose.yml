@@ -73,7 +73,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:1.0.0
+    image: eu.gcr.io/dle-dev/cloud:latest
     networks:
       - services-net
     container_name: dle-cloud
@@ -237,6 +237,8 @@ services:
     volumes:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
+
+
   #################################################
   ### BEGIN CODER NIGHT ###
   coder-night-frontned:
