@@ -241,7 +241,7 @@ services:
 
   #################################################
   ### BEGIN CODER NIGHT ###
-  coder-night-frontned:
+  ti8m-coder-night-frontend:
     image: eu.gcr.io/coder-night/frontend:latest
     networks:
       - services-net
