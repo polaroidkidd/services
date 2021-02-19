@@ -54,25 +54,47 @@ RUN git clone https://github.com/matiasdelellis/pdlib-min-test-suite.git \
 # If pass the tests, we are able to create the final image.
 #
 
-FROM nextcloud:apache
 
 # Install dependencies to image
 
 RUN apt-get update ; \
-    apt-get install -y libopenblas-base ffmpeg
+    apt-get install -y libopenblas-base
 
 # Install dlib and PDlib to image
 
-COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib
+# COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib
 
 # If is necesary take the php extention folder uncommenting the next line
 # RUN php -i | grep extension_dir
-COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20180731/pdlib.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/
+# COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20180731/pdlib.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/
 
 # Enable PDlib on final image
 
 RUN echo "extension=pdlib.so" > /usr/local/etc/php/conf.d/pdlib.ini
 
+# Increse memory limits
+
+# RUN echo memory_limit=1024M > /usr/local/etc/php/conf.d/memory-limit.ini
+
+# Pdlib is already installed, now without all build dependencies.
+# You could test again if everything is correct, uncommenting the next lines
+#
+RUN apt-get install -y git wget
+RUN git clone https://github.com/matiasdelellis/pdlib-min-test-suite.git \
+   && cd pdlib-min-test-suite \
+   && make
+
+#
+# At this point you meet all the dependencies to install the application
+# If is available you can skip this step and install the application from the application store
+#
+ARG FR_BRANCH=master
+RUN apt-get install -y wget unzip nodejs npm
+RUN wget -c -q -O facerecognition https://github.com/matiasdelellis/facerecognition/archive/$FR_BRANCH.zip \
+  && unzip facerecognition \
+  && mv facerecognition-*  /usr/src/nextcloud/facerecognition \
+  && cd /usr/src/nextcloud/facerecognition \
+  && make
 # Increse memory limits
 
 RUN echo memory_limit=24576M > /usr/local/etc/php/conf.d/memory-limit.ini
