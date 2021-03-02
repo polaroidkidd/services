@@ -9,7 +9,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:latest
+    image: eu.gcr.io/dle-dev/nginx:1.2.0
     networks:
       - services-net
     container_name: dle-nginx
@@ -238,3 +238,22 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
+  #################################################
+  ### BEGIN CODER NIGHT ###
+  ti8m-coder-night-frontend:
+    image: eu.gcr.io/coder-night/frontend:latest
+    networks:
+      - services-net
+    container_name: ti8m-coder-night-frontend
+    restart: unless-stopped
+    expose:
+      - 3000
+
+  ti8m-coder-night-backend:
+    image: eu.gcr.io/coder-night/backend:latest
+    networks:
+      - services-net
+    container_name: ti8m-coder-night-backend
+    restart: unless-stopped
+    expose:
+      - 8080
