@@ -1,7 +1,4 @@
-#
-# Use a temporary image to compile and test the libraries
-#
-FROM nextcloud:apache as builder
+FROM nextcloud:apache
 
 # Build and install dlib on builder
 
@@ -50,24 +47,13 @@ RUN git clone https://github.com/matiasdelellis/pdlib-min-test-suite.git \
     && cd pdlib-min-test-suite \
     && make
 
-#
-# If pass the tests, we are able to create the final image.
-#
-
-FROM nextcloud:apache
 
 # Install dependencies to image
 
 RUN apt-get update ; \
     apt-get install -y libopenblas-base ffmpeg
 
-# Install dlib and PDlib to image
 
-COPY --from=builder /usr/local/lib/libdlib.so* /usr/local/lib
-
-# If is necesary take the php extention folder uncommenting the next line
-# RUN php -i | grep extension_dir
-COPY --from=builder /usr/local/lib/php/extensions/no-debug-non-zts-20180731/pdlib.so /usr/local/lib/php/extensions/no-debug-non-zts-20180731/
 
 # Enable PDlib on final image
 
