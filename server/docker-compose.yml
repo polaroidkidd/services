@@ -238,7 +238,6 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
-
   #################################################
   ### BEGIN CODER NIGHT ###
   ti8m-coder-night-frontend:
