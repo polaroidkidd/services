@@ -19,8 +19,8 @@ services:
       - ./volumes/proxy/logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 80:80
-      - 443:443
+      - 47808:47808
+      - 47809:47809
     depends_on:
       #      - certbot
       - site
@@ -73,7 +73,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:1.0.0
+    image: eu.gcr.io/dle-dev/cloud:1.0.1
     networks:
       - services-net
     container_name: dle-cloud
