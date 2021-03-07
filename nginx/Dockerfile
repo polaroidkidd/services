@@ -5,8 +5,8 @@ VOLUME /etc/letsencrypt
 VOLUME /var/www/.well-known/acme-challenge/
 
 # Define Ports
-EXPOSE 80
-EXPOSE 443
+EXPOSE 47808
+EXPOSE 47809
 
 # Do this apt/pip stuff all in one RUN command to avoid creating large
 # intermediate layers on non-squashable docker installs
