@@ -1,0 +1,9 @@
+{
+  "name": "elasticsearch",
+  "version": "1.2.0",
+  "license": "MIT",
+  "scripts": {
+    "elasticsearch:BUILD": "./docker.sh",
+    "elasticsearch:RELEASE": "./docker.sh -p"
+  }
+}

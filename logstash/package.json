@@ -1,0 +1,9 @@
+{
+  "name": "logstash",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "logstash:BUILD": "./docker.sh",
+    "logstash:RELEASE": "./docker.sh -p"
+  }
+}

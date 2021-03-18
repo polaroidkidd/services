@@ -9,7 +9,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:1.2.0
+    image: eu.gcr.io/dle-dev/nginx:latest
     networks:
       - services-net
     container_name: dle-nginx
@@ -35,19 +35,19 @@ services:
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
-  certbot:
-    image: eu.gcr.io/dle-dev/certbot:1.0.2
-    networks:
-      - services-net
-    container_name: dle-certbot
-    restart: unless-stopped
-    volumes:
-      - ./volumes/proxy/certs:/etc/letsencrypt
-      - ./volumes/proxy/acme:/etc/certbot
-    env_file:
-      - ./.${SERVICES_ENVIRONMENT}.ssl.env
-    ports:
-      - 12079:12079
+  # certbot:
+  #   image: eu.gcr.io/dle-dev/certbot:1.0.2
+  #   networks:
+  #     - services-net
+  #   container_name: dle-certbot
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./volumes/proxy/certs:/etc/letsencrypt
+  #     - ./volumes/proxy/acme:/etc/certbot
+  #   env_file:
+  #     - ./.${SERVICES_ENVIRONMENT}.ssl.env
+  #   ports:
+  #     - 12079:12079
 
 
   ###################################################
@@ -238,3 +238,47 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
+    #################################################
+    ### BEGIN ELK ###
+    ## TODO Put config files into Dockerfile build process
+  elasticsearch:
+    image: eu.gcr.io/dle-dev/elasticsearch
+    container_name: dle-elasticsearch
+    volumes:
+      - ./volumes/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./volumes/elasticsearch:/usr/share/elasticsearch/data/:rw
+    expose:
+      - 9200
+      - 9300
+    environment:
+      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+    networks:
+      - services-net
+  logstash:
+    image: eu.gcr.io/dle-dev/logstash
+    container_name: dle-logstash
+    volumes:
+      - ./volumes/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./volumes/logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ./volumes/proxy/logs:/home/proxy_logs:ro
+    expose:
+      - 1025/udp
+      - 5000
+      - 9600
+    environment:
+      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+    networks:
+      - services-net
+    depends_on:
+      - elasticsearch
+  kibana:
+    image: eu.gcr.io/dle-dev/kiabana
+    container_name: dle-kiabana
+    volumes:
+      - ./volumes/kibana/config/:/usr/share/kibana/config:ro
+    expose:
+      - 5601
+    networks:
+      - services-net
+    depends_on:
+      - elasticsearch
