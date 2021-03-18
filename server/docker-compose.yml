@@ -240,12 +240,12 @@ services:
 
     #################################################
     ### BEGIN ELK ###
-    ## TODO Put config files into Dockerfile build process
+    ## TODO Continue following this guide
+    ## https://medium.com/faun/nginx-logs-monitoring-using-elk-stack-docker-4b64f46e989
   elasticsearch:
     image: eu.gcr.io/dle-dev/elasticsearch
     container_name: dle-elasticsearch
     volumes:
-      - ./volumes/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - ./volumes/elasticsearch:/usr/share/elasticsearch/data/:rw
     expose:
       - 9200
@@ -258,8 +258,6 @@ services:
     image: eu.gcr.io/dle-dev/logstash
     container_name: dle-logstash
     volumes:
-      - ./volumes/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
-      - ./volumes/logstash/pipeline:/usr/share/logstash/pipeline:ro
       - ./volumes/proxy/logs:/home/proxy_logs:ro
     expose:
       - 1025/udp
@@ -274,8 +272,6 @@ services:
   kibana:
     image: eu.gcr.io/dle-dev/kiabana
     container_name: dle-kiabana
-    volumes:
-      - ./volumes/kibana/config/:/usr/share/kibana/config:ro
     expose:
       - 5601
     networks:

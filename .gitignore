@@ -12,4 +12,4 @@ server/cloud-db-dumps/*
 
 # nextcloud face-recognition
 ./cloud/face-recognition
-logs
+server/volumes/proxy/logs
