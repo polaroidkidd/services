@@ -242,6 +242,7 @@ services:
     ### BEGIN ELK ###
     ## TODO Continue following this guide
     ## https://medium.com/faun/nginx-logs-monitoring-using-elk-stack-docker-4b64f46e989
+    ## TODO Add overview for fail2ban log
   elasticsearch:
     image: eu.gcr.io/dle-dev/elasticsearch
     container_name: dle-elasticsearch
