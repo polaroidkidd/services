@@ -33,5 +33,4 @@ if [ "$VPS_REDICRECT_HTTPS" = "True" ]; then
   fi
 else
   echo "DEV ENV: NOT forwarding to HTTPS."
-  exit 0
 fi

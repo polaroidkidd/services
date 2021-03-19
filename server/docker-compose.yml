@@ -15,7 +15,7 @@ services:
     container_name: dle-nginx
     restart: unless-stopped
     volumes:
-      - ./volumes/proxy/certs:/etc/letsencrypt
+      - ./volumes/proxy/certs.${SERVICES_ENVIRONMENT}:/etc/letsencrypt.${SERVICES_ENVIRONMENT}
       - ./volumes/proxy/logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
@@ -35,19 +35,19 @@ services:
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
-  # certbot:
-  #   image: eu.gcr.io/dle-dev/certbot:1.0.2
-  #   networks:
-  #     - services-net
-  #   container_name: dle-certbot
-  #   restart: unless-stopped
-  #   volumes:
-  #     - ./volumes/proxy/certs:/etc/letsencrypt
-  #     - ./volumes/proxy/acme:/etc/certbot
-  #   env_file:
-  #     - ./.${SERVICES_ENVIRONMENT}.ssl.env
-  #   ports:
-  #     - 12079:12079
+  certbot:
+    image: eu.gcr.io/dle-dev/certbot:latest
+    networks:
+      - services-net
+    container_name: dle-certbot
+    restart: unless-stopped
+    volumes:
+      - ./volumes/proxy/certs.${SERVICES_ENVIRONMENT}:/etc/letsencrypt.${SERVICES_ENVIRONMENT}
+      - ./volumes/proxy/acme:/etc/certbot
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.ssl.env
+    ports:
+      - 12079:12079
 
 
   ###################################################
@@ -271,8 +271,8 @@ services:
     depends_on:
       - elasticsearch
   kibana:
-    image: eu.gcr.io/dle-dev/kiabana
-    container_name: dle-kiabana
+    image: eu.gcr.io/dle-dev/kibana
+    container_name: dle-kibana
     expose:
       - 5601
     networks:

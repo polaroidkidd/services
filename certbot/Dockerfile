@@ -5,11 +5,7 @@ LABEL CONTACT="contact@dle.dev"
 
 VOLUME /etc/letsencrypt
 VOLUME /var/www/.well-known/acme-challenge/
-# TODO Move into separate "script" to run as a local (on the server) cronjob
-# Copy certconfs
-# TODO Generate my own ssl-dhparams.pem
-COPY ./conf/ssl-dhparams.pem  /etc/letsencrypt/ssl-dhparams.pem
-COPY ./conf/options-ssl-nginx.conf  /etc/letsencrypt/options-ssl-nginx.conf
+
 
 # Copy Scripts
 COPY ./scripts /scripts
