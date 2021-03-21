@@ -249,9 +249,9 @@ services:
 
     #################################################
     ### BEGIN ELK ###
-  elasticsearch:
-    image: eu.gcr.io/dle-dev/elasticsearch:latest
-    container_name: dle-elasticsearch
+  elastic:
+    image: eu.gcr.io/dle-dev/elastic:latest
+    container_name: dle-elastic
     volumes:
       - ./volumes/elasticsearch:/usr/share/elasticsearch/data/
     expose:
@@ -271,7 +271,7 @@ services:
       - 5000
       - 9600
     environment:
-      LS_JAVA_OPTS: "-Xmx1g -Xms1g"
+      LS_JAVA_OPTS: "-Xmx5g -Xms5g"
     networks:
       - services-net
     depends_on:
