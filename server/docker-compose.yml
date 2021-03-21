@@ -38,7 +38,7 @@ services:
       - radarr
       - sonarr
       - bitwarden
-      - elasticsearch
+      - elastic
       - logstash
       - kibana
     env_file:
@@ -253,7 +253,7 @@ services:
     image: eu.gcr.io/dle-dev/elastic:latest
     container_name: dle-elastic
     volumes:
-      - ./volumes/elasticsearch:/usr/share/elasticsearch/data/
+      - ./volumes/elastic:/usr/share/elastic/data/
     expose:
       - 9200
       - 9300
@@ -275,7 +275,7 @@ services:
     networks:
       - services-net
     depends_on:
-      - elasticsearch
+      - elastic
   kibana:
     image: eu.gcr.io/dle-dev/kibana:latest
     container_name: dle-kibana
@@ -284,4 +284,4 @@ services:
     networks:
       - services-net
     depends_on:
-      - elasticsearch
+      - elastic
