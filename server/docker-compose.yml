@@ -25,8 +25,8 @@ services:
       - /home/dle/services-logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 80:80
-      - 443:443
+      - 47808:47808
+      - 47809:47809
     depends_on:
       - certbot
       - site
