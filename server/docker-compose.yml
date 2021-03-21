@@ -4,8 +4,8 @@ version: '3.8'
 networks:
   services-net:
     name: services-net
+    driver: bridge
     ipam:
-      driver: default
       config:
         - subnet: 172.19.0.0/16
           gateway: 172.19.0.1
@@ -22,13 +22,13 @@ services:
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
-      - ./volumes/proxy/logs:/var/log/nginx
+      - /home/dle/services-logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
       - 80:80
       - 443:443
     depends_on:
-      #      - certbot
+      - certbot
       - site
       - cloud
       - cloud-db
@@ -38,6 +38,9 @@ services:
       - radarr
       - sonarr
       - bitwarden
+      - elasticsearch
+      - logstash
+      - kibana
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
@@ -140,8 +143,8 @@ services:
     container_name: dle-deluge
     volumes:
       - ./volumes/deluge/config:/config
-      # - /home/dle/storage/Media/downloads:/downloads
-      # - /home/dle/storage/Media/:/Media
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media
       - ./volumes/deluge/shared:/shared
     restart: unless-stopped
     env_file:
@@ -159,8 +162,8 @@ services:
     container_name: dle-qbt
     volumes:
       - ./volumes/qbt/config:/config
-      # - /home/dle/storage/Media/downloads:/downloads
-      # - /home/dle/storage/Media/:/Media
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media
       - ./volumes/qbt/shared:/shared
     expose:
       - 8082
@@ -183,8 +186,8 @@ services:
     container_name: dle-radarr
     volumes:
       - ./volumes/radarr/config:/config
-      # - /mnt/md0/storage/Media/downloads:/downloads
-      # - /mnt/md0/storage/Media/Movies:/Media/Movies
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Movies:/Media/Movies
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/radarr/shared:/shared
     expose:
@@ -203,8 +206,8 @@ services:
     container_name: dle-sonarr
     volumes:
       - ./volumes/sonarr/config:/config
-      # - /mnt/md0/storage/Media/downloads:/downloads
-      # - /mnt/md0/storage/Media/Series:/Media/Series
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media/Series
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/sonarr/shared:/shared
     expose:
@@ -224,7 +227,7 @@ services:
       - .linuxserver.env
     volumes:
       - ./volumes/jackett/config:/config
-      # - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/downloads:/downloads
     expose:
       - 9117
     restart: unless-stopped
@@ -246,26 +249,23 @@ services:
 
     #################################################
     ### BEGIN ELK ###
-    ## TODO Continue following this guide
-    ## https://medium.com/faun/nginx-logs-monitoring-using-elk-stack-docker-4b64f46e989
-    ## TODO Add overview for fail2ban log
   elasticsearch:
-    image: eu.gcr.io/dle-dev/elasticsearch
+    image: eu.gcr.io/dle-dev/elasticsearch:latest
     container_name: dle-elasticsearch
     volumes:
-      - ./volumes/elasticsearch:/usr/share/elasticsearch/data/:rw
+      - ./volumes/elasticsearch:/usr/share/elasticsearch/data/
     expose:
       - 9200
       - 9300
     environment:
-      ES_JAVA_OPTS: "-Xmx1g -Xms1g"
+      ES_JAVA_OPTS: "-Xmx5g -Xms5g"
     networks:
       - services-net
   logstash:
-    image: eu.gcr.io/dle-dev/logstash
+    image: eu.gcr.io/dle-dev/logstash:latest
     container_name: dle-logstash
     volumes:
-      - ./volumes/proxy/logs:/home/proxy_logs:ro
+      - /home/dle/services-logs:/home/proxy_logs:ro
     expose:
       - 1025/udp
       - 5000
@@ -277,7 +277,7 @@ services:
     depends_on:
       - elasticsearch
   kibana:
-    image: eu.gcr.io/dle-dev/kibana
+    image: eu.gcr.io/dle-dev/kibana:latest
     container_name: dle-kibana
     expose:
       - 5601

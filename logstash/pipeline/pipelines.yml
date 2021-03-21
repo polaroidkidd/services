@@ -1,0 +1,2 @@
+- pipeline.id: nginx
+  path.config: "/usr/share/logstash/config/logstash.nginx.conf"
