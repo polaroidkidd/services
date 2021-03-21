@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "elasticsearch:BUILD": "./docker.sh",
-    "elasticsearch:RELEASE": "./docker.sh -p"
+    "elastic:BUILD": "./docker.sh",
+    "elastic:RELEASE": "./docker.sh -p"
   }
 }

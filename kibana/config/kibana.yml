@@ -4,10 +4,10 @@
 #
 server.name: kib.dle.local
 server.host: 0.0.0.0
-elasticsearch.hosts: [ "http://elasticsearch:9200" ]
+elasticsearch.hosts: [ "http://elastic:9200" ]
 monitoring.ui.container.elasticsearch.enabled: true
 
 ## X-Pack security credentials
 #
-elasticsearch.username: elastic
-elasticsearch.password: elastic
+elasticsearch.username: elastic-user
+elasticsearch.password: elastic-password
