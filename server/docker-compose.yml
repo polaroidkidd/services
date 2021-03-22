@@ -287,3 +287,12 @@ services:
       - services-net
     depends_on:
       - elastic
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.11.2
+    env_file:
+      - .metricbeat.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
