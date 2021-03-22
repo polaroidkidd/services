@@ -232,6 +232,8 @@ services:
       - 9117
     restart: unless-stopped
 
+  #################################################
+  ### BEGIN BITWARDEN ###
   bitwarden:
     image: bitwardenrs/server:latest
     networks:
@@ -247,8 +249,8 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
-    #################################################
-    ### BEGIN ELK ###
+  #################################################
+  ### BEGIN ELK ###
   elastic:
     image: eu.gcr.io/dle-dev/elastic:latest
     container_name: dle-elastic
