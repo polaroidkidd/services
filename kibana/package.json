@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "kiabana:BUILD": "./docker.sh",
-    "kiabana:RELEASE": "./docker.sh -p"
+    "kibana:BUILD": "./docker.sh",
+    "kibana:RELEASE": "./docker.sh -p"
   }
 }

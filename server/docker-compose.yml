@@ -25,8 +25,8 @@ services:
       - /home/dle/services-logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 47808:47808
-      - 47809:47809
+      - 80:47808
+      - 443:47809
     depends_on:
       - certbot
       - site
@@ -254,6 +254,7 @@ services:
   elastic:
     image: eu.gcr.io/dle-dev/elastic:latest
     container_name: dle-elastic
+    restart: unless-stopped
     volumes:
       - ./volumes/elastic:/usr/share/elastic/data/
     expose:
@@ -266,6 +267,7 @@ services:
   logstash:
     image: eu.gcr.io/dle-dev/logstash:latest
     container_name: dle-logstash
+    restart: unless-stopped
     volumes:
       - /home/dle/services-logs:/home/proxy_logs:ro
     expose:
@@ -281,21 +283,22 @@ services:
   kibana:
     image: eu.gcr.io/dle-dev/kibana:latest
     container_name: dle-kibana
+    restart: unless-stopped
     expose:
       - 5601
     networks:
       - services-net
     depends_on:
       - elastic
-#  metricbeat:
-#    image: docker.elastic.co/beats/metricbeat:7.11.2
-#    container_name: dle-metricbeat
-#    env_file:
-#      - .metricbeat.env
-#    volumes:
-#      - /var/run/docker.sock:/var/run/docker.sock:ro
-#      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-#      - /proc:/hostfs/proc:ro
-#      - /:/hostfs:ro
-#    networks:
-#      - services-net
+  metricbeat:
+    image: docker.elastic.co/beats/metricbeat:7.11.2
+    container_name: dle-metricbeat
+    restart: unless-stopped
+    volumes:
+      - "./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
+    networks:
+      - services-net
