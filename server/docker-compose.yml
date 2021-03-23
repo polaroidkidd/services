@@ -256,7 +256,7 @@ services:
     container_name: dle-elastic
     restart: unless-stopped
     volumes:
-      - ./volumes/elastic:/usr/share/elastic/data/
+      - ./volumes/elastic:/usr/share/elasticsearch/data/
     expose:
       - 9200
       - 9300
