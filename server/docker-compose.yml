@@ -292,13 +292,35 @@ services:
       - elastic
   metricbeat:
     image: docker.elastic.co/beats/metricbeat:7.11.2
+    user: root
     container_name: dle-metricbeat
     restart: unless-stopped
     volumes:
-      - "./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml"
+      - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
       - /proc:/hostfs/proc:ro
       - /:/hostfs:ro
+      - ./volumes/metricbeat/:/usr/share/metricbeat/data
     networks:
       - services-net
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.11.2
+    container_name: dle-filebeat
+    # https://github.com/docker/swarmkit/issues/1951
+    # Need to override user so we can access the log files, and docker.sock
+    restart: unless-stopped
+    user: root
+    networks:
+      - services-net
+    volumes:
+      - ./volumes/filebeat:/usr/share/filebeat/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # This is needed for filebeat to load container log path as specified in filebeat.yml
+      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
+      # This is needed for filebeat to load logs for system and auth modules
+      - /var/log/:/var/log/:ro
+      # This is needed for filebeat to load logs for auditd module. you might have to install audit system
+      # on ubuntu first (sudo apt-get install -y auditd audispd-plugins)
+      - /var/log/audit/:/var/log/audit/:ro
