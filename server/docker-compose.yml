@@ -295,6 +295,9 @@ services:
     user: root
     container_name: dle-metricbeat
     restart: unless-stopped
+    depends_on:
+      - elastic
+      - logstash
     volumes:
       - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -311,8 +314,12 @@ services:
     # Need to override user so we can access the log files, and docker.sock
     restart: unless-stopped
     user: root
+    depends_on:
+      - elastic
+      - logstash
     networks:
       - services-net
+    command: ["--strict.perms=false"]
     volumes:
       - ./volumes/filebeat:/usr/share/filebeat/data
       - /var/run/docker.sock:/var/run/docker.sock
