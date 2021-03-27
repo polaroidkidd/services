@@ -25,8 +25,8 @@ services:
       - /home/dle/services-logs:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 47808:47808
-      - 47809:47809
+      - 80:47808
+      - 443:47809
     depends_on:
       - certbot
       - site
@@ -253,7 +253,7 @@ services:
   ### BEGIN ELK ###
   elastic:
     image: eu.gcr.io/dle-dev/elastic:latest
-    container_name: dle-elastic
+    container_name: dle-elk-elastic
     restart: unless-stopped
     volumes:
       - ./volumes/elastic:/usr/share/elasticsearch/data/
@@ -266,7 +266,7 @@ services:
       - services-net
   logstash:
     image: eu.gcr.io/dle-dev/logstash:latest
-    container_name: dle-logstash
+    container_name: dle-elk-logstash
     restart: unless-stopped
     volumes:
       - /home/dle/services-logs:/home/proxy_logs:ro
@@ -282,7 +282,7 @@ services:
       - elastic
   kibana:
     image: eu.gcr.io/dle-dev/kibana:latest
-    container_name: dle-kibana
+    container_name: dle-elk-kibana
     restart: unless-stopped
     expose:
       - 5601
@@ -293,7 +293,7 @@ services:
   metricbeat:
     image: docker.elastic.co/beats/metricbeat:7.11.2
     user: root
-    container_name: dle-metricbeat
+    container_name: dle-elk-metricbeat
     restart: unless-stopped
     depends_on:
       - elastic
@@ -309,7 +309,7 @@ services:
       - services-net
   filebeat:
     image: docker.elastic.co/beats/filebeat:7.11.2
-    container_name: dle-filebeat
+    container_name: dle-elk-filebeat
     # https://github.com/docker/swarmkit/issues/1951
     # Need to override user so we can access the log files, and docker.sock
     restart: unless-stopped
@@ -319,13 +319,14 @@ services:
       - logstash
     networks:
       - services-net
-    command: ["--strict.perms=false"]
+    command: [ "--strict.perms=false" ]
     volumes:
       - ./volumes/filebeat:/usr/share/filebeat/data
       - /var/run/docker.sock:/var/run/docker.sock
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
       # This is needed for filebeat to load container log path as specified in filebeat.yml
       - /mnt/md0/docker/containers/:/var/lib/docker/containers/:ro
+#      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
       # This is needed for filebeat to load logs for system and auth modules
       - /var/log/:/var/log/:ro
       # This is needed for filebeat to load logs for auditd module. you might have to install audit system
