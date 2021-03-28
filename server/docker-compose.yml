@@ -271,6 +271,7 @@ services:
     restart: unless-stopped
     volumes:
       - /home/dle/services-logs:/home/proxy_logs:ro
+      - /var/log/fail2ban.log:/home/fail2ban/fail2ban.log:ro
     expose:
       - 1025/udp
       - 5000
