@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
-      - /home/dle/services-logs:/var/log/nginx
+      - /home/dle/services-logs/nginx:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
       - 47808:47808
@@ -246,6 +246,7 @@ services:
       - 80
       - 3012
     volumes:
+      - /home/dle/services-logs/bitwarden/:/bitwarden-logs/
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
