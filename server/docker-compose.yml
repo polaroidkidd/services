@@ -251,18 +251,18 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
-    bitwarden-private:
-      image: bitwardenrs/server:latest
-      networks:
-        - services-net
-      container_name: dle-bitwarden-private
-      restart: unless-stopped
-      env_file:
-        - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
-      expose:
-        - 80
-        - 3012
-      volumes:
-        - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
-        - ./volumes/bitwarden-private/data:/data
-        - ./volumes/bitwarden-private/attachments:/attachments
+  bitwarden-private:
+    image: bitwardenrs/server:latest
+    networks:
+      - services-net
+    container_name: dle-bitwarden-private
+    restart: unless-stopped
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
+    expose:
+      - 80
+      - 3012
+    volumes:
+      - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
+      - ./volumes/bitwarden-private/data:/data
+      - ./volumes/bitwarden-private/attachments:/attachments
