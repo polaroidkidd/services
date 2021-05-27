@@ -39,9 +39,6 @@ services:
       - sonarr
       - bitwarden
       - bitwarden-private
-      - elastic
-      - logstash
-      - kibana
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
