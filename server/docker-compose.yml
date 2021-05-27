@@ -38,6 +38,7 @@ services:
       - radarr
       - sonarr
       - bitwarden
+      - bitwarden-private
       - elastic
       - logstash
       - kibana
@@ -250,87 +251,18 @@ services:
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
-  #################################################
-  ### BEGIN ELK ###
-  elastic:
-    image: eu.gcr.io/dle-dev/elastic:latest
-    container_name: dle-elk-elastic
-    restart: unless-stopped
-    volumes:
-      - ./volumes/elastic:/usr/share/elasticsearch/data/
-    expose:
-      - 9200
-      - 9300
-    environment:
-      ES_JAVA_OPTS: "-Xmx5g -Xms5g"
-    networks:
-      - services-net
-  logstash:
-    image: eu.gcr.io/dle-dev/logstash:latest
-    container_name: dle-elk-logstash
-    restart: unless-stopped
-    volumes:
-      - /home/dle/services-logs:/home/proxy_logs:ro
-      - /var/log/fail2ban.log:/home/fail2ban/fail2ban.log:ro
-    expose:
-      - 1025/udp
-      - 5000
-      - 9600
-    environment:
-      LS_JAVA_OPTS: "-Xmx5g -Xms5g"
-    networks:
-      - services-net
-    depends_on:
-      - elastic
-  kibana:
-    image: eu.gcr.io/dle-dev/kibana:latest
-    container_name: dle-elk-kibana
-    restart: unless-stopped
-    expose:
-      - 5601
-    networks:
-      - services-net
-    depends_on:
-      - elastic
-  metricbeat:
-    image: docker.elastic.co/beats/metricbeat:7.11.2
-    user: root
-    container_name: dle-elk-metricbeat
-    restart: unless-stopped
-    depends_on:
-      - elastic
-      - logstash
-    volumes:
-      - ./metricbeat.yml:/usr/share/metricbeat/metricbeat.yml
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
-      - /proc:/hostfs/proc:ro
-      - /:/hostfs:ro
-      - ./volumes/metricbeat/:/usr/share/metricbeat/data
-    networks:
-      - services-net
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:7.11.2
-    container_name: dle-elk-filebeat
-    # https://github.com/docker/swarmkit/issues/1951
-    # Need to override user so we can access the log files, and docker.sock
-    restart: unless-stopped
-    user: root
-    depends_on:
-      - elastic
-      - logstash
-    networks:
-      - services-net
-    command: [ "--strict.perms=false" ]
-    volumes:
-      - ./volumes/filebeat:/usr/share/filebeat/data
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
-      # This is needed for filebeat to load container log path as specified in filebeat.yml
-      - /mnt/md0/docker/containers/:/var/lib/docker/containers/:ro
-#      - /var/lib/docker/containers/:/var/lib/docker/containers/:ro
-      # This is needed for filebeat to load logs for system and auth modules
-      - /var/log/:/var/log/:ro
-      # This is needed for filebeat to load logs for auditd module. you might have to install audit system
-      # on ubuntu first (sudo apt-get install -y auditd audispd-plugins)
-      - /var/log/audit/:/var/log/audit/:ro
+    bitwarden-private:
+      image: bitwardenrs/server:latest
+      networks:
+        - services-net
+      container_name: dle-bitwarden-private
+      restart: unless-stopped
+      env_file:
+        - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
+      expose:
+        - 80
+        - 3012
+      volumes:
+        - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
+        - ./volumes/bitwarden-private/data:/data
+        - ./volumes/bitwarden-private/attachments:/attachments
