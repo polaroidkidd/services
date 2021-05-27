@@ -255,7 +255,7 @@ services:
     container_name: dle-bitwarden-private
     restart: unless-stopped
     env_file:
-      - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
+      - ./.${SERVICES_ENVIRONMENT}.bitwarden-private.env
     expose:
       - 80
       - 3012
