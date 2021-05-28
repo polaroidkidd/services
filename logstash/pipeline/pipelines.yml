@@ -1,4 +1,0 @@
-- pipeline.id: nginx
-  path.config: "/usr/share/logstash/config/logstash.nginx.conf"
-- pipeline.id: fail2ban
-  path.config: "/usr/share/logstash/config/logstash.fail2ban.conf"

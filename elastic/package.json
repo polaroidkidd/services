@@ -1,9 +1,0 @@
-{
-  "name": "elastic",
-  "version": "1.0.0",
-  "license": "MIT",
-  "scripts": {
-    "elastic:BUILD": "./docker.sh",
-    "elastic:RELEASE": "./docker.sh -p"
-  }
-}

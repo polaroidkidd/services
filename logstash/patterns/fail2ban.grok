@@ -1,3 +1,0 @@
-FAIL2BAN_BAN_ACTION %{TIMESTAMP_ISO8601:timestamp} %{JAVACLASS:criteria} *\[%{INT:fail2ban_digit}\]: %{LOGLEVEL:level} *\[%{NOTSPACE:service}\] (?<ban_action>%{WORD}) %{IPV4:clientip}
-FAIL2BAN_ALREADY_BANNED %{TIMESTAMP_ISO8601:timestamp} %{JAVACLASS:criteria} *\[%{INT:fail2ban_digit}\]: %{LOGLEVEL:level} *\[%{NOTSPACE:service}\] %{IPV4:clientip} (?<ban_action>%{WORD} %{WORD})
-FAIL2BAN_RESTORE_BAN %{TIMESTAMP_ISO8601:timestamp} %{JAVACLASS:criteria} *\[%{INT:fail2ban_digit}\]: %{LOGLEVEL:level} *\[%{NOTSPACE:service}\] (?<ban_action>%{WORD} %{WORD}) %{IPV4:clientip}

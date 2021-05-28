@@ -1,9 +1,0 @@
-{
-  "name": "kibana",
-  "version": "1.0.0",
-  "license": "MIT",
-  "scripts": {
-    "kibana:BUILD": "./docker.sh",
-    "kibana:RELEASE": "./docker.sh -p"
-  }
-}
