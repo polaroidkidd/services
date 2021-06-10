@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.24.0](https://github.com/polaroidkidd/services/compare/v1.23.0...v1.24.0) (2021-06-10)
+
+
+### Features
+
+* define node version using nvmrc file ([ee6db00](https://github.com/polaroidkidd/services/commit/ee6db004272ff59315d4a5049d31d51e65225704))
+
 ## [1.23.0](https://github.com/polaroidkidd/services/compare/v1.22.2...v1.23.0) (2021-06-10)
 
 
