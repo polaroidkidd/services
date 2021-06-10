@@ -41,7 +41,7 @@ if [[ $(git rev-parse --abbrev-ref HEAD) == master ]]; then
   echo "***************************************************"
   echo "******* BUILDING PRODUCTION DOCKER CONTAINER ******"
   echo "***************************************************"
-  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN" -f ./Dockerfile
+  docker build . --no-cache -t "${TAG_LATEST}" --build-arg DIGITALOCEAN_ACCESS_TOKEN="$DIGITALOCEAN_ACCESS_TOKEN"  -f ./Dockerfile
   docker tag "${TAG_LATEST}" "${TAG_VERSION}"
 
   echo "***************************************************"

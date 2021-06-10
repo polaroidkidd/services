@@ -4,25 +4,31 @@ version: '3.8'
 networks:
   services-net:
     name: services-net
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
+          gateway: 172.19.0.1
+
 
 services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:1.2.0
+    image: eu.gcr.io/dle-dev/nginx:latest
     networks:
       - services-net
     container_name: dle-nginx
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
-      - ./volumes/proxy/logs:/var/log/nginx
+      - /home/dle/services-logs/nginx:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 80:80
-      - 443:443
+      - 47800:47808
+      - 47809:47809
     depends_on:
-      #      - certbot
+      - certbot
       - site
       - cloud
       - cloud-db
@@ -32,11 +38,12 @@ services:
       - radarr
       - sonarr
       - bitwarden
+      - bitwarden-private
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
   certbot:
-    image: eu.gcr.io/dle-dev/certbot:1.0.2
+    image: eu.gcr.io/dle-dev/certbot:latest
     networks:
       - services-net
     container_name: dle-certbot
@@ -73,7 +80,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:1.0.0
+    image: eu.gcr.io/dle-dev/cloud:1.0.1
     networks:
       - services-net
     container_name: dle-cloud
@@ -134,8 +141,8 @@ services:
     container_name: dle-deluge
     volumes:
       - ./volumes/deluge/config:/config
-      - /home/dle/storage/Media/downloads:/downloads
-      - /home/dle/storage/Media/:/Media
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media
       - ./volumes/deluge/shared:/shared
     restart: unless-stopped
     env_file:
@@ -153,8 +160,8 @@ services:
     container_name: dle-qbt
     volumes:
       - ./volumes/qbt/config:/config
-      - /home/dle/storage/Media/downloads:/downloads
-      - /home/dle/storage/Media/:/Media
+      - /mnt/md0/storage/Media/downloads:/downloads
+      - /mnt/md0/storage/Media/Series:/Media
       - ./volumes/qbt/shared:/shared
     expose:
       - 8082
@@ -223,6 +230,8 @@ services:
       - 9117
     restart: unless-stopped
 
+  #################################################
+  ### BEGIN BITWARDEN ###
   bitwarden:
     image: bitwardenrs/server:latest
     networks:
@@ -235,25 +244,22 @@ services:
       - 80
       - 3012
     volumes:
+      - /home/dle/services-logs/bitwarden/:/bitwarden-logs/
       - ./volumes/bitwarden/data:/data
       - ./volumes/bitwarden/attachments:/attachments
 
-  #################################################
-  ### BEGIN CODER NIGHT ###
-  ti8m-coder-night-frontend:
-    image: eu.gcr.io/coder-night/frontend:latest
+  bitwarden-private:
+    image: bitwardenrs/server:latest
     networks:
       - services-net
-    container_name: ti8m-coder-night-frontend
+    container_name: dle-bitwarden-private
     restart: unless-stopped
+    env_file:
+      - ./.${SERVICES_ENVIRONMENT}.bitwarden-private.env
     expose:
-      - 3000
-
-  ti8m-coder-night-backend:
-    image: eu.gcr.io/coder-night/backend:latest
-    networks:
-      - services-net
-    container_name: ti8m-coder-night-backend
-    restart: unless-stopped
-    expose:
-      - 8080
+      - 80
+      - 3012
+    volumes:
+      - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
+      - ./volumes/bitwarden-private/data:/data
+      - ./volumes/bitwarden-private/attachments:/attachments

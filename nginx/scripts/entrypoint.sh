@@ -12,11 +12,12 @@ error() {
 }
 
 # Deactivate http redirect in dev environment
-if [ "$VPS_REDICRECT_HTTPS" = "False" ]; then
+if [ "$VPS_REDICRECT_HTTPS" = "false" ]; then
   cp /etc/nginx/nginx.dev.conf /etc/nginx/nginx.conf
   printf "\n\n############################################################\n\n"
   echo "Using nginx.dev.conf"
-  echo "HTTP Traffic will be NOT redirected to HTTPS"
+  echo "NO SSL ENCRYPTION"
+  echo "HTTP Traffic will be redirected to HTTP"
   printf "\n############################################################\n"
 else
   cp /etc/nginx/nginx.prod.conf /etc/nginx/nginx.conf

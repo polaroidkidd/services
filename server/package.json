@@ -1,0 +1,11 @@
+{
+  "name": "services",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "services:up": "docker-compose up -d",
+    "services:pull": "docker-compose pull",
+    "services:stop": "docker-compose stop",
+    "services:restart": "docker-compose restart"
+  }
+}
