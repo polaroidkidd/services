@@ -25,7 +25,7 @@ services:
       - /home/dle/services-logs/nginx:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
     ports:
-      - 47800:47808
+      - 47808:47808
       - 47809:47809
     depends_on:
       - certbot
@@ -39,6 +39,9 @@ services:
       - sonarr
       - bitwarden
       - bitwarden-private
+      - paperless-broker
+      - paperless-db
+      - paperless-webserver
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
@@ -178,7 +181,7 @@ services:
   #################################################
   ### BEGIN RADARR ###
   radarr:
-    image: linuxserver/radarr:preview
+    image: linuxserver/radarr:latest
     networks:
       - services-net
     container_name: dle-radarr
@@ -198,7 +201,7 @@ services:
   #################################################
   ### BEGIN SONARR ###
   sonarr:
-    image: linuxserver/sonarr:preview
+    image: linuxserver/sonarr:latest
     networks:
       - services-net
     container_name: dle-sonarr
@@ -263,3 +266,76 @@ services:
       - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
       - ./volumes/bitwarden-private/data:/data
       - ./volumes/bitwarden-private/attachments:/attachments
+
+  #################################################
+  ### BEGIN PAPERLESS ###
+  paperless-broker:
+    image: redis:6.0
+    restart: unless-stopped
+    networks:
+      - services-net
+    container_name: dle-paperless-broker
+    command: --port 6380
+    expose:
+      - 6380
+
+  paperless-db:
+    image: postgres:13
+    restart: unless-stopped
+    container_name: dle-paperless-db
+
+    networks:
+      - services-net
+    volumes:
+      - /volumes/paperless-db:/var/lib/postgresql/data
+
+    environment:
+      POSTGRES_DB: ${PAPERLESS_POSTGRES_DB}
+      POSTGRES_USER: ${PAPERLESS_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
+
+  paperless-webserver:
+    image: jonaswinkler/paperless-ng:latest
+    restart: unless-stopped
+    container_name: dle-paperless-webserver
+
+    networks:
+      - services-net
+    depends_on:
+      - paperless-db
+      - paperless-broker
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://paperless-webserver:8000" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+      - ./volumes/paperless/data:/usr/src/paperless/data
+      - ./volumes/paperless/media:/usr/src/paperless/media
+      - ./volumes/paperless/export:/usr/src/paperless/export
+      - ./volumes/paperless/consume:/usr/src/paperless/consume
+    env_file: .paperless-webserver.env
+    environment:
+      PAPERLESS_REDIS: redis://paperless-broker:6380
+      PAPERLESS_DBHOST: paperless-db
+
+  paperless-samba:
+    image: elswork/samba
+    container_name: dle-paperless-samba
+    restart: unless-stopped
+    environment:
+      TZ: 'Europe/Zurich'
+      SHARE: ${SAMBA_PERMISSIONS}
+      USER: ${SAMBA_CREDENTIALS}
+    command: '-u "1000:1000:paperless:paperless:c2oZv8yohL83ViQEJk7XbJC8eukwfige8CFlmyRXfAXNC91Ejz6YzolHcOfZx1WS" -s "shared:/data:rw:paperless"'
+    networks:
+      - services-net
+    ports:
+      - "139:139"
+      - "445:445"
+    volumes:
+      - ./volumes/paperless/consume:/data
+
+
