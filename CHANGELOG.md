@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.26.0](https://github.com/polaroidkidd/services/compare/v1.25.0...v1.26.0) (2021-10-18)
+
+
+### Features
+
+* integrate scanning ([6982023](https://github.com/polaroidkidd/services/commit/698202323fc5f1113431758aa41ccc6bfe16c303))
+
 ## [1.25.0](https://github.com/polaroidkidd/services/compare/v1.24.0...v1.25.0) (2021-08-28)
 
 
