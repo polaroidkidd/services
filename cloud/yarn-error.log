@@ -1,32 +1,34 @@
 Arguments: 
-  /home/dle/.nvm/versions/node/v14.15.0/bin/node /home/dle/.yarn/bin/yarn.js run nginx:RELEASE
+  /home/dle/.nvm/versions/node/v12.22.5/bin/node /home/dle/.nvm/versions/node/v12.22.5/lib/node_modules/yarn/bin/yarn.js run cloud:RELEASE
 
 PATH: 
-  /home/dle/.sdkman/candidates/maven/current/bin:/home/dle/.sdkman/candidates/java/current/bin:/home/dle/.yarn/bin:/home/dle/.config/yarn/global/node_modules/.bin:/home/dle/.linuxbrew/bin:/home/dle/.linuxbrew/sbin:/home/dle/Android/Sdk/cmdline-tools/latest/bin:/home/dle/.nvm/versions/node/v14.15.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/dle/.local/bin:
+  /home/dle/.sdkman/candidates/tomcat/current/bin:/home/dle/.sdkman/candidates/maven/current/bin:/home/dle/.sdkman/candidates/java/current/bin:/home/dle/.sdkman/candidates/groovy/current/bin:/home/dle/.sdkman/candidates/gradle/current/bin:/home/dle/.nvm/versions/node/v12.22.5/bin:/home/dle/.yarn/bin:/home/dle/.config/yarn/global/node_modules/.bin:/home/dle/Android/Sdk/cmdline-tools/latest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin:/home/dle/.local/bin:
 
 Yarn version: 
-  1.22.5
+  1.22.15
 
 Node version: 
-  14.15.0
+  12.22.5
 
 Platform: 
   linux x64
 
 Trace: 
-  SyntaxError: /home/dle/DevWork/me/tools/services/nginx/package.json: Unexpected token } in JSON at position 96
+  SyntaxError: /home/dle/DevWork/me/services/cloud/package.json: Unexpected string in JSON at position 132
       at JSON.parse (<anonymous>)
-      at /home/dle/.yarn/lib/cli.js:1625:59
+      at /home/dle/.nvm/versions/node/v12.22.5/lib/node_modules/yarn/lib/cli.js:1625:59
       at Generator.next (<anonymous>)
-      at step (/home/dle/.yarn/lib/cli.js:310:30)
-      at /home/dle/.yarn/lib/cli.js:321:13
+      at step (/home/dle/.nvm/versions/node/v12.22.5/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /home/dle/.nvm/versions/node/v12.22.5/lib/node_modules/yarn/lib/cli.js:321:13
 
 npm manifest: 
   {
-    "name": "nginx",
-    "version": "1.1.1",
+    "name": "cloud",
+    "version": "1.0.2",
+    "license": "MIT",
     "scripts": {
-      "nginx:RELEASE": "./docker.sh",
+      "cloud:BUILD": "./docker.sh",
+      "cloud:RELEASE" "./docker.sh -p"
     }
   }
 

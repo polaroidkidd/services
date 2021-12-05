@@ -30,6 +30,7 @@ services:
     depends_on:
       - certbot
       - site
+      - santa
       - cloud
       - cloud-db
       - deluge
@@ -42,6 +43,7 @@ services:
       - paperless-broker
       - paperless-db
       - paperless-webserver
+      - yourls
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
 
@@ -71,6 +73,16 @@ services:
     expose:
       - 80
 
+  santa:
+    image: eu.gcr.io/dle-dev/sm-frontend:latest
+    networks:
+      - services-net
+    container_name: dle-santa
+    restart: unless-stopped
+    expose:
+      - 3000
+
+
   ## BEGINE WEBSITE staging.dle.dev ##
   site-staging:
     image: eu.gcr.io/dle-dev/frontend:staging
@@ -83,7 +95,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:latest
+    image: eu.gcr.io/dle-dev/cloud:23.0.0
     networks:
       - services-net
     container_name: dle-cloud
@@ -338,4 +350,35 @@ services:
     volumes:
       - ./volumes/paperless/consume:/data
 
-
+  #################################################
+  ### YOURLS ###
+  yourls:
+    image: yourls
+    container_name: dle-yourls
+    restart: unless-stopped
+    networks:
+      - services-net
+    expose:
+      - 80
+    environment:
+      YOURLS_SITE: http://yourls.dle.dev
+      YOURLS_DB_USER:  ${YOURLS_DB_USER}
+      YOURLS_DB_PASS: ${YOURLS_DB_PASS}
+      YOURLS_USER: ${YOURLS_USER}
+      YOURLS_PASS: ${YOURLS_PASS}
+      YOURLS_DB_HOST: yourls-db:3306
+    depends_on:
+      - yourls-db
+  yourls-db:
+    image: mysql
+    restart: unless-stopped
+    container_name: dle-yourls-db
+    networks:
+      - services-net
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${YOURLS_MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${YOURLS_MYSQL_DATABASE}
+      MYSQL_USER: ${YOURLS_DB_USER}
+      MYSQL_PASSWORD: ${YOURLS_DB_PASS}
