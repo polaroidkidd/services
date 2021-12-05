@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.27.0](https://github.com/polaroidkidd/services/compare/v1.26.0...v1.27.0) (2021-12-05)
+
+
+### Features
+
+* santa app and update nextcloud to 23.0.0 ([a7540e0](https://github.com/polaroidkidd/services/commit/a7540e09785316ef5d0d0ccfc0680b8cbf6b7693))
+
 ## [1.26.0](https://github.com/polaroidkidd/services/compare/v1.25.0...v1.26.0) (2021-10-18)
 
 
