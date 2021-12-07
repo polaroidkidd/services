@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.27.1](https://github.com/polaroidkidd/services/compare/v1.27.0...v1.27.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* nextcloud caldav & carddav nginx config ([cfcffa7](https://github.com/polaroidkidd/services/commit/cfcffa740abaa4a649e1d20de689630539bf3e97))
+
 ## [1.27.0](https://github.com/polaroidkidd/services/compare/v1.26.0...v1.27.0) (2021-12-05)
 
 
