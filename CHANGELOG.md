@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.28.0](https://github.com/polaroidkidd/services/compare/v1.27.1...v1.28.0) (2022-02-24)
+
+
+### Features
+
+* removed dead services ([483be01](https://github.com/polaroidkidd/services/commit/483be0152383c9bc7f5eb81536682932c34869b2))
+
 ### [1.27.1](https://github.com/polaroidkidd/services/compare/v1.27.0...v1.27.1) (2021-12-07)
 
 
