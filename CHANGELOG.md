@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.32.1](https://github.com/polaroidkidd/services/compare/v1.32.0...v1.32.1) (2022-03-14)
+
+
+### Bug Fixes
+
+* duplicate libre-photos tag ([3e2e614](https://github.com/polaroidkidd/services/commit/3e2e614c2ae3d266d05b3d43839ce2452b603848))
+
 ## [1.32.0](https://github.com/polaroidkidd/services/compare/v1.31.0...v1.32.0) (2022-03-14)
 
 
