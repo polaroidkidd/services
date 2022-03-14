@@ -6,9 +6,9 @@ get_certificate() {
   if [ "$VPS_REDICRECT_HTTPS" = "True" ]; then
     echo "PROD ENV: Getting wildcard certificate for domain *.dle.dev on behalf of user certbot@dle.dev"
     certbot certonly \
-      --dns-digitalocean \
-      --dns-digitalocean-credentials /scripts/digitalocean.ini \
-      --dns-digitalocean-propagation-seconds 60 \
+      --dns-cloudflare \
+      --dns-cloudflare-credentials /scripts/cloudflare.ini \
+      --dns-cloudflare-propagation-seconds 60 \
       --non-interactive \
       --agree-tos \
       --keep \

@@ -1,4 +1,4 @@
-FROM certbot/dns-digitalocean:latest
+FROM certbot/dns-cloudflare:latest
 
 LABEL MAINTAINER="Daniel L. Einars"
 LABEL CONTACT="contact@dle.dev"
@@ -11,9 +11,9 @@ VOLUME /var/www/.well-known/acme-challenge/
 COPY ./scripts /scripts
 # Make scripts runnable
 RUN chmod +x /scripts/*.sh
-ARG DIGITALOCEAN_ACCESS_TOKEN
-RUN echo "# DigitalOcean API credentials used by Certbot" >> /scripts/digitalocean.ini
-RUN echo "dns_digitalocean_token = ${DIGITALOCEAN_ACCESS_TOKEN}" > /scripts/digitalocean.ini
+ARG DNS_CLOUDFLARE_API_TOKEN
+RUN echo "# DigitalOcean API credentials used by Certbot" >> /scripts/cloudflare.ini
+RUN echo "dns_cloudflare_api_token = ${DNS_CLOUDFLARE_API_TOKEN}" > /scripts/cloudflare.ini
 # Copy crontab
 COPY ./scripts/crontab /etc/cron.d/certbot
 RUN crontab /etc/cron.d/certbot
