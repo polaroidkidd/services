@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.31.0](https://github.com/polaroidkidd/services/compare/v1.30.0...v1.31.0) (2022-03-14)
+
+
+### Features
+
+* migrate certbot from digital-ocean to cloudflare ([8fa586c](https://github.com/polaroidkidd/services/commit/8fa586c4a6af2668324dc00661fc45eae38b7d02))
+
 ## [1.30.0](https://github.com/polaroidkidd/services/compare/v1.29.0...v1.30.0) (2022-03-01)
 
 
