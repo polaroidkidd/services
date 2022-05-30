@@ -65,7 +65,13 @@ services:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
     ports:
       - "12079:12079"
-
+  cloudflared:
+    image: eu.gcr.io/dle-dev/cloudflared:latest
+    container_name: dle-cloudflared
+    networks:
+      - services-net
+    ports:
+      - "8099:8099"
 
   ###################################################
   ## BEGINE WEBSITE dle.dev ##
@@ -102,7 +108,8 @@ services:
   cloud:
     image: eu.gcr.io/dle-dev/cloud:23.0.2
     networks:
-      - services-net
+      services-net:
+        ipv4_address: 172.19.0.99
     container_name: dle-cloud
     depends_on:
       - cloud-db
@@ -345,12 +352,13 @@ services:
       TZ: 'Europe/Zurich'
       SHARE: ${SAMBA_PERMISSIONS}
       USER: ${SAMBA_CREDENTIALS}
+      HOSTNAME: "cassandra"
     command: '-u "1000:1000:paperless:paperless:c2oZv8yohL83ViQEJk7XbJC8eukwfige8CFlmyRXfAXNC91Ejz6YzolHcOfZx1WS" -s "shared:/data:rw:paperless"'
     networks:
       - services-net
-    expose:
-      - 139
-      - 445
+    ports:
+      - 139:139
+      - 445:445
     volumes:
       - ./volumes/paperless/consume:/data
 

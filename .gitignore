@@ -13,3 +13,5 @@ server/cloud-db-dumps/*
 # nextcloud face-recognition
 ./cloud/face-recognition
 server/volumes/proxy/logs
+
+cloudflared/config/cert.pem
