@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.32.2](https://github.com/polaroidkidd/services/compare/v1.32.1...v1.32.2) (2022-05-30)
+
+
+### Bug Fixes
+
+* samba share ([365f5d0](https://github.com/polaroidkidd/services/commit/365f5d07d525899ff8a1633380d1f1ab86b08611))
+
 ### [1.32.1](https://github.com/polaroidkidd/services/compare/v1.32.0...v1.32.1) (2022-03-14)
 
 
