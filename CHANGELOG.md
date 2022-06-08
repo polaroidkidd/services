@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.33.1](https://github.com/polaroidkidd/services/compare/v1.33.0...v1.33.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* un-comment relevant code in cloud docker script ([9de396b](https://github.com/polaroidkidd/services/commit/9de396b953fdc98db17dc063bab83cb121adbbec))
+
 ## [1.33.0](https://github.com/polaroidkidd/services/compare/v1.32.2...v1.33.0) (2022-06-08)
 
 
