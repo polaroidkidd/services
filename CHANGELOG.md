@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.33.2](https://github.com/polaroidkidd/services/compare/v1.33.1...v1.33.2) (2022-06-25)
+
+
+### Bug Fixes
+
+* remove libre volumes from nginx & add docker dependencies for cloudflared ([bac9f51](https://github.com/polaroidkidd/services/commit/bac9f516212608c7f2b77650f080a30121920270))
+
 ### [1.33.1](https://github.com/polaroidkidd/services/compare/v1.33.0...v1.33.1) (2022-06-08)
 
 
