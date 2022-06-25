@@ -15,7 +15,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   nginx:
-    image: eu.gcr.io/dle-dev/nginx:latest
+    image: eu.gcr.io/dle-dev/nginx:1.2.0
     networks:
       - services-net
     container_name: dle-nginx
@@ -24,8 +24,6 @@ services:
       - ./volumes/proxy/certs:/etc/letsencrypt
       - /home/dle/services-logs/nginx:/var/log/nginx
       - ./volumes/proxy/acme:/etc/certbot
-      - ${LIBRE_PHOTOS_DIR}:/data
-      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
     ports:
       - 47808:47808
       - 47809:47809
@@ -72,6 +70,11 @@ services:
       - services-net
     ports:
       - "8099:8099"
+    depends_on:
+      - nginx
+      - cloud
+      - cloud-db
+      - cloud-redis
 
   ###################################################
   ## BEGINE WEBSITE dle.dev ##
