@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.33.3](https://github.com/polaroidkidd/services/compare/v1.33.2...v1.33.3) (2022-07-02)
+
 ### [1.33.2](https://github.com/polaroidkidd/services/compare/v1.33.1...v1.33.2) (2022-06-25)
 
 
