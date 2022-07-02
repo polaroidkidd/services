@@ -1,8 +1,0 @@
-tunnel: bb5fa58d-9c84-4084-8a73-fb36109c5e7d
-credentials-file: /usr/local/etc/cloudflared/bb5fa58d-9c84-4084-8a73-fb36109c5e7d.json
-
-ingress:
-  # Rules map traffic from a hostname to a local service:
-  - hostname: cloud.dle.dev
-    service: http://cloud:80
-  - service: http_status:404
