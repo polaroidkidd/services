@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.34.2](https://github.com/polaroidkidd/services/compare/v1.34.1...v1.34.2) (2022-07-03)
+
+
+### Bug Fixes
+
+* replace nginx run command with proxy run command ([22a5647](https://github.com/polaroidkidd/services/commit/22a5647c83740ddf5331509bb8e5e1a3ce90bbe6))
+
 ### [1.34.1](https://github.com/polaroidkidd/services/compare/v1.34.0...v1.34.1) (2022-07-03)
 
 
