@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "license": "MIT",
   "scripts": {
-    "nginx:BUILD": "./docker.sh",
-    "nginx:RELEASE": "./docker.sh -p"
+    "proxy:BUILD": "./docker.sh",
+    "proxy:RELEASE": "./docker.sh -p"
   }
 }
