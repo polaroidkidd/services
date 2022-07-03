@@ -1,6 +1,6 @@
 {
   "name": "services",
-  "version": "1.33.4",
+  "version": "1.34.0",
   "description": "Services running on dle.dev and its subdomains",
   "repository": "git@github.com:polaroidkidd/services.git",
   "author": "Daniel Einars <contact@dle.dev>",

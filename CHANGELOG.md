@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.34.0](https://github.com/polaroidkidd/services/compare/v1.33.4...v1.34.0) (2022-07-03)
+
+
+### Features
+
+* route most traffic through an argo tunnel ([8a15118](https://github.com/polaroidkidd/services/commit/8a15118525a6f2862bd2568aab56a62cdb026cab))
+
 ### [1.33.4](https://github.com/polaroidkidd/services/compare/v1.33.3...v1.33.4) (2022-07-02)
 
 
