@@ -1,0 +1,9 @@
+{
+  "name": "argo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "argo:BUILD": "./docker.sh",
+    "argo:RELEASE": "./docker.sh -p"
+  }
+}

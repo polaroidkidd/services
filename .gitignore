@@ -14,4 +14,5 @@ server/cloud-db-dumps/*
 ./cloud/face-recognition
 server/volumes/proxy/logs
 
-cloudflared/config/cert.pem
+argo/config/cert.pem
+argo/config/d207d6c3-0a62-4bfa-a910-54bc92923be4.json

@@ -1,0 +1,9 @@
+{
+  "name": "libre-proxy",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "libre-proxy:BUILD": "./docker.sh",
+    "libre-proxy:RELEASE": "./docker.sh -p"
+  }
+}

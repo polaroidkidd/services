@@ -1,0 +1,39 @@
+tunnel: d207d6c3-0a62-4bfa-a910-54bc92923be4
+credentials-file: /usr/local/etc/cloudflared/d207d6c3-0a62-4bfa-a910-54bc92923be4.json
+
+ingress:
+  # Rules map traffic from a hostname to a local service:
+  - hostname: dle.dev
+    service: http://site:80
+
+  - hostname: cloud.dle.dev
+    service: http://cloud:80
+
+  - hostname: santa.dle.dev
+    service: http://santa:3000
+
+  - hostname: deluge.dle.dev
+    service: http://deluge:8112
+
+  - hostname: radarr.dle.dev
+    service: http://radarr:7878
+
+  - hostname: sonarr.dle.dev
+    service: http://sonarr:8989
+
+  - hostname: jackett.dle.dev
+    service: http://jackett:9117
+
+  - hostname: bw.dle.dev
+    service: http://bitwarden:80
+
+  - hostname: pw.dle.dev
+    service: http://bitwarden-private:80
+
+  - hostname: paperless.dle.dev
+    service: http://paperless-webserver:8000
+
+  - hostname: pics.dle.dev
+    service: http://libre-proxy:80
+
+  - service: http://site:80

@@ -12,13 +12,24 @@ networks:
 
 
 services:
-  ###################################################
-  ## BEGIN REVERSE PROXY AND CERTS ##
-  nginx:
-    image: eu.gcr.io/dle-dev/nginx:1.3.0
+  argo:
+    image: eu.gcr.io/dle-dev/argo:latest
     networks:
       - services-net
-    container_name: dle-nginx
+    container_name: dle-argo
+    ports:
+      - "8099:8099"
+    depends_on:
+      - nginx
+
+
+  ###################################################
+  ## BEGIN REVERSE PROXY AND CERTS ##
+  proxy:
+    image: eu.gcr.io/dle-dev/proxy:1.4.0
+    networks:
+      - services-net
+    container_name: dle-proxy
     restart: unless-stopped
     volumes:
       - ./volumes/proxy/certs:/etc/letsencrypt
@@ -29,20 +40,6 @@ services:
       - "47809:47809"
     depends_on:
       - certbot
-      - site
-      - santa
-      - cloud
-      - cloud-db
-      - deluge
-      - cloud-redis
-      - jackett
-      - radarr
-      - sonarr
-      - bitwarden
-      - bitwarden-private
-      - paperless-broker
-      - paperless-db
-      - paperless-webserver
       - libre-backend
       - libre-frontend
       - libre-db
@@ -74,6 +71,8 @@ services:
     restart: unless-stopped
     expose:
       - 80
+    depends_on:
+      - argo
 
   santa:
     image: eu.gcr.io/dle-dev/sm-frontend:latest
@@ -81,6 +80,8 @@ services:
       - services-net
     container_name: dle-santa
     restart: unless-stopped
+    depends_on:
+      - argo
     expose:
       - 3000
 
@@ -94,6 +95,7 @@ services:
     container_name: dle-cloud
     depends_on:
       - cloud-db
+      - argo
     volumes:
       - ./volumes/cloud/html:/var/www/html
       - ./volumes/cloud/config:/var/www/html/config
@@ -144,6 +146,8 @@ services:
   ## BEGIN deluge ##
   deluge:
     image: linuxserver/deluge:latest
+    depends_on:
+      - argo
     networks:
       - services-net
     container_name: dle-deluge
@@ -170,6 +174,8 @@ services:
     networks:
       - services-net
     container_name: dle-radarr
+    depends_on:
+      - argo
     volumes:
       - ./volumes/radarr/config:/config
       - /mnt/md0/storage/Media/downloads:/downloads
@@ -190,6 +196,8 @@ services:
     networks:
       - services-net
     container_name: dle-sonarr
+    depends_on:
+      - argo
     volumes:
       - ./volumes/sonarr/config:/config
       - /mnt/md0/storage/Media/downloads:/downloads
@@ -209,6 +217,8 @@ services:
     networks:
       - services-net
     container_name: dle-jackett
+    depends_on:
+      - argo
     env_file:
       - .linuxserver.env
     volumes:
@@ -226,6 +236,8 @@ services:
       - services-net
     container_name: dle-bitwarden
     restart: unless-stopped
+    depends_on:
+      - argo
     env_file:
       - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
     expose:
@@ -240,6 +252,8 @@ services:
     image: bitwardenrs/server:latest
     networks:
       - services-net
+    depends_on:
+      - argo
     container_name: dle-bitwarden-private
     restart: unless-stopped
     env_file:
@@ -282,12 +296,12 @@ services:
     image: jonaswinkler/paperless-ng:latest
     restart: unless-stopped
     container_name: dle-paperless-webserver
-
     networks:
       - services-net
     depends_on:
       - paperless-db
       - paperless-broker
+      - argo
     expose:
       - 8000
     healthcheck:
@@ -318,14 +332,29 @@ services:
     networks:
       - services-net
     ports:
-      - 139:139
-      - 445:445
+      - "139:139"
+      - "445:445"
     volumes:
       - ./volumes/paperless/consume:/data
 
 
   #################################################
   ### LIBRE PHOTOS   ###
+  libre-proxy:
+    image: eu.gcr.io/dle-dev/libre-proxy:latest
+    container_name: dle-libre-proxy
+    networks:
+      - services-net
+    depends_on:
+      - libre-redis
+      - libre-frontend
+      - libre-db
+      - libre-backend
+    volumes:
+      - ${LIBRE_PHOTOS_DIR}:/data
+      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
+    expose:
+      - 80
   libre-db:
     image: postgres:13
     container_name: dle-libre-db
