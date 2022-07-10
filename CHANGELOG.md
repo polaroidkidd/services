@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.35.0](https://github.com/polaroidkidd/services/compare/v1.34.2...v1.35.0) (2022-07-10)
+
+
+### Features
+
+* migrate fotos.dle.dev 302 forward to cloudflare ([3e5880c](https://github.com/polaroidkidd/services/commit/3e5880c04e682466129e49bf6e3e2a56f50ff319))
+
 ### [1.34.2](https://github.com/polaroidkidd/services/compare/v1.34.1...v1.34.2) (2022-07-03)
 
 
