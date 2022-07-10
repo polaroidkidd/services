@@ -26,7 +26,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   proxy:
-    image: eu.gcr.io/dle-dev/proxy:1.4.0
+    image: eu.gcr.io/dle-dev/proxy:1.5.0
     networks:
       - services-net
     container_name: dle-proxy
