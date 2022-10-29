@@ -12,16 +12,26 @@ networks:
 
 
 services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: dle-docker-logs
+    ports:
+      - "8888:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - services-net
   argo:
-    image: eu.gcr.io/dle-dev/argo:latest
+    image: eu.gcr.io/dle-dev/argo:1.1.0
     networks:
       - services-net
     container_name: dle-argo
+    restart: unless-stopped
     ports:
       - "8099:8099"
     depends_on:
       - proxy
-
+      - dozzle
 
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
@@ -64,7 +74,7 @@ services:
   ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
-    image: eu.gcr.io/dle-dev/frontend:0.1.23
+    image: eu.gcr.io/dle-dev/frontend:1.1.2
     networks:
       - services-net
     container_name: dle-site
@@ -84,11 +94,10 @@ services:
       - argo
     expose:
       - 3000
-
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:24.0.2
+    image: eu.gcr.io/dle-dev/cloud:latest
     networks:
       services-net:
         ipv4_address: 172.19.0.99
@@ -343,6 +352,7 @@ services:
   libre-proxy:
     image: eu.gcr.io/dle-dev/libre-proxy:latest
     container_name: dle-libre-proxy
+    restart: unless-stopped
     networks:
       - services-net
     depends_on:

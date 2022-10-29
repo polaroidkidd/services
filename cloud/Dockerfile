@@ -1,4 +1,5 @@
-FROM nextcloud:24.0.2-apache
+FROM nextcloud:25.0-apache
+
 
 # Increse memory limits
 RUN echo memory_limit=24576M > /usr/local/etc/php/conf.d/memory-limit.ini
