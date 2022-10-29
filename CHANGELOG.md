@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.36.0](https://github.com/polaroidkidd/services/compare/v1.34.2...v1.36.0) (2022-10-29)
+
+
+### Features
+
+* migrate fotos.dle.dev 302 forward to cloudflare ([3e5880c](https://github.com/polaroidkidd/services/commit/3e5880c04e682466129e49bf6e3e2a56f50ff319))
+* migrate from CRA to nextjs ([d8d9f66](https://github.com/polaroidkidd/services/commit/d8d9f6607a021088eb6f0a424d378e2fb9a74d72))
+
 ## [1.35.0](https://github.com/polaroidkidd/services/compare/v1.34.2...v1.35.0) (2022-07-10)
 
 
