@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.36.2](https://github.com/polaroidkidd/services/compare/v1.36.1...v1.36.2) (2022-10-29)
+
+
+### Bug Fixes
+
+* port for site in argo ([7dc9ee4](https://github.com/polaroidkidd/services/commit/7dc9ee411c022cb2dd49c4aaed9f27b119dfd253))
+
 ### [1.36.1](https://github.com/polaroidkidd/services/compare/v1.36.0...v1.36.1) (2022-10-29)
 
 
