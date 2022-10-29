@@ -4,7 +4,7 @@ credentials-file: /usr/local/etc/cloudflared/d207d6c3-0a62-4bfa-a910-54bc92923be
 ingress:
   # Rules map traffic from a hostname to a local service:
   - hostname: dle.dev
-    service: http://site:80
+    service: http://site:3000
 
   - hostname: cloud.dle.dev
     service: http://cloud:80
