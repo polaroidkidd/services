@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.37.0](https://github.com/polaroidkidd/services/compare/v1.36.3...v1.37.0) (2022-11-13)
+
+
+### Features
+
+* move domains to cloudflare ([6659ebd](https://github.com/polaroidkidd/services/commit/6659ebdb9b39e8e4a87ceeaecd45f437ee63cee8))
+
 ### [1.36.3](https://github.com/polaroidkidd/services/compare/v1.36.2...v1.36.3) (2022-10-30)
 
 
