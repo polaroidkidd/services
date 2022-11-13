@@ -2,48 +2,88 @@ tunnel: d207d6c3-0a62-4bfa-a910-54bc92923be4
 credentials-file: /usr/local/etc/cloudflared/d207d6c3-0a62-4bfa-a910-54bc92923be4.json
 
 ingress:
-  # Rules map traffic from a hostname to a local service:
+    # Portfolio Page
   - hostname: dle.dev
     service: http://site:3000
+  - hostname: www.dle.dev
+    service: http://site:3000
 
+    # Points to Portfolio Page while I work on it
   - hostname: polaroidkidd.com
     service: http://site:3000
+  - hostname: www.polaroidkidd.com
+    service: http://site:3000
 
+    # Points to Portfolio Page while I work on it
   - hostname: our.pics
     service: http://site:3000
-
-  - hostname: rovinj.wedding
+  - hostname: www.our.pics
     service: http://site:3000
 
+    # Points to Portfolio Page while I work on it
+  - hostname: rovinj.wedding
+    service: http://site:3000
+  - hostname: www.rovinj.wedding
+    service: http://site:3000
+
+    # nextcloud
   - hostname: cloud.dle.dev
     service: http://cloud:80
+  - hostname: www.cloud.dle.dev
+    service: http://cloud:80
 
+    # Secret Santa Page
   - hostname: santa.dle.dev
     service: http://santa:3000
+  - hostname: www.santa.dle.dev
+    service: http://santa:3000
 
+    # Torrent Service
   - hostname: deluge.dle.dev
     service: http://deluge:8112
+  - hostname: www.deluge.dle.dev
+    service: http://deluge:8112
 
+    # Movie Service
   - hostname: radarr.dle.dev
     service: http://radarr:7878
+  - hostname: www.radarr.dle.dev
+    service: http://radarr:7878
 
+    # TV Series Service
   - hostname: sonarr.dle.dev
     service: http://sonarr:8989
+  - hostname: www.sonarr.dle.dev
+    service: http://sonarr:8989
 
+    # Side-Car to Sonarr & Radarr
   - hostname: jackett.dle.dev
     service: http://jackett:9117
+  - hostname: www.jackett.dle.dev
+    service: http://jackett:9117
 
+    # Bitwarden (Julia)
   - hostname: bw.dle.dev
     service: http://bitwarden:80
+  - hostname: www.bw.dle.dev
+    service: http://bitwarden:80
 
+    # Bitwarden (Daniel)
   - hostname: pw.dle.dev
     service: http://bitwarden-private:80
+  - hostname: www.pw.dle.dev
+    service: http://bitwarden-private:80
 
+    # Snail-Mail-Manager
   - hostname: paperless.dle.dev
     service: http://paperless-webserver:8000
+  - hostname: www.paperless.dle.dev
+    service: http://paperless-webserver:8000
 
+    # Photo Manager
   - hostname: pics.dle.dev
     service: http://libre-proxy:80
-
+  - hostname: www.pics.dle.dev
+    service: http://libre-proxy:80
 
   - service: http://site:80
