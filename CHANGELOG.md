@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.38.0](https://github.com/polaroidkidd/services/compare/v1.37.0...v1.38.0) (2022-11-13)
+
+
+### Features
+
+* add www prefixes to domains ([ccb1aca](https://github.com/polaroidkidd/services/commit/ccb1acac1f1174118cacbd0f0ffcaa32ec619e93))
+
 ## [1.37.0](https://github.com/polaroidkidd/services/compare/v1.36.3...v1.37.0) (2022-11-13)
 
 
