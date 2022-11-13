@@ -22,7 +22,7 @@ services:
     networks:
       - services-net
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.1.1
+    image: eu.gcr.io/dle-dev/argo:1.2.1
     networks:
       - services-net
     container_name: dle-argo

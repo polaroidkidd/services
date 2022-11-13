@@ -6,6 +6,15 @@ ingress:
   - hostname: dle.dev
     service: http://site:3000
 
+  - hostname: polaroidkidd.com
+    service: http://site:3000
+
+  - hostname: our.pics
+    service: http://site:3000
+
+  - hostname: rovinj.wedding
+    service: http://site:3000
+
   - hostname: cloud.dle.dev
     service: http://cloud:80
 
