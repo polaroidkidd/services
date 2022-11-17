@@ -426,8 +426,14 @@ services:
     restart: unless-stopped
     depends_on:
       - libre-db
+  libre-redis:
+    container_name: dle-libre-redis
+    restart: unless-stopped
+    image: redis:6
+    networks:
+      - services-net
   #################################################
-  ### bazarr PHOTOS   ###
+  ### bazarr ###
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: dle-bazarr
@@ -446,10 +452,22 @@ services:
       - services-net
     restart: unless-stopped
     depends_on:
-      - libre-db
-  libre-redis:
-    container_name: dle-libre-redis
-    restart: unless-stopped
-    image: redis:6
+      - argo
+  #################################################
+  ### librespeed ###
+  librespeed:
+    image: lscr.io/linuxserver/librespeed:latest
+    container_name: dle-librespeed
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - PASSWORD=${LIBRESPEED}
+    volumes:
+      - ./volumes/librespeed/config:/config
+    expose:
+      - 8901:80
     networks:
       - services-net
+    restart: unless-stopped
+

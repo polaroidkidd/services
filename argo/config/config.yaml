@@ -93,17 +93,13 @@ ingress:
     service: http://www.bazarr:6767
 
 
-
-  - hostname: librespeed.dle.dev
-    service: http://librespeed:80
   - hostname: netdata.dle.dev
     service: http://netdata:80
   - hostname: prowlarr.dle.dev
     service: http://prowlarr:80
   - hostname: scrutiny.dle.dev
     service: http://scrutiny:80
-  - hostname: www.librespeed.dle.dev
-    service: http://www.librespeed:80
+
   - hostname: www.netdata.dle.dev
     service: http://www.netdata:80
   - hostname: www.prowlarr.dle.dev
