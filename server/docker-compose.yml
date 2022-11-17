@@ -76,7 +76,7 @@ services:
   ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
-    image: eu.gcr.io/dle-dev/frontend:latest
+    image: eu.gcr.io/dle-dev/frontend:1.7.0
     networks:
       - services-net
     container_name: dle-site
@@ -221,23 +221,6 @@ services:
     env_file:
       - .linuxserver.env
 
-  #################################################
-  ### BEGIN JACKETT ###
-  jackett:
-    image: linuxserver/jackett:latest
-    networks:
-      - services-net
-    container_name: dle-jackett
-    depends_on:
-      - argo
-    env_file:
-      - .linuxserver.env
-    volumes:
-      - ./volumes/jackett/config:/config
-      - /mnt/md0/storage/Media/downloads:/downloads
-    expose:
-      - 9117
-    restart: unless-stopped
 
   #################################################
   ### BEGIN BITWARDEN ###
@@ -465,9 +448,23 @@ services:
       - PASSWORD=${LIBRESPEED}
     volumes:
       - ./volumes/librespeed/config:/config
-    expose:
-      - 8901:80
+    ports:
+      - "8901:80"
     networks:
       - services-net
     restart: unless-stopped
 
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: dle-prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./volumes/prowlarr/data:/config
+    expose:
+      - 9696
+    networks:
+      - services-net
+    restart: unless-stopped

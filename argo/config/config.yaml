@@ -56,11 +56,6 @@ ingress:
   - hostname: www.sonarr.dle.dev
     service: http://sonarr:8989
 
-    # Side-Car to Sonarr & Radarr
-  - hostname: jackett.dle.dev
-    service: http://jackett:9117
-  - hostname: www.jackett.dle.dev
-    service: http://jackett:9117
 
     # Bitwarden (Julia)
   - hostname: bw.dle.dev
@@ -93,18 +88,22 @@ ingress:
     service: http://www.bazarr:6767
 
 
-  - hostname: netdata.dle.dev
-    service: http://netdata:80
+    # prowlarr
   - hostname: prowlarr.dle.dev
-    service: http://prowlarr:80
-  - hostname: scrutiny.dle.dev
-    service: http://scrutiny:80
-
-  - hostname: www.netdata.dle.dev
-    service: http://www.netdata:80
+    service: http://prowlarr:9696
   - hostname: www.prowlarr.dle.dev
-    service: http://www.prowlarr:80
-  - hostname: www.scrutiny.dle.dev
-    service: http://www.scrutiny:80
+    service: http://www.prowlarr:9696
+
+#  - hostname: netdata.dle.dev
+#    service: http://netdata:80
+#
+#  - hostname: scrutiny.dle.dev
+#    service: http://scrutiny:80
+#
+#  - hostname: www.netdata.dle.dev
+#    service: http://www.netdata:80
+#
+#  - hostname: www.scrutiny.dle.dev
+#    service: http://www.scrutiny:80
 
   - service: http://site:80
