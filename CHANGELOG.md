@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.39.0](https://github.com/polaroidkidd/services/compare/v1.38.0...v1.39.0) (2022-11-27)
+
+
+### Features
+
+* include libre-speed ([43857b6](https://github.com/polaroidkidd/services/commit/43857b62f8e1b4d1dbae7dd66efc2dfbf0b168e9))
+* include prowlarr ([1c28f34](https://github.com/polaroidkidd/services/commit/1c28f347d4d3d315fbd077b00b565e48fa258a4f))
+* integrate bazarr ([e79e21f](https://github.com/polaroidkidd/services/commit/e79e21f8d0dace2fb31a580f6b219732a7d74608))
+
 ## [1.38.0](https://github.com/polaroidkidd/services/compare/v1.37.0...v1.38.0) (2022-11-13)
 
 
