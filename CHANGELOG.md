@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.40.0](https://github.com/polaroidkidd/services/compare/v1.39.0...v1.40.0) (2022-12-10)
+
+
+### Features
+
+* replace docker image bitwardenrs/server with vaultwarden/server ([d60d6cf](https://github.com/polaroidkidd/services/commit/d60d6cff4d90f2f8a40ebe0c95e32be00790e94c))
+
 ## [1.39.0](https://github.com/polaroidkidd/services/compare/v1.38.0...v1.39.0) (2022-11-27)
 
 
