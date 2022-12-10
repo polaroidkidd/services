@@ -225,7 +225,7 @@ services:
   #################################################
   ### BEGIN BITWARDEN ###
   bitwarden:
-    image: bitwardenrs/server:latest
+    image: vaultwarden/server:latest
     networks:
       - services-net
     container_name: dle-bitwarden
@@ -243,7 +243,7 @@ services:
       - ./volumes/bitwarden/attachments:/attachments
 
   bitwarden-private:
-    image: bitwardenrs/server:latest
+    image: vaultwarden/server:latest
     networks:
       - services-net
     depends_on:
