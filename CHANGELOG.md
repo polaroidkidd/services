@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.42.0](https://github.com/polaroidkidd/services/compare/v1.40.0...v1.42.0) (2023-01-01)
+
+
+### Features
+
+* install ffmpeg into cloud container ([b79d457](https://github.com/polaroidkidd/services/commit/b79d457b0ba861a511c058c5c0fb2db8eb7c9b8a))
+* update nextcloud to 25.0.2 ([2d409f9](https://github.com/polaroidkidd/services/commit/2d409f97a3a7fbe72d27c658bf420c29e12110af))
+
 ## [1.41.0](https://github.com/polaroidkidd/services/compare/v1.40.0...v1.41.0) (2022-12-20)
 
 
