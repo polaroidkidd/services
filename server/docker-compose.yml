@@ -99,7 +99,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:latest
+    image: eu.gcr.io/dle-dev/cloud:25.0.2
     networks:
       services-net:
         ipv4_address: 172.19.0.99
