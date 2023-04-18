@@ -1,8 +1,12 @@
-FROM nextcloud:25.0.2-apache
+FROM nextcloud:25.0.5-apache
 
 
 # Increse memory limits
 RUN echo memory_limit=24576M > /usr/local/etc/php/conf.d/memory-limit.ini
+RUN apt-get -y update && \
+    apt-get install -y ffmpeg imagemagick && \
+    apt-get clean
+
 
 # OP Cache Configuration
 COPY ./config/opcache-recommended.ini /usr/local/etc/php/conf.d/

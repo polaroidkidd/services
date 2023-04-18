@@ -38,7 +38,7 @@ services:
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
   proxy:
-    image: eu.gcr.io/dle-dev/proxy:1.5.0
+    image: eu.gcr.io/dle-dev/proxy:latest
     networks:
       - services-net
     container_name: dle-proxy
@@ -76,7 +76,7 @@ services:
   ###################################################
   ## BEGINE WEBSITE dle.dev ##
   site:
-    image: eu.gcr.io/dle-dev/frontend:latest
+    image: eu.gcr.io/dle-dev/dle.dev:1.13.0
     networks:
       - services-net
     container_name: dle-site
@@ -85,7 +85,30 @@ services:
       - 3000
     depends_on:
       - argo
-
+  ###################################################
+  ## BEGINE WEBSITE dle.dev ##
+  next:
+    image: eu.gcr.io/dle-dev/dle.dev:1.12.0
+    networks:
+      - services-net
+    container_name: dle-next
+    restart: unless-stopped
+    expose:
+      - 3000
+    depends_on:
+      - argo
+  ###################################################
+  ## BEGINE WEBSITE joeltest.com ##
+  joeltest:
+    image: eu.gcr.io/dle-dev/joeltest.com:latest
+    networks:
+      - services-net
+    container_name: dle-joel-test
+    restart: unless-stopped
+    expose:
+      - 3000
+    depends_on:
+      - argo
   santa:
     image: eu.gcr.io/dle-dev/sm-frontend:latest
     networks:
@@ -99,7 +122,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:25.0.2
+    image: eu.gcr.io/dle-dev/cloud:25.0.5
     networks:
       services-net:
         ipv4_address: 172.19.0.99
@@ -468,3 +491,67 @@ services:
     networks:
       - services-net
     restart: unless-stopped
+
+  #################################################
+  ### plausible ###
+
+  brain-mail:
+    container_name: dle-brain-mail
+    image: bytemark/smtp
+    restart: unless-stopped
+    networks:
+      - services-net
+  brain-db:
+    container_name: dle-brain-db
+    # supported versions are 12, 13, and 14
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+      - ./volumes/brain/brain-db/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${PLAUSIBLE_POSTGRES_PASSWORD}
+    networks:
+      - services-net
+
+  brain-events-db:
+    container_name: dle-brain-events-db
+    image: clickhouse/clickhouse-server:22.6-alpine
+    restart: unless-stopped
+    volumes:
+      - ./volumes/brain/brain-events-db/db:/var/lib/clickhouse
+      - ./volumes/brain/brain-events-db/config/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      - ./volumes/brain/brain-events-db/config/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - services-net
+
+  brain:
+    container_name: dle-brain
+    image: plausible/analytics:latest
+    restart: unless-stopped
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
+    depends_on:
+      - brain-db
+      - brain-events-db
+      - brain-mail
+    expose:
+      - 8000
+    environment:
+      - CLICKHOUSE_DATABASE_URL=http://brain-events-db:8123/plausible_events_db
+      - DATABASE_URL=postgres://postgres:${PLAUSIBLE_POSTGRES_PASSWORD}@brain-db:5432/plausible_db
+      - BASE_URL=https://brain.dle.dev:443
+      - DISABLE_REGISTRATION=true
+      - MAILER_EMAIL=brain@dle.dev
+      - SMTP_HOST_ADDR=mail.runbox.com
+      - SMTP_HOST_PORT=465
+      - SMTP_USER_NAME=${RUNBOX_USR}
+      - SMTP_USER_PWD=${RUNBOX_PSW}
+      - SECRET_KEY_BASE=${PLAUSIBLE_SECRET_KEY_BASE}
+      - SMTP_HOST_SSL_ENABLED=false
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    networks:
+      - services-net

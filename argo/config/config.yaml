@@ -5,26 +5,33 @@ ingress:
     # Portfolio Page
   - hostname: dle.dev
     service: http://site:3000
-  - hostname: www.dle.dev
-    service: http://site:3000
+    # Portfolio Page
+  - hostname: next.dle.dev
+    service: http://next:3000
+
+  - hostname: joeltest.com
+    service: http://joeltest:3000
+
+  - hostname: brain.dle.dev
+    service: http://brain:8000
 
     # Points to Portfolio Page while I work on it
   - hostname: polaroidkidd.com
-    service: http://site:3000
+    service: http://santa:3000
   - hostname: www.polaroidkidd.com
-    service: http://site:3000
+    service: http://santa:3000
 
     # Points to Portfolio Page while I work on it
   - hostname: our.pics
-    service: http://site:3000
+    service: http://santa:3000
   - hostname: www.our.pics
-    service: http://site:3000
+    service: http://santa:3000
 
     # Points to Portfolio Page while I work on it
   - hostname: rovinj.wedding
-    service: http://site:3000
+    service: http://santa:3000
   - hostname: www.rovinj.wedding
-    service: http://site:3000
+    service: http://santa:3000
 
     # nextcloud
   - hostname: cloud.dle.dev
@@ -94,6 +101,9 @@ ingress:
   - hostname: www.prowlarr.dle.dev
     service: http://www.prowlarr:9696
 
+
+
+
 #  - hostname: netdata.dle.dev
 #    service: http://netdata:80
 #
@@ -106,4 +116,4 @@ ingress:
 #  - hostname: www.scrutiny.dle.dev
 #    service: http://www.scrutiny:80
 
-  - service: http://site:80
+  - service: http_status:404
