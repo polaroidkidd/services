@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.43.0](https://github.com/polaroidkidd/services/compare/v1.42.0...v1.43.0) (2023-04-19)
+
+
+### Features
+
+* Migrate from NextJS to Svelte ([cb6ea57](https://github.com/polaroidkidd/services/commit/cb6ea5760da40587c2bd505031e62a7f95fcb5fc))
+* update site container version ([87eb270](https://github.com/polaroidkidd/services/commit/87eb270a2af23ffb1cfaa057f95b76415b0d4b61))
+
 ## [1.42.0](https://github.com/polaroidkidd/services/compare/v1.40.0...v1.42.0) (2023-01-01)
 
 
