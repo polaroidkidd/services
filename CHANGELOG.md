@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.44.0](https://github.com/polaroidkidd/services/compare/v1.43.1...v1.44.0) (2023-05-05)
+
+
+### Features
+
+* update site container version ([2081642](https://github.com/polaroidkidd/services/commit/20816426bd5572b78b9d314ff18f34194649d3ee))
+
 ### [1.43.1](https://github.com/polaroidkidd/services/compare/v1.43.0...v1.43.1) (2023-04-23)
 
 ## [1.43.0](https://github.com/polaroidkidd/services/compare/v1.42.0...v1.43.0) (2023-04-19)
