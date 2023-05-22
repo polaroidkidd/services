@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.46.0](https://github.com/polaroidkidd/services/compare/v1.45.0...v1.46.0) (2023-05-22)
+
+
+### Features
+
+* add prowlarr again ([9596088](https://github.com/polaroidkidd/services/commit/959608811fe8a6976d9cefe186c399254d1d1b5e))
+
 ## [1.45.0](https://github.com/polaroidkidd/services/compare/v1.44.1...v1.45.0) (2023-05-22)
 
 
