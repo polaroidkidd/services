@@ -210,6 +210,22 @@ services:
     env_file:
       - .linuxserver.env
 
+  #################################################
+  ### BEGIN prowlarr ###
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:develop
+    container_name: dle-prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ./volumes/prowlarr/data:/config
+    expose:
+      - 9696
+    networks:
+      - services-net
+    restart: unless-stopped
 
   #################################################
   ### BEGIN SONARR ###
