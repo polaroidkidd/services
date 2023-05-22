@@ -86,18 +86,6 @@ services:
     depends_on:
       - argo
   ###################################################
-  ## BEGINE WEBSITE dle.dev ##
-  next:
-    image: eu.gcr.io/dle-dev/dle.dev:1.12.0
-    networks:
-      - services-net
-    container_name: dle-next
-    restart: unless-stopped
-    expose:
-      - 3000
-    depends_on:
-      - argo
-  ###################################################
   ## BEGINE WEBSITE joeltest.com ##
   joeltest:
     image: eu.gcr.io/dle-dev/joeltest.com:latest
@@ -122,7 +110,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:25.0.5
+    image: eu.gcr.io/dle-dev/cloud:25.0.6
     networks:
       services-net:
         ipv4_address: 172.19.0.99
@@ -459,39 +447,7 @@ services:
     restart: unless-stopped
     depends_on:
       - argo
-  #################################################
-  ### librespeed ###
-  librespeed:
-    image: lscr.io/linuxserver/librespeed:latest
-    container_name: dle-librespeed
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - PASSWORD=${LIBRESPEED}
-    volumes:
-      - ./volumes/librespeed/config:/config
-    ports:
-      - "8901:80"
-    networks:
-      - services-net
-    restart: unless-stopped
-
-  prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
-    container_name: dle-prowlarr
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-    volumes:
-      - ./volumes/prowlarr/data:/config
-    expose:
-      - 9696
-    networks:
-      - services-net
-    restart: unless-stopped
-
+      
   #################################################
   ### plausible ###
 
