@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.47.0](https://github.com/polaroidkidd/services/compare/v1.46.1...v1.47.0) (2023-06-03)
+
+
+### Features
+
+* integrate overseerr and tauttulli ([c5ca0bf](https://github.com/polaroidkidd/services/commit/c5ca0bf762bab49060f3f26d422819f1e7d1f46f))
+
 ### [1.46.1](https://github.com/polaroidkidd/services/compare/v1.46.0...v1.46.1) (2023-05-22)
 
 
