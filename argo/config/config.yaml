@@ -99,6 +99,17 @@ ingress:
   - hostname: www.prowlarr.dle.dev
     service: http://www.prowlarr:9696
 
+    # overseerr
+  - hostname: req.dle.dev
+    service: http://overseerr:5055
+  - hostname: www.req.dle.dev
+    service: http://www.overseerr:5055    
+
+    # tautulli
+  - hostname: medstats.dle.dev
+    service: http://tautulli:8181
+  - hostname: www.medstats.dle.dev
+    service: http://www.tautulli:8181    
 
 
 
