@@ -74,18 +74,6 @@ services:
       - "12079:12079"
 
   ###################################################
-  ## BEGINE WEBSITE dle.dev ##
-  site:
-    image: eu.gcr.io/dle-dev/dle.dev:1.18.0
-    networks:
-      - services-net
-    container_name: dle-site
-    restart: unless-stopped
-    expose:
-      - 3000
-    depends_on:
-      - argo
-  ###################################################
   ## BEGINE WEBSITE joeltest.com ##
   joeltest:
     image: eu.gcr.io/dle-dev/joeltest.com:latest
