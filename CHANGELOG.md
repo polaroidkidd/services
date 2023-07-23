@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.48.0](https://github.com/polaroidkidd/services/compare/v1.47.0...v1.48.0) (2023-07-23)
+
+
+### Features
+
+* remove site from docker-compose because it's hosted on cloudflare ([245ae71](https://github.com/polaroidkidd/services/commit/245ae71c5c31b44e0c4c4588f84d199fcedc993a))
+
 ## [1.47.0](https://github.com/polaroidkidd/services/compare/v1.46.1...v1.47.0) (2023-06-03)
 
 
