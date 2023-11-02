@@ -1,6 +1,6 @@
 {
   "name": "cloud",
-  "version": "26.0.1",
+  "version": "27.1.3",
   "license": "MIT",
   "scripts": {
     "cloud:BUILD": "./docker.sh",

@@ -1,6 +1,5 @@
 version: '3.8'
 
-
 networks:
   services-net:
     name: services-net
@@ -9,7 +8,6 @@ networks:
       config:
         - subnet: 172.19.0.0/16
           gateway: 172.19.0.1
-
 
 services:
   dozzle:
@@ -72,7 +70,17 @@ services:
       - ./.${SERVICES_ENVIRONMENT}.ssl.env
     ports:
       - "12079:12079"
-
+  ###################################################
+  ## BEGINE WEBSITE node.meetup.dle.dev ##
+  node-svete-meetup:
+    image: eu.gcr.io/dle-dev/svelte-node-meetup:latest
+    networks:
+      - services-net
+    container_name: dle-node-svelte-meetup
+    expose:
+      - 3000
+    depends_on:
+      - argo
   ###################################################
   ## BEGINE WEBSITE joeltest.com ##
   joeltest:
@@ -98,7 +106,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:26.0.1
+    image: eu.gcr.io/dle-dev/cloud:27.1.1
     networks:
       services-net:
         ipv4_address: 172.19.0.99
@@ -151,7 +159,6 @@ services:
     expose:
       - 6379
 
-
   ###################################################
   ## BEGIN deluge ##
   deluge:
@@ -175,7 +182,6 @@ services:
     ports:
       - "6881:6881"
       - "6881:6881/udp"
-
 
   #################################################
   ### BEGIN RADARR ###
@@ -209,7 +215,7 @@ services:
       - ./volumes/tautulli/config:/config
     expose:
       - 8181
-    restart: unless-stopped      
+    restart: unless-stopped
     networks:
       - services-net
     container_name: dle-tautulli
@@ -228,11 +234,11 @@ services:
       - ./volumes/overseerr/config:/config
     expose:
       - 5055
-    restart: unless-stopped   
+    restart: unless-stopped
     networks:
-      - services-net    
+      - services-net
     depends_on:
-      - argo      
+      - argo
 
   #################################################
   ### BEGIN prowlarr ###
@@ -271,7 +277,6 @@ services:
     restart: unless-stopped
     env_file:
       - .linuxserver.env
-
 
   #################################################
   ### BEGIN BITWARDEN ###
@@ -350,7 +355,13 @@ services:
     expose:
       - 8000
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://paperless-webserver:8000" ]
+      test:
+        [
+          "CMD",
+          "curl",
+          "-f",
+          "http://paperless-webserver:8000"
+        ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -381,7 +392,6 @@ services:
       - "445:445"
     volumes:
       - ./volumes/paperless/consume:/data
-
 
   #################################################
   ### LIBRE PHOTOS   ###
@@ -414,7 +424,6 @@ services:
     networks:
       - services-net
     restart: unless-stopped
-
 
   libre-frontend:
     image: reallibrephotos/librephotos-frontend:${LIBRE_TAG}
@@ -487,7 +496,7 @@ services:
     restart: unless-stopped
     depends_on:
       - argo
-      
+
   #################################################
   ### plausible ###
 

@@ -2,7 +2,7 @@ tunnel: d207d6c3-0a62-4bfa-a910-54bc92923be4
 credentials-file: /usr/local/etc/cloudflared/d207d6c3-0a62-4bfa-a910-54bc92923be4.json
 
 ingress:
-    # Portfolio Page
+  # Portfolio Page
   - hostname: dle.dev
     service: http://site:3000
 
@@ -15,7 +15,7 @@ ingress:
     # Points to Portfolio Page while I work on it
   - hostname: polaroidkidd.com
     service: http://santa:3000
-    
+
   - hostname: www.polaroidkidd.com
     service: http://santa:3000
 
@@ -61,7 +61,9 @@ ingress:
   - hostname: www.sonarr.dle.dev
     service: http://sonarr:8989
 
-
+    # Node Svelte (Julia)
+  - hostname: node.meetup.dle.dev
+    service: http://node-svete-meetup:3000
     # Bitwarden (Julia)
   - hostname: bw.dle.dev
     service: http://bitwarden:80
@@ -92,7 +94,6 @@ ingress:
   - hostname: www.bazarr.dle.dev
     service: http://www.bazarr:6767
 
-
     # prowlarr
   - hostname: prowlarr.dle.dev
     service: http://prowlarr:9696
@@ -103,26 +104,24 @@ ingress:
   - hostname: req.dle.dev
     service: http://overseerr:5055
   - hostname: www.req.dle.dev
-    service: http://www.overseerr:5055    
+    service: http://www.overseerr:5055
 
     # tautulli
   - hostname: medstats.dle.dev
     service: http://tautulli:8181
   - hostname: www.medstats.dle.dev
-    service: http://www.tautulli:8181    
+    service: http://www.tautulli:8181
 
-
-
-#  - hostname: netdata.dle.dev
-#    service: http://netdata:80
-#
-#  - hostname: scrutiny.dle.dev
-#    service: http://scrutiny:80
-#
-#  - hostname: www.netdata.dle.dev
-#    service: http://www.netdata:80
-#
-#  - hostname: www.scrutiny.dle.dev
-#    service: http://www.scrutiny:80
+  #  - hostname: netdata.dle.dev
+  #    service: http://netdata:80
+  #
+  #  - hostname: scrutiny.dle.dev
+  #    service: http://scrutiny:80
+  #
+  #  - hostname: www.netdata.dle.dev
+  #    service: http://www.netdata:80
+  #
+  #  - hostname: www.scrutiny.dle.dev
+  #    service: http://www.scrutiny:80
 
   - service: http_status:404
