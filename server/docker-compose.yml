@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.6.0
+    image: eu.gcr.io/dle-dev/argo:latest
     networks:
       - services-net
     container_name: dle-argo
@@ -549,3 +549,72 @@ services:
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     networks:
       - services-net
+
+
+#################################################
+### GlitchTip ###
+  glitchtip-db:
+    image: postgres:15
+    container_name: dle-glitchtip-db
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: "trust"  # Consider removing this and setting a password
+    restart: unless-stopped
+    volumes:
+      - ./volumes/glitch/db:/var/lib/postgresql/data
+    networks:
+      - services-net      
+  glitchtip-redis:
+    container_name: dle-glitchtip-redis
+    image: redis
+    restart: unless-stopped
+    networks:
+      - services-net    
+  glitchtip-web:
+    image: glitchtip/glitchtip
+    container_name: dle-glitchtip-web
+    depends_on: 
+      - glitchtip-db
+      - glitchtip-redis
+    expose:
+      - 8000
+    env_file:
+      - .env.glitchtip
+    environment:
+      - SECRET_KEY=${GLITCHTIP_SECRET_KEY}
+      - EMAIL_URL=smtp://${RUNBOX_USR}:${RUNBOX_PSW}@mail.runbox.com:587
+    restart: unless-stopped
+    volumes: 
+      - ./volumes/glitch/uploads:/code/uploads
+    networks:
+      - services-net      
+  glitchtip-worker:
+    image: glitchtip/glitchtip
+    container_name: dle-glitchtip-worker
+    command: ./bin/run-celery-with-beat.sh
+    depends_on:  
+      - glitchtip-db
+      - glitchtip-redis
+    env_file:
+      - .env.glitchtip
+    environment:
+      - SECRET_KEY=${GLITCHTIP_SECRET_KEY}      
+      - EMAIL_URL=smtp://${RUNBOX_USR}:${RUNBOX_PSW}@mail.runbox.com:587      
+    restart: unless-stopped
+    volumes: 
+      - ./volumes/glitch/uploads:/code/uploads
+    networks:
+      - services-net      
+  glitchtip-migrate:
+    image: glitchtip/glitchtip
+    container_name: dle-glitchtip-migrate
+    depends_on:  
+      - glitchtip-db
+      - glitchtip-redis
+    command: "./manage.py migrate"
+    env_file:
+      - .env.glitchtip
+    environment:
+      - SECRET_KEY=${GLITCHTIP_SECRET_KEY}      
+      - EMAIL_URL=smtp://${RUNBOX_USR}:${RUNBOX_PSW}@mail.runbox.com:587      
+    networks:
+      - services-net      

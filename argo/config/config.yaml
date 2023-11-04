@@ -110,4 +110,10 @@ ingress:
     service: http://www.tautulli:8181
 
 
+    # GlitchTip
+  - hostname: glitch.dle.dev
+    service: http://glitch:8181
+  - hostname: www.glitch.dle.dev
+    service: http://www.glitch:8181
+
   - service: http_status:404
