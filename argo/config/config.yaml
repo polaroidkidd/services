@@ -61,9 +61,6 @@ ingress:
   - hostname: www.sonarr.dle.dev
     service: http://sonarr:8989
 
-    # Node Svelte (Julia)
-  - hostname: node.meetup.dle.dev
-    service: http://node-svete-meetup:3000
     # Bitwarden (Julia)
   - hostname: bw.dle.dev
     service: http://bitwarden:80
@@ -112,16 +109,5 @@ ingress:
   - hostname: www.medstats.dle.dev
     service: http://www.tautulli:8181
 
-  #  - hostname: netdata.dle.dev
-  #    service: http://netdata:80
-  #
-  #  - hostname: scrutiny.dle.dev
-  #    service: http://scrutiny:80
-  #
-  #  - hostname: www.netdata.dle.dev
-  #    service: http://www.netdata:80
-  #
-  #  - hostname: www.scrutiny.dle.dev
-  #    service: http://www.scrutiny:80
 
   - service: http_status:404

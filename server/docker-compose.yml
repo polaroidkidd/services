@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:latest
+    image: eu.gcr.io/dle-dev/argo:1.6.0
     networks:
       - services-net
     container_name: dle-argo
@@ -71,17 +71,6 @@ services:
     ports:
       - "12079:12079"
   ###################################################
-  ## BEGINE WEBSITE node.meetup.dle.dev ##
-  node-svete-meetup:
-    image: eu.gcr.io/dle-dev/svelte-node-meetup:latest
-    networks:
-      - services-net
-    container_name: dle-node-svelte-meetup
-    expose:
-      - 3000
-    depends_on:
-      - argo
-  ###################################################
   ## BEGINE WEBSITE joeltest.com ##
   joeltest:
     image: eu.gcr.io/dle-dev/joeltest.com:latest
@@ -106,7 +95,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:27.1.1
+    image: eu.gcr.io/dle-dev/cloud:27.1.3
     networks:
       services-net:
         ipv4_address: 172.19.0.99
