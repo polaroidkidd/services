@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.50.0](https://github.com/polaroidkidd/services/compare/v1.48.0...v1.50.0) (2023-11-04)
+
+
+### Features
+
+* upgrade nextcloud ([db2f03d](https://github.com/polaroidkidd/services/commit/db2f03d9a5f4dc70760a92e8546d3c58ae969d62))
+
+
+### Bug Fixes
+
+* updated nextcloud version and pinned argo container version ([4f03cba](https://github.com/polaroidkidd/services/commit/4f03cba7711ac1a2f48e252cf5283cbd0eeea4e4))
+
 ## [1.49.0](https://github.com/polaroidkidd/services/compare/v1.48.0...v1.49.0) (2023-11-02)
 
 
