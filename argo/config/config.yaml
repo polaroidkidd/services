@@ -89,25 +89,30 @@ ingress:
   - hostname: bazarr.dle.dev
     service: http://bazarr:6767
   - hostname: www.bazarr.dle.dev
-    service: http://www.bazarr:6767
+    service: http://bazarr:6767
 
     # prowlarr
   - hostname: prowlarr.dle.dev
     service: http://prowlarr:9696
   - hostname: www.prowlarr.dle.dev
-    service: http://www.prowlarr:9696
+    service: http://prowlarr:9696
 
     # overseerr
   - hostname: req.dle.dev
     service: http://overseerr:5055
   - hostname: www.req.dle.dev
-    service: http://www.overseerr:5055
+    service: http://overseerr:5055
 
     # tautulli
   - hostname: medstats.dle.dev
     service: http://tautulli:8181
   - hostname: www.medstats.dle.dev
-    service: http://www.tautulli:8181
+    service: http://tautulli:8181
 
+    # trilium
+  - hostname: noted.dle.dev
+    service: http://trilium:8080
+  - hostname: www.noted.dle.dev
+    service: http://trilium:8080
 
   - service: http_status:404
