@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.6.0
+    image: eu.gcr.io/dle-dev/argo:1.7.0
     networks:
       - services-net
     container_name: dle-argo
@@ -549,3 +549,15 @@ services:
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     networks:
       - services-net
+  #################################################
+  ### trilium ###
+  trilium:
+    image: zadam/trilium
+    container_name: dle-trilium
+    restart: unless-stopped
+    networks:
+      - services-net
+    expose:
+      - 8080
+    volumes:
+      - ./volumes/trilium:/home/node/trilium-data  
