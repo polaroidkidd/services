@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.51.0](https://github.com/polaroidkidd/services/compare/v1.50.0...v1.51.0) (2023-11-10)
+
+
+### Features
+
+* integrate trilium ([54fcb15](https://github.com/polaroidkidd/services/commit/54fcb15c9b4834398780add2cb3bf4904d913ff7))
+
 ## [1.50.0](https://github.com/polaroidkidd/services/compare/v1.48.0...v1.50.0) (2023-11-04)
 
 
