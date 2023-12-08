@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.52.0](https://github.com/polaroidkidd/services/compare/v1.50.0...v1.52.0) (2023-12-08)
+
+
+### Features
+
+* integrate jellyfin ([88e2d35](https://github.com/polaroidkidd/services/commit/88e2d35f3b355bd11d6ce31f34caf13d190fccb5))
+* integrate trilium ([54fcb15](https://github.com/polaroidkidd/services/commit/54fcb15c9b4834398780add2cb3bf4904d913ff7))
+
 ## [1.51.0](https://github.com/polaroidkidd/services/compare/v1.50.0...v1.51.0) (2023-11-10)
 
 
