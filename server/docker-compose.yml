@@ -424,7 +424,7 @@ services:
     restart: unless-stopped
 
   libre-backend:
-    image: reallibrephotos/librephotos:${LIBRE_TAG}
+    image: reallibrephotos/librephotos-gpu:${LIBRE_TAG}
     container_name: dle-libre-backend
     volumes:
       - ${LIBRE_PHOTOS_DIR}:/data
@@ -458,6 +458,13 @@ services:
     restart: unless-stopped
     depends_on:
       - libre-db
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
   libre-redis:
     container_name: dle-libre-redis
     restart: unless-stopped
