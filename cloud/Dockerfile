@@ -1,4 +1,4 @@
-FROM nextcloud:28.0.0-apache
+FROM nextcloud:28.0.1-apache
 
 
 # Increse memory limits
