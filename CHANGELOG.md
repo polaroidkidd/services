@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.55.0](https://github.com/polaroidkidd/services/compare/v1.54.0...v1.55.0) (2024-02-03)
+
+
+### Features
+
+* update librephotos to use gpu ([69dd271](https://github.com/polaroidkidd/services/commit/69dd2713943bc4e570ebdc8d4c9f58eec0b3c7c6))
+
 ## [1.54.0](https://github.com/polaroidkidd/services/compare/v1.53.0...v1.54.0) (2023-12-24)
 
 
