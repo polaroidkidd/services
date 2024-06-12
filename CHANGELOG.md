@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.59.0](https://github.com/polaroidkidd/services/compare/v1.58.0...v1.59.0) (2024-06-12)
+
+
+### Features
+
+* update nextcloud to 29.0.1 ([6e4e82a](https://github.com/polaroidkidd/services/commit/6e4e82a9516a8c4e671152e2505aa69b9d25daf6))
+
 ## [1.58.0](https://github.com/polaroidkidd/services/compare/v1.57.0...v1.58.0) (2024-06-03)
 
 
