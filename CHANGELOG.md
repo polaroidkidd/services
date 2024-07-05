@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.60.0](https://github.com/polaroidkidd/services/compare/v1.59.0...v1.60.0) (2024-07-05)
+
+
+### Features
+
+* migrate to pnpm and update packages ([811d2b0](https://github.com/polaroidkidd/services/commit/811d2b033ee5cd0bb3edb4955ddf508869fadf6d))
+
 ## [1.59.0](https://github.com/polaroidkidd/services/compare/v1.58.0...v1.59.0) (2024-06-12)
 
 
