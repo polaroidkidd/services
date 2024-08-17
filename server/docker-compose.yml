@@ -22,7 +22,7 @@ services:
     restart: unless-stopped
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.7.0
+    image: eu.gcr.io/dle-dev/argo:latest
     networks:
       - services-net
     container_name: dle-argo
@@ -383,7 +383,7 @@ services:
       - ./volumes/paperless/consume:/data
 
   #################################################
-  ### LIBRE PHOTOS   ###
+  ### LIBRE PHOTOS  Me ###
   libre-proxy:
     image: eu.gcr.io/dle-dev/libre-proxy:latest
     container_name: dle-libre-proxy
@@ -467,6 +467,96 @@ services:
               capabilities: [gpu]
   libre-redis:
     container_name: dle-libre-redis
+    restart: unless-stopped
+    image: redis:6
+    networks:
+      - services-net
+
+    #################################################
+  ### LIBRE PHOTOS  Me ###
+  libre-dias-proxy:
+    image: eu.gcr.io/dle-dev/libre-proxy:latest
+    container_name: dle-libre-dias-proxy
+    restart: unless-stopped
+    networks:
+      - services-net
+    depends_on:
+      - libre-dias-redis
+      - libre-dias-frontend
+      - libre-dias-db
+      - libre-dias-backend
+    volumes:
+      - ${LIBRE_DIAS_PHOTOS_DIR}:/data
+      - ${LIBRE_DIAS_PRO_MEDIA_DIR}:/protected_media
+    expose:
+      - 80
+  libre-dias-db:
+    image: postgres:13
+    container_name: dle-libre-dias-db
+    environment:
+      - POSTGRES_USER=${LIBRE_DIAS_DB_USER}
+      - POSTGRES_PASSWORD=${LIBRE_DIAS_DB_PASS}
+      - POSTGRES_DB=${LIBRE_DIAS_DB_NAME}
+    volumes:
+      - ${LIBRE_DIAS_DB_LOCATION}:/var/lib/postgresql/data
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+    networks:
+      - services-net
+    restart: unless-stopped
+
+  libre-dias-frontend:
+    image: reallibrephotos/librephotos-frontend:${LIBRE_DIAS_TAG}
+    container_name: dle-libre-dias-frontend
+    depends_on:
+      - libre-backend
+    networks:
+      - services-net
+    restart: unless-stopped
+
+  libre-dias-backend:
+    image: reallibrephotos/librephotos-gpu:${LIBRE_DIAS_TAG}
+    container_name: dle-libre-dias-backend
+    volumes:
+      - ${LIBRE_DIAS_PHOTOS_DIR}:/data
+      - ${LIBRE_DIAS_PRO_MEDIA_DIR}:/protected_media
+      - ${LIBRE_DIAS_LOG_DIR}:/logs
+      - ${LIBRE_DIAS_CAHE_DIR}:/root/.cache
+
+    environment:
+      - SECRET_KEY=${LIBRE_DIAS_SHHHH_KEY}
+      - BACKEND_HOST=libre-dias-backend
+      - ADMIN_EMAIL=${LIBRE_DIAS_ADMIN_EMAIL}
+      - ADMIN_USERNAME=${LIBRE_DIAS_USER_NAME}
+      - ADMIN_PASSWORD=${LIBRE_DIAS_USER_PASS}
+      - DB_BACKEND=postgresql
+      - DB_NAME=${LIBRE_DIAS_DB_NAME}
+      - DB_USER=${LIBRE_DIAS_DB_USER}
+      - DB_PASS=${LIBRE_DIAS_DB_PASS}
+      - DB_HOST=${LIBRE_DIAS_DB_HOST}
+      - DB_PORT=5432
+      - REDIS_HOST=libre-redis
+      - REDIS_PORT=6379
+      - MAPBOX_API_KEY=${LIBRE_DIAS_MAP_API_KEY}
+      - WEB_CONCURRENCY=${LIBRE_DIAS_GUNNI_WORKERS}
+      - SKIP_PATTERNS=${LIBRE_DIAS_SKIP_PATTERNS}
+      - ALLOW_UPLOAD=${LIBRE_DIAS_ALLOW_UPLOAD}
+      - DEBUG=0
+      - HEAVYWEIGHT_PROCESS=${LIBRE_DIAS_HEAVYWEIGHT_PROCESS}
+    networks:
+      - services-net
+    # Wait for Postgres
+    restart: unless-stopped
+    depends_on:
+      - libre-db
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+  libre-dias-redis:
+    container_name: dle-libre-dias-redis
     restart: unless-stopped
     image: redis:6
     networks:
