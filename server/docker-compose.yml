@@ -508,7 +508,7 @@ services:
     image: reallibrephotos/librephotos-frontend:${LIBRE_DIAS_TAG}
     container_name: dle-libre-dias-frontend
     depends_on:
-      - libre-backend
+      - libre-dias-backend
     networks:
       - services-net
     restart: unless-stopped
@@ -534,7 +534,7 @@ services:
       - DB_PASS=${LIBRE_DIAS_DB_PASS}
       - DB_HOST=${LIBRE_DIAS_DB_HOST}
       - DB_PORT=5432
-      - REDIS_HOST=libre-redis
+      - REDIS_HOST=libre-dias-redis
       - REDIS_PORT=6379
       - MAPBOX_API_KEY=${LIBRE_DIAS_MAP_API_KEY}
       - WEB_CONCURRENCY=${LIBRE_DIAS_GUNNI_WORKERS}
@@ -547,7 +547,7 @@ services:
     # Wait for Postgres
     restart: unless-stopped
     depends_on:
-      - libre-db
+      - libre-dias-db
     deploy:
       resources:
         reservations:
