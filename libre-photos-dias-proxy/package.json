@@ -1,0 +1,9 @@
+{
+  "name": "libre-dias-proxy",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "libre-dias-proxy:BUILD": "./docker.sh",
+    "libre-dias-proxy:RELEASE": "./docker.sh -p"
+  }
+}

@@ -475,7 +475,7 @@ services:
     #################################################
   ### LIBRE PHOTOS  Me ###
   libre-dias-proxy:
-    image: eu.gcr.io/dle-dev/libre-proxy:latest
+    image: eu.gcr.io/dle-dev/libre-dias-proxy:latest
     container_name: dle-libre-dias-proxy
     restart: unless-stopped
     networks:
