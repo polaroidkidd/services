@@ -95,7 +95,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:29.0.1
+    image: eu.gcr.io/dle-dev/cloud:29.0.6
     networks:
       services-net:
         ipv4_address: 172.19.0.99
@@ -344,13 +344,7 @@ services:
     expose:
       - 8000
     healthcheck:
-      test:
-        [
-          "CMD",
-          "curl",
-          "-f",
-          "http://paperless-webserver:8000"
-        ]
+      test: [ "CMD", "curl", "-f", "http://paperless-webserver:8000" ]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -424,7 +418,7 @@ services:
     restart: unless-stopped
 
   libre-backend:
-    image: reallibrephotos/librephotos-gpu:${LIBRE_TAG}
+    image: reallibrephotos/librephotos-gpu:dev
     container_name: dle-libre-backend
     volumes:
       - ${LIBRE_PHOTOS_DIR}:/data
@@ -567,4 +561,4 @@ services:
     expose:
       - 8080
     volumes:
-      - ./volumes/trilium:/home/node/trilium-data  
+      - ./volumes/trilium:/home/node/trilium-data
