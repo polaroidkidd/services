@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.62.0](https://github.com/polaroidkidd/services/compare/v1.61.0...v1.62.0) (2024-10-02)
+
+
+### Features
+
+* update nextcloud to 29.0.7 and integrate jellystat ([5945346](https://github.com/polaroidkidd/services/commit/594534620eed7d748fdf4e803f255bb24887f236))
+
 ## [1.61.0](https://github.com/polaroidkidd/services/compare/v1.60.0...v1.61.0) (2024-09-13)
 
 
