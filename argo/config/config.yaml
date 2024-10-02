@@ -33,9 +33,9 @@ ingress:
 
     # nextcloud
   - hostname: cloud.dle.dev
-    service: http://cloud:9000
+    service: http://cloud:80
   - hostname: www.cloud.dle.dev
-    service: http://cloud:9000
+    service: http://cloud:80
 
     # Secret Santa Page
   - hostname: santa.dle.dev
@@ -103,11 +103,11 @@ ingress:
   - hostname: www.req.dle.dev
     service: http://overseerr:5055
 
-    # tautulli
-  - hostname: medstats.dle.dev
-    service: http://tautulli:8181
-  - hostname: www.medstats.dle.dev
-    service: http://tautulli:8181
+    # jellystat
+  - hostname: jellystat.dle.dev
+    service: http://jellystat:3000
+  - hostname: www.jellystat.dle.dev
+    service: http://jellystat:3000
 
     # trilium
   - hostname: noted.dle.dev

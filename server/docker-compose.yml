@@ -13,25 +13,25 @@ services:
   dozzle:
     image: amir20/dozzle:latest
     container_name: dle-docker-logs
+    networks:
+      - services-net
+    restart: unless-stopped
     ports:
       - "8888:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - services-net
-    restart: unless-stopped
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.7.0
-    networks:
-      - services-net
+    image: eu.gcr.io/dle-dev/argo:1.9.0
     container_name: dle-argo
     restart: unless-stopped
-    ports:
-      - "8099:8099"
     depends_on:
       - proxy
       - dozzle
+    networks:
+      - services-net
+    ports:
+      - "8099:8099"
 
   ###################################################
   ## BEGIN REVERSE PROXY AND CERTS ##
@@ -95,14 +95,15 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:29.0.6
+    image: eu.gcr.io/dle-dev/cloud:29.0.7
+    container_name: dle-cloud
     networks:
       services-net:
         ipv4_address: 172.19.0.99
-    container_name: dle-cloud
     depends_on:
       - cloud-db
       - argo
+      - cloud-redis
     volumes:
       - ./volumes/cloud/html:/var/www/html
       - ./volumes/cloud/config:/var/www/html/config
@@ -119,13 +120,13 @@ services:
 
     restart: unless-stopped
     expose:
-      - 9000
+      - 80
 
   cloud-db:
     image: postgres:12.2
+    container_name: dle-cloud-db
     networks:
       - services-net
-    container_name: dle-cloud-db
     volumes:
       - ./volumes/cloud/db:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
@@ -152,11 +153,11 @@ services:
   ## BEGIN deluge ##
   deluge:
     image: linuxserver/deluge:latest
+    container_name: dle-deluge
     depends_on:
       - argo
     networks:
       - services-net
-    container_name: dle-deluge
     volumes:
       - ./volumes/deluge/config:/config
       - /mnt/md0/storage/Media/downloads:/downloads
@@ -176,9 +177,9 @@ services:
   ### BEGIN RADARR ###
   radarr:
     image: linuxserver/radarr:latest
+    container_name: dle-radarr
     networks:
       - services-net
-    container_name: dle-radarr
     depends_on:
       - argo
     volumes:
@@ -193,23 +194,41 @@ services:
     env_file:
       - .linuxserver.env
   #################################################
-  ### BEGIN tautulli ###      
-  tautulli:
-    image: lscr.io/linuxserver/tautulli:latest
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Etc/UTC
-    volumes:
-      - ./volumes/tautulli/config:/config
-    expose:
-      - 8181
-    restart: unless-stopped
+  ### BEGIN jellystat ###      
+  jellystat:
+    image: cyfershepard/jellystat:latest
+    container_name: dle-jellystat
+    depends_on:
+      - jellystat-db
+      - argo
     networks:
       - services-net
-    container_name: dle-tautulli
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
+      POSTGRES_IP: jellystat-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: ${JELLYSTAT_JWT_SECRET}
+    expose:
+      - 3000
+    volumes:
+      - ./volumes/jellystat/backup-data:/app/backend/backup-data 
+  jellystat-db:
+    image: postgres:15.2
+    container_name: dle-jellystat-db
+    environment:
+      POSTGRES_DB: ${JELLYSTAT_POSTGRES_NAME}
+      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
+    volumes:
+      - ./volumes/jellystat/db:/var/lib/postgresql/data 
     depends_on:
       - argo
+    expose:
+      - 5432
+    networks:
+      - services-net
   #################################################
   ### BEGIN OVERSEERR ###
   overseerr:
