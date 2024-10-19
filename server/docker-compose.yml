@@ -217,6 +217,7 @@ services:
   jellystat-db:
     image: postgres:15.2
     container_name: dle-jellystat-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${JELLYSTAT_POSTGRES_NAME}
       POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
