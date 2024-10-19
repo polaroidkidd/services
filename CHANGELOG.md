@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.62.1](https://github.com/polaroidkidd/services/compare/v1.62.0...v1.62.1) (2024-10-19)
+
+
+### Bug Fixes
+
+* added unless-stopped directive to jellyfin-db ([77daa01](https://github.com/polaroidkidd/services/commit/77daa01fbe02c007460313336e3d081ca1d5d29e))
+
 ## [1.62.0](https://github.com/polaroidkidd/services/compare/v1.61.0...v1.62.0) (2024-10-02)
 
 
