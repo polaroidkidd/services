@@ -252,7 +252,7 @@ services:
   #################################################
   ### BEGIN prowlarr ###
   prowlarr:
-    image: lscr.io/linuxserver/prowlarr:develop
+    image: lscr.io/linuxserver/prowlarr:latest
     container_name: dle-prowlarr
     environment:
       - PUID=1000
@@ -289,41 +289,41 @@ services:
 
   #################################################
   ### BEGIN BITWARDEN ###
-  bitwarden:
-    image: vaultwarden/server:latest
-    networks:
-      - services-net
-    container_name: dle-bitwarden
-    restart: unless-stopped
-    depends_on:
-      - argo
-    env_file:
-      - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
-    expose:
-      - 80
-      - 3012
-    volumes:
-      - /home/dle/services-logs/bitwarden/:/bitwarden-logs/
-      - ./volumes/bitwarden/data:/data
-      - ./volumes/bitwarden/attachments:/attachments
+  # bitwarden:
+  #   image: vaultwarden/server:latest
+  #   networks:
+  #     - services-net
+  #   container_name: dle-bitwarden
+  #   restart: unless-stopped
+  #   depends_on:
+  #     - argo
+  #   env_file:
+  #     - ./.${SERVICES_ENVIRONMENT}.bitwarden.env
+  #   expose:
+  #     - 80
+  #     - 3012
+  #   volumes:
+  #     - /home/dle/services-logs/bitwarden/:/bitwarden-logs/
+  #     - ./volumes/bitwarden/data:/data
+  #     - ./volumes/bitwarden/attachments:/attachments
 
-  bitwarden-private:
-    image: vaultwarden/server:latest
-    networks:
-      - services-net
-    depends_on:
-      - argo
-    container_name: dle-bitwarden-private
-    restart: unless-stopped
-    env_file:
-      - ./.${SERVICES_ENVIRONMENT}.bitwarden-private.env
-    expose:
-      - 80
-      - 3012
-    volumes:
-      - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
-      - ./volumes/bitwarden-private/data:/data
-      - ./volumes/bitwarden-private/attachments:/attachments
+  # bitwarden-private:
+  #   image: vaultwarden/server:latest
+  #   networks:
+  #     - services-net
+  #   depends_on:
+  #     - argo
+  #   container_name: dle-bitwarden-private
+  #   restart: unless-stopped
+  #   env_file:
+  #     - ./.${SERVICES_ENVIRONMENT}.bitwarden-private.env
+  #   expose:
+  #     - 80
+  #     - 3012
+  #   volumes:
+  #     - /home/dle/services-logs/bitwarden-private/:/bitwarden-logs/
+  #     - ./volumes/bitwarden-private/data:/data
+  #     - ./volumes/bitwarden-private/attachments:/attachments
 
   #################################################
   ### BEGIN PAPERLESS ###
@@ -572,13 +572,13 @@ services:
       - services-net
   #################################################
   ### trilium ###
-  trilium:
-    image: zadam/trilium
-    container_name: dle-trilium
-    restart: unless-stopped
-    networks:
-      - services-net
-    expose:
-      - 8080
-    volumes:
-      - ./volumes/trilium:/home/node/trilium-data
+  # trilium:
+  #   image: zadam/trilium
+  #   container_name: dle-trilium
+  #   restart: unless-stopped
+  #   networks:
+  #     - services-net
+  #   expose:
+  #     - 8080
+  #   volumes:
+  #     - ./volumes/trilium:/home/node/trilium-data
