@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.64.0](https://github.com/polaroidkidd/services/compare/v1.63.0...v1.64.0) (2024-11-22)
+
+
+### Features
+
+* remove bitwarden ([4c5df0b](https://github.com/polaroidkidd/services/commit/4c5df0bd47f476147758439fa01df7db02a32159))
+
 ## [1.63.0](https://github.com/polaroidkidd/services/compare/v1.62.1...v1.63.0) (2024-10-21)
 
 
