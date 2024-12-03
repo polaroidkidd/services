@@ -95,7 +95,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:30.0.1
+    image: eu.gcr.io/dle-dev/cloud:30.0.2
     container_name: dle-cloud
     networks:
       services-net:
@@ -160,8 +160,8 @@ services:
       - services-net
     volumes:
       - ./volumes/deluge/config:/config
-      - /mnt/md0/storage/Media/downloads:/downloads
-      - /mnt/md0/storage/Media/Series:/Media
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Series:/Media
       - ./volumes/deluge/shared:/shared
     restart: unless-stopped
     env_file:
@@ -184,8 +184,8 @@ services:
       - argo
     volumes:
       - ./volumes/radarr/config:/config
-      - /mnt/md0/storage/Media/downloads:/downloads
-      - /mnt/md0/storage/Media/Movies:/Media/Movies
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Movies:/Media/Movies
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/radarr/shared:/shared
     expose:
@@ -277,8 +277,8 @@ services:
       - argo
     volumes:
       - ./volumes/sonarr/config:/config
-      - /mnt/md0/storage/Media/downloads:/downloads
-      - /mnt/md0/storage/Media/Series:/Media/Series
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Series:/Media/Series
       - /etc/localtime:/etc/localtime:ro
       - ./volumes/sonarr/shared:/shared
     expose:
@@ -496,8 +496,8 @@ services:
       - TZ=Europe/London
     volumes:
       - ./volumes/bazarr/config:/config
-      - /mnt/md0/storage/Media/Series:/tv
-      - /mnt/md0/storage/Media/Movies:/movies
+      - /mnt/md1/Media/Series:/tv
+      - /mnt/md1/Media/Movies:/movies
     expose:
       - 6767
 
@@ -570,6 +570,31 @@ services:
       - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
     networks:
       - services-net
+  scrutiny:
+    container_name: dle-scrutiny
+    image: ghcr.io/analogj/scrutiny:master-omnibus
+    cap_add:
+      - SYS_RAWIO
+    restart: unless-stopped
+    networks:
+      - services-net
+    ports:
+      - "8080:8080" # webapp
+      - "8086:8086" # influxDB admin
+    volumes:
+      - /run/udev:/run/udev:ro
+      - ./volumes/scrutiny/config:/opt/scrutiny/config
+      - ./volumes/scrutiny/influxdb:/opt/scrutiny/influxdb
+    devices:
+      - "/dev/nvme0"
+      - "/dev/sda"
+      - "/dev/sdb"
+      - "/dev/sdc"
+      - "/dev/sdd"
+      - "/dev/sde"
+      - "/dev/sdf"
+      - "/dev/sdg"
+
   #################################################
   ### trilium ###
   # trilium:
