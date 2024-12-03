@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.65.0](https://github.com/polaroidkidd/services/compare/v1.64.0...v1.65.0) (2024-12-03)
+
+
+### Features
+
+* migrate to new HDD ([e87bc74](https://github.com/polaroidkidd/services/commit/e87bc742969eb1c10b9cccbff0b52ff34bfe1742))
+
 ## [1.64.0](https://github.com/polaroidkidd/services/compare/v1.63.0...v1.64.0) (2024-11-22)
 
 
