@@ -438,7 +438,7 @@ services:
     restart: unless-stopped
 
   libre-backend:
-    image: reallibrephotos/librephotos-gpu:dev
+    image: reallibrephotos/librephotos-gpu:latest
     container_name: dle-libre-backend
     volumes:
       - ${LIBRE_PHOTOS_DIR}:/data
