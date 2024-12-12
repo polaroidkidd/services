@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.66.0](https://github.com/polaroidkidd/services/compare/v1.65.0...v1.66.0) (2024-12-12)
+
+
+### Features
+
+* move libre-photos backend image tag from dev to latest ([9c8efad](https://github.com/polaroidkidd/services/commit/9c8efad9617841c938b0964b7ea707df4eafb513))
+
 ## [1.65.0](https://github.com/polaroidkidd/services/compare/v1.64.0...v1.65.0) (2024-12-03)
 
 
