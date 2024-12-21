@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.66.1](https://github.com/polaroidkidd/services/compare/v1.66.0...v1.66.1) (2024-12-21)
+
+
+### Bug Fixes
+
+* cloud dump script ([b79329c](https://github.com/polaroidkidd/services/commit/b79329cadb66456f1c30619644d853f72a4b184f))
+
 ## [1.66.0](https://github.com/polaroidkidd/services/compare/v1.65.0...v1.66.0) (2024-12-12)
 
 
