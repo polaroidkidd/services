@@ -95,7 +95,7 @@ services:
   ###################################################
   ## BEGIN NEXTCLOUD ##
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:30.0.2
+    image: eu.gcr.io/dle-dev/cloud:30.0.4
     container_name: dle-cloud
     networks:
       services-net:
