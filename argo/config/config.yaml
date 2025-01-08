@@ -104,10 +104,10 @@ ingress:
     service: http://overseerr:5055
 
     # jellystat
-  - hostname: jellystat.dle.dev
-    service: http://jellystat:3000
-  - hostname: www.jellystat.dle.dev
-    service: http://jellystat:3000
+  - hostname: stats.dle.dev
+    service: http://stats:3000
+  - hostname: www.stats.dle.dev
+    service: http://stats:3000
 
     # trilium
   - hostname: noted.dle.dev
