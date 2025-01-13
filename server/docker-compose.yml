@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 networks:
   services-net:
@@ -625,11 +625,11 @@ services:
     networks:
       - services-net
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: ${DAWARICH_DB_USER}
+      POSTGRES_PASSWORD: ${DAWARICH_DB_PSW}
     restart: unless-stopped
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich-development" ]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich-production" ]
       interval: 10s
       retries: 5
       start_period: 30s
@@ -652,12 +652,12 @@ services:
     command: ['bin/rails', 'server', '-p', '3000', '-b', '::']
     restart: on-failure
     environment:
-      RAILS_ENV: development
+      RAILS_ENV: production
       REDIS_URL: redis://dawarich-redis:6379/0
       DATABASE_HOST: dawarich-db
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
-      DATABASE_NAME: dawarich-development
+      DATABASE_USERNAME: ${DAWARICH_DB_USER}
+      DATABASE_PASSWORD: ${DAWARICH_DB_PSW}
+      DATABASE_NAME: dawarich-production
       MIN_MINUTES_SPENT_IN_CITY: 60
       APPLICATION_HOSTS: dawarich.dle.dev
       APPLICATION_HOST: dawarich.dle.dev
@@ -668,6 +668,8 @@ services:
       PROMETHEUS_EXPORTER_HOST: 0.0.0.0
       PROMETHEUS_EXPORTER_PORT: 9394
       ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
+      RAILS_LOG_TO_STDOUT: "true"
+      SECRET_KEY_BASE: ${DAWARICH_SECRET_KEY_BASE}
     logging:
       driver: "json-file"
       options:
@@ -705,12 +707,12 @@ services:
     command: ['sidekiq']
     restart: on-failure
     environment:
-      RAILS_ENV: development
+      RAILS_ENV: production
       REDIS_URL: redis://dawarich-redis:6379/0
       DATABASE_HOST: dawarich-db
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: password
-      DATABASE_NAME: dawarich-development
+      DATABASE_USERNAME: ${DAWARICH_DB_USER}
+      DATABASE_PASSWORD: ${DAWARICH_DB_PSW}
+      DATABASE_NAME: dawarich-production
       APPLICATION_HOSTS: dawarich.dle.dev
       APPLICATION_HOST: dawarich.dle.dev
       BACKGROUND_PROCESSING_CONCURRENCY: 10
@@ -720,6 +722,8 @@ services:
       PROMETHEUS_EXPORTER_HOST: dawarich-app
       PROMETHEUS_EXPORTER_PORT: 9394
       ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
+      RAILS_LOG_TO_STDOUT: "true"
+      SECRET_KEY_BASE: ${DAWARICH_SECRET_KEY_BASE}
     logging:
       driver: "json-file"
       options:
@@ -746,15 +750,3 @@ services:
         limits:
           cpus: '0.50'    # Limit CPU usage to 50% of one core
           memory: '4G'    # Limit memory usage to 4GB
-  #################################################
-  ### trilium ###
-  # trilium:
-  #   image: zadam/trilium
-  #   container_name: dle-trilium
-  #   restart: unless-stopped
-  #   networks:
-  #     - services-net
-  #   expose:
-  #     - 8080
-  #   volumes:
-  #     - ./volumes/trilium:/home/node/trilium-data
