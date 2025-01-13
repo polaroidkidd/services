@@ -109,10 +109,10 @@ ingress:
   - hostname: www.jellystat.dle.dev
     service: http://jellystat:3000
 
-    # trilium
-  - hostname: noted.dle.dev
-    service: http://trilium:8080
-  - hostname: www.noted.dle.dev
-    service: http://trilium:8080
+    # dawarich
+  - hostname: dawarich.dle.dev
+    service: http://dawarich-app:3000
+  - hostname: www.dawarich.dle.dev
+    service: http://dawarich-app:3000
 
   - service: http_status:404
