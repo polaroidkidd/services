@@ -1,2 +1,2 @@
-daniel-r0s ["daniel/r0s", "oneplus6t/oneplus6t"]
-oneplus6t-oneplus6t ["daniel/r0s", "oneplus6t/oneplus6t"]
+cassandra-r0s ["cassandra/r0s", "cassandra/oneplus6t"]
+cassandra-oneplus6t ["cassandra/r0s", "cassandra/oneplus6t"]
