@@ -598,155 +598,43 @@ services:
       - "/dev/sdg"
 
   #################################################
-  ### dawarich ###
-  dawarich-redis:
-    image: redis:7.0-alpine
-    container_name: dle-dawarich-redis
-    command: redis-server
-    networks:
-      - services-net
-    volumes:
-      - ./volumes/dawarich/shared:/data
+  ### owntracks ###
+  owntracks-proxy:
+    image: eu.gcr.io/dle-dev/owntracks-proxy:latest
+    container_name: dle-owntracks-proxy
     restart: unless-stopped
-    healthcheck:
-      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
-  dawarich-db:
-    image: postgres:14.2-alpine
-    shm_size: 1G
-    container_name: dle-dawarich-db
-    volumes:
-      - ./volumes/dawarich/db_data:/var/lib/postgresql/data
-      - ./volumes/dawarich/shared:/var/shared
-      # - ./postgresql.conf:/etc/postgresql/postgresql.conf # Optional, uncomment if you want to use a custom config
     networks:
       - services-net
-    environment:
-      POSTGRES_USER: ${DAWARICH_DB_USER}
-      POSTGRES_PASSWORD: ${DAWARICH_DB_PSW}
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres -d dawarich-production" ]
-      interval: 10s
-      retries: 5
-      start_period: 30s
-      timeout: 10s
-    # command: postgres -c config_file=/etc/postgresql/postgresql.conf # Use custom config, uncomment if you want to use a custom config
-  dawarich-app:
-    image: freikin/dawarich:latest
-    container_name: dle-dawarich-app
-    volumes:
-      - ./volumes/dawarich/public:/var/app/public
-      - ./volumes/dawarich/watched:/var/app/tmp/imports/watched
-    networks:
-      - services-net
+    depends_on:
+      - owntracks-recorder
+      # - owntracks-frontend
+      - argo
     expose:
-      - 3000
-      # - 9394:9394 # Prometheus exporter, uncomment if needed
-    stdin_open: true
-    tty: true
-    entrypoint: web-entrypoint.sh
-    command: ['bin/rails', 'server', '-p', '3000', '-b', '::']
-    restart: on-failure
-    environment:
-      RAILS_ENV: production
-      REDIS_URL: redis://dawarich-redis:6379/0
-      DATABASE_HOST: dawarich-db
-      DATABASE_USERNAME: ${DAWARICH_DB_USER}
-      DATABASE_PASSWORD: ${DAWARICH_DB_PSW}
-      DATABASE_NAME: dawarich-production
-      MIN_MINUTES_SPENT_IN_CITY: 60
-      APPLICATION_HOSTS: dawarich.dle.dev
-      APPLICATION_HOST: dawarich.dle.dev
-      TIME_ZONE: Europe/Zurich
-      APPLICATION_PROTOCOL: http
-      DISTANCE_UNIT: km
-      PROMETHEUS_EXPORTER_ENABLED: false
-      PROMETHEUS_EXPORTER_HOST: 0.0.0.0
-      PROMETHEUS_EXPORTER_PORT: 9394
-      ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
-      RAILS_LOG_TO_STDOUT: "true"
-      SECRET_KEY_BASE: ${DAWARICH_SECRET_KEY_BASE}
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "5"
-    healthcheck:
-      test: [ "CMD-SHELL", "wget -qO - http://127.0.0.1:3000/api/v1/health | grep -q '\"status\"\\s*:\\s*\"ok\"'" ]
-      interval: 10s
-      retries: 30
-      start_period: 30s
-      timeout: 10s
-    depends_on:
-      dawarich-db:
-        condition: service_healthy
-        restart: true
-      dawarich-redis:
-        condition: service_healthy
-        restart: true
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'    # Limit CPU usage to 50% of one core
-          memory: '4G'    # Limit memory usage to 4GB
-  dawarich-sidekiq:
-    image: freikin/dawarich:latest
-    container_name: dle-dawarich-sidekiq
-    volumes:
-      - ./volumes/dawarich/public:/var/app/public
-      - ./volumes/dawarich/watched:/var/app/tmp/imports/watched
+      - 57808
+  owntracks-recorder:
+    container_name: dle-owntracks-recorder
     networks:
       - services-net
-    stdin_open: true
-    tty: true
-    entrypoint: sidekiq-entrypoint.sh
-    command: ['sidekiq']
-    restart: on-failure
+    image: owntracks/recorder
     environment:
-      RAILS_ENV: production
-      REDIS_URL: redis://dawarich-redis:6379/0
-      DATABASE_HOST: dawarich-db
-      DATABASE_USERNAME: ${DAWARICH_DB_USER}
-      DATABASE_PASSWORD: ${DAWARICH_DB_PSW}
-      DATABASE_NAME: dawarich-production
-      APPLICATION_HOSTS: dawarich.dle.dev
-      APPLICATION_HOST: dawarich.dle.dev
-      BACKGROUND_PROCESSING_CONCURRENCY: 10
-      APPLICATION_PROTOCOL: http
-      DISTANCE_UNIT: km
-      PROMETHEUS_EXPORTER_ENABLED: false
-      PROMETHEUS_EXPORTER_HOST: dawarich-app
-      PROMETHEUS_EXPORTER_PORT: 9394
-      ENABLE_TELEMETRY: false # More on telemetry: https://dawarich.app/docs/tutorials/telemetry
-      RAILS_LOG_TO_STDOUT: "true"
-      SECRET_KEY_BASE: ${DAWARICH_SECRET_KEY_BASE}
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "5"
-    healthcheck:
-      test: [ "CMD-SHELL", "bundle exec sidekiqmon processes | grep $${HOSTNAME}" ]
-      interval: 10s
-      retries: 30
-      start_period: 30s
-      timeout: 10s
-    depends_on:
-      dawarich-db:
-        condition: service_healthy
-        restart: true
-      dawarich-redis:
-        condition: service_healthy
-        restart: true
-      dawarich-app:
-        condition: service_healthy
-        restart: true
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'    # Limit CPU usage to 50% of one core
-          memory: '4G'    # Limit memory usage to 4GB
+      - OTR_PORT=0  # disables MQTT
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./volumes/owntracks/recorder/config:/config
+      - ./volumes/owntracks/recorder/store:/store
+    expose:
+      - 8083
+    restart: unless-stopped
+
+#
+#  owntracks-frontend:
+#    container_name: dle-owntracks-frontend
+#    restart: unless-stopped
+#    image: owntracks/frontend
+#    networks:
+#      - services-net
+#    environment:
+#      SERVER_HOST: "owntracks-recorder"
+#      SERVER_PORT: "8083"
+#    expose:
+#      - 80

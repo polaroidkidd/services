@@ -1,0 +1,9 @@
+{
+  "name": "owntracks-proxy",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "owntracks-proxy:BUILD": "./docker.sh",
+    "owntracks-proxy:RELEASE": "./docker.sh -p"
+  }
+}

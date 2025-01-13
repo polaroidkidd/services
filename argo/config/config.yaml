@@ -109,10 +109,16 @@ ingress:
   - hostname: www.jellystat.dle.dev
     service: http://jellystat:3000
 
-    # dawarich
-  - hostname: dawarich.dle.dev
-    service: http://dawarich-app:3000
-  - hostname: www.dawarich.dle.dev
-    service: http://dawarich-app:3000
+    # owntracks-recorder
+  - hostname: where-recorder.dle.dev
+    service: http://owntracks-proxy:57808
+  - hostname: www.where-recorder.dle.dev
+    service: http://owntracks-proxy:57808
+
+#    # owntracks-frontend
+#  - hostname: where.dle.dev
+#    service: http://owntracks-frontend:80
+#  - hostname: www.where.dle.dev
+#    service: http://owntracks-frontend:80
 
   - service: http_status:404
