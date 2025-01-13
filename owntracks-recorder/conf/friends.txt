@@ -1,2 +1,2 @@
-<username>-<device> ["<username>/<device>", "<friend-username>/<fiend-device>"]
-<friend-username>-<friend-device> ["<username>/<device>", "<friend-username>/<fiend-device>"]
+daniel-daniel ["daniel/daniel", "op6/oneplus6t]
+op6-oneplus6t ["daniel/daniel", "op6/oneplus6t]

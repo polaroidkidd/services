@@ -620,7 +620,7 @@ services:
       - OTR_PORT=0  # disables MQTT
     volumes:
       - /etc/localtime:/etc/localtime:ro
-#      - ./owntracks-config:/config
+      - ./owntracks-config:/config
       - ./volumes/owntracks/recorder/store:/store
     expose:
       - 8083
