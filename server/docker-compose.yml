@@ -615,11 +615,12 @@ services:
     container_name: dle-owntracks-recorder
     networks:
       - services-net
-    image: eu.gcr.io/dle-dev/owntracks-recorder
+    image: owntracks/recorder
     environment:
       - OTR_PORT=0  # disables MQTT
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./friends.txt:/config/friends.txt
       - ./volumes/owntracks/recorder/store:/store
     expose:
       - 8083
