@@ -231,6 +231,80 @@ services:
     networks:
       - services-net
   #################################################
+  ### BEGIN CleanUpErr ###
+  cleanuperr:
+    image: ghcr.io/flmorg/cleanuperr:latest
+    container_name: dle-cleanuperr
+    networks:
+      - services-net
+    volumes:
+      - ./volumes/cleanuperr/logs:/var/logs
+    environment:
+      - LOGGING__LOGLEVEL=Information
+      - LOGGING__FILE__ENABLED=false
+      - LOGGING__FILE__PATH=/var/logs/
+      - LOGGING__ENHANCED=true
+
+      - TRIGGERS__QUEUECLEANER=0 0/5 * * * ?
+      - TRIGGERS__CONTENTBLOCKER=0 0/5 * * * ?
+
+      - QUEUECLEANER__ENABLED=true
+      - QUEUECLEANER__RUNSEQUENTIALLY=true
+      - QUEUECLEANER__IMPORT_FAILED_MAX_STRIKES=5
+      - QUEUECLEANER__IMPORT_FAILED_IGNORE_PRIVATE=false
+      - QUEUECLEANER__IMPORT_FAILED_DELETE_PRIVATE=false
+      # - QUEUECLEANER__IMPORT_FAILED_IGNORE_PATTERNS__0=title mismatch
+      # - QUEUECLEANER__IMPORT_FAILED_IGNORE_PATTERNS__1=manual import required
+      - QUEUECLEANER__STALLED_MAX_STRIKES=5
+      - QUEUECLEANER__STALLED_IGNORE_PRIVATE=false
+      - QUEUECLEANER__STALLED_DELETE_PRIVATE=false
+
+      - CONTENTBLOCKER__ENABLED=true
+      - CONTENTBLOCKER__IGNORE_PRIVATE=false
+      - CONTENTBLOCKER__DELETE_PRIVATE=false
+
+      # - DOWNLOAD_CLIENT=none
+      # OR
+      # - DOWNLOAD_CLIENT=qBittorrent
+      # - QBITTORRENT__URL=http://localhost:8080
+      # - QBITTORRENT__USERNAME=user
+      # - QBITTORRENT__PASSWORD=pass
+      # OR
+      - DOWNLOAD_CLIENT=deluge
+      - DELUGE__URL=http://deluge:8112
+      - DELUGE__PASSWORD=${DELUGE_PASSWORD}
+      # OR
+      # - DOWNLOAD_CLIENT=transmission
+      # - TRANSMISSION__URL=http://localhost:9091
+      # - TRANSMISSION__USERNAME=test
+      # - TRANSMISSION__PASSWORD=testing
+
+      - SONARR__ENABLED=true
+      - SONARR__SEARCHTYPE=Episode
+      - SONARR__BLOCK__TYPE=blacklist
+      - SONARR__BLOCK__PATH=https://example.com/path/to/file.txt
+      - SONARR__INSTANCES__0__URL=http://sonarr:8989
+      - SONARR__INSTANCES__0__APIKEY=${SONARR_APIKEY}
+      # - SONARR__INSTANCES__1__URL=http://localhost:8990
+      # - SONARR__INSTANCES__1__APIKEY=secret2
+
+      - RADARR__ENABLED=true
+      - RADARR__BLOCK__TYPE=blacklist
+      - RADARR__BLOCK__PATH=https://example.com/path/to/file.txt
+      - RADARR__INSTANCES__0__URL=http://radarr:7878
+      - RADARR__INSTANCES__0__APIKEY=${RADARR_APIKEY}
+      # - RADARR__INSTANCES__1__URL=http://localhost:7879
+      # - RADARR__INSTANCES__1__APIKEY=secret4
+
+      - LIDARR__ENABLED=false
+      # - LIDARR__BLOCK__TYPE=blacklist
+      # - LIDARR__BLOCK__PATH=https://example.com/path/to/file.txt
+      # - LIDARR__INSTANCES__0__URL=http://radarr:8686
+      # - LIDARR__INSTANCES__0__APIKEY=secret5
+      # - LIDARR__INSTANCES__1__URL=http://radarr:8687
+      # - LIDARR__INSTANCES__1__APIKEY=secret6
+    restart: unless-stopped
+  #################################################
   ### BEGIN OVERSEERR ###
   overseerr:
     image: lscr.io/linuxserver/overseerr:latest
