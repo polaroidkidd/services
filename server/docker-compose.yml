@@ -207,7 +207,7 @@ services:
     environment:
       POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
       POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
-      POSTGRES_IP: jellystat-db
+      POSTGRES_IP: stats-db
       POSTGRES_PORT: 5432
       JWT_SECRET: ${JELLYSTAT_JWT_SECRET}
     expose:
@@ -216,14 +216,14 @@ services:
       - ./volumes/jellystat/backup-data:/app/backend/backup-data 
   stats-db:
     image: postgres:15.2
-    container_name: dle-jellystat-db
+    container_name: dle-stats-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${JELLYSTAT_POSTGRES_NAME}
       POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
       POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
     volumes:
-      - ./volumes/jellystat/db:/var/lib/postgresql/data 
+      - ./volumes/stats/db:/var/lib/postgresql/data
     depends_on:
       - argo
     expose:
