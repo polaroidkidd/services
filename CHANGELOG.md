@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.68.1](https://github.com/polaroidkidd/services/compare/v1.68.0...v1.68.1) (2025-01-24)
+
+
+### Bug Fixes
+
+* typo in container name for stats ([eef2a9d](https://github.com/polaroidkidd/services/commit/eef2a9d4f9f1274913f1952797d751d3c034e19c))
+
 ## [1.68.0](https://github.com/polaroidkidd/services/compare/v1.67.0...v1.68.0) (2025-01-24)
 
 
