@@ -197,7 +197,7 @@ services:
   ### BEGIN jellystat ###      
   stats:
     image: cyfershepard/jellystat:latest
-    container_name: dle-jellystat
+    container_name: dle-stats
     depends_on:
       - stats-db
       - argo
