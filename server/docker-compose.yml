@@ -22,7 +22,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.9.0
+    image: eu.gcr.io/dle-dev/argo:1.10.0
     container_name: dle-argo
     restart: unless-stopped
     depends_on:
@@ -195,11 +195,11 @@ services:
       - .linuxserver.env
   #################################################
   ### BEGIN jellystat ###      
-  jellystat:
+  stats:
     image: cyfershepard/jellystat:latest
     container_name: dle-jellystat
     depends_on:
-      - jellystat-db
+      - stats-db
       - argo
     networks:
       - services-net
@@ -214,7 +214,7 @@ services:
       - 3000
     volumes:
       - ./volumes/jellystat/backup-data:/app/backend/backup-data 
-  jellystat-db:
+  stats-db:
     image: postgres:15.2
     container_name: dle-jellystat-db
     restart: unless-stopped
