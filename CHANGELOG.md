@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.68.0](https://github.com/polaroidkidd/services/compare/v1.67.0...v1.68.0) (2025-01-24)
+
+
+### Features
+
+* move jellystat to new domain ([aa3f645](https://github.com/polaroidkidd/services/commit/aa3f645e33fc3ac4ba415c1aa818773a44740003))
+
 ## [1.67.0](https://github.com/polaroidkidd/services/compare/v1.66.1...v1.67.0) (2025-01-08)
 
 
