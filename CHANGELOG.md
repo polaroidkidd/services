@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.69.0](https://github.com/polaroidkidd/services/compare/v1.68.2...v1.69.0) (2025-02-02)
+
+
+### Features
+
+* pin proxy docker container version ([427dc57](https://github.com/polaroidkidd/services/commit/427dc577508dcb28b199ed20fec102421d3c32a9))
+
 ### [1.68.2](https://github.com/polaroidkidd/services/compare/v1.68.1...v1.68.2) (2025-01-24)
 
 
