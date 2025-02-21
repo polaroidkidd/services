@@ -1,4 +1,4 @@
-FROM nginx:1.21.3
+FROM nginx:1.27.3
 
 # Create Volumes
 VOLUME /etc/letsencrypt
