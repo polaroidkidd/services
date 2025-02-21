@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.70.0](https://github.com/polaroidkidd/services/compare/v1.69.0...v1.70.0) (2025-02-21)
+
+
+### Features
+
+* update nginx/jellyfinn config ([4e08829](https://github.com/polaroidkidd/services/commit/4e08829b2ed5e8bb86580c31ce49574de41965e8))
+
 ## [1.69.0](https://github.com/polaroidkidd/services/compare/v1.68.2...v1.69.0) (2025-02-02)
 
 
