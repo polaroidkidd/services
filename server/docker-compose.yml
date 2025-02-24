@@ -598,22 +598,6 @@ services:
   #################################################
   ### autobase ###
 
-  caddy:
-    image: lucaslorentz/caddy-docker-proxy:ci-alpine
-    container_name: caddy
-    ports:
-      - 8004:80
-      - 8005:443
-    environment:
-      - CADDY_INGRESS_NETWORKS=caddy
-    networks:
-      - services-net
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./volumes/autobase/caddy:/data
-    restart: unless-stopped
-    labels:
-      caddy.email: ${AUTOBASE_EMAIL}
 
   autobase-console-api:
     image: autobase/console_api:latest
@@ -634,12 +618,10 @@ services:
     image: autobase/console_ui:latest
     container_name: autobase-console-ui
     restart: unless-stopped
-    labels:
-      caddy: ${DOMAIN}
-      caddy.route_0: /api/v1/*
-      caddy.route_0.reverse_proxy: autobase-console-api:8080
-      caddy.route_1: /*
-      caddy.route_1.reverse_proxy: autobase-console-ui:80
+    ports:
+      - "8004:80"
+    expose:
+      - 8080
     environment:
       - PG_CONSOLE_API_URL=/api/v1
       - PG_CONSOLE_AUTHORIZATION_TOKEN=${AUTOBASE_AUTH_TOKEN}
