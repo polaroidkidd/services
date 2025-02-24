@@ -579,7 +579,7 @@ services:
     networks:
       - services-net
     ports:
-      - "8080:8080" # webapp
+      - "8003:8080" # webapp
       - "8086:8086" # influxDB admin
     volumes:
       - /run/udev:/run/udev:ro
@@ -620,7 +620,10 @@ services:
     restart: unless-stopped
     ports:
       - "8004:80"
-      - "9081:8080"
+      - "8080:8080"
+    expose:
+      - 80
+      - 8080
     environment:
       - PG_CONSOLE_API_URL=/api/v1
       - PG_CONSOLE_AUTHORIZATION_TOKEN=${AUTOBASE_AUTH_TOKEN}
