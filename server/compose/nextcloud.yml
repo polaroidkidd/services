@@ -12,14 +12,14 @@ services:
       - argo
       - cloud-redis
     volumes:
-      - ./volumes/cloud/html:/var/www/html
-      - ./volumes/cloud/config:/var/www/html/config
-      - ./volumes/cloud/custom-apps:/var/www/html/custom_apps
-      - ./volumes/cloud/data:/var/www/html/data
-      - ./volumes/cloud/themes:/var/www/html/themes
+      - ../volumes/cloud/html:/var/www/html
+      - ../volumes/cloud/config:/var/www/html/config
+      - ../volumes/cloud/custom-apps:/var/www/html/custom_apps
+      - ../volumes/cloud/data:/var/www/html/data
+      - ../volumes/cloud/themes:/var/www/html/themes
       - /etc/localtime:/etc/localtime:ro
     env_file:
-      - ./.cloud.env
+      - ../.cloud.env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -34,10 +34,10 @@ services:
     networks:
       - services-net
     volumes:
-      - ./volumes/cloud/db:/var/lib/postgresql/data
+      - ../volumes/cloud/db:/var/lib/postgresql/data
       - /etc/localtime:/etc/localtime:ro
     env_file:
-      - ./.cloud.env
+      - ../.cloud.env
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

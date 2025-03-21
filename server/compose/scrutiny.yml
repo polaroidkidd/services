@@ -14,8 +14,8 @@ services:
       - "8003:8086" # influxDB admin
     volumes:
       - /run/udev:/run/udev:ro
-      - ./volumes/scrutiny/config:/opt/scrutiny/config
-      - ./volumes/scrutiny/influxdb:/opt/scrutiny/influxdb
+      - ../volumes/scrutiny/config:/opt/scrutiny/config
+      - ../volumes/scrutiny/influxdb:/opt/scrutiny/influxdb
     devices:
       - "/dev/nvme0"
       - "/dev/sda"

@@ -12,7 +12,7 @@ services:
       - services-net
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ./volumes/autobase/caddy:/data
+      - ../volumes/autobase/caddy:/data
     restart: unless-stopped
     labels:
       caddy.email: ${AUTOBASE_EMAIL}
@@ -53,6 +53,6 @@ services:
     container_name: autobase-console-db
     restart: unless-stopped
     volumes:
-      - ./volumes/autobase/postgres:/var/lib/postgresql
+      - ../volumes/autobase/postgres:/var/lib/postgresql
     networks:
       - services-net 

@@ -13,7 +13,7 @@ services:
     image: postgres:14-alpine
     restart: unless-stopped
     volumes:
-      - ./volumes/brain/brain-db/db:/var/lib/postgresql/data
+      - ../volumes/brain/brain-db/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${PLAUSIBLE_POSTGRES_PASSWORD}
     networks:
@@ -24,9 +24,9 @@ services:
     image: clickhouse/clickhouse-server:22.6-alpine
     restart: unless-stopped
     volumes:
-      - ./volumes/brain/brain-events-db/db:/var/lib/clickhouse
-      - ./volumes/brain/brain-events-db/config/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
-      - ./volumes/brain/brain-events-db/config/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+      - ../volumes/brain/brain-events-db/db:/var/lib/clickhouse
+      - ../volumes/brain/brain-events-db/config/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      - ../volumes/brain/brain-events-db/config/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
     ulimits:
       nofile:
         soft: 262144
