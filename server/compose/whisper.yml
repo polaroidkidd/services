@@ -1,0 +1,16 @@
+
+
+services:
+  whisper:
+    container_name: whisper
+    image: ghcr.io/ggerganov/whisper.cpp:main-cuda
+    volumes:
+      - ../volumes/whisper/models:/models
+      - ../volumes/whisper/audios:/audios
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

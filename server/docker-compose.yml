@@ -20,3 +20,4 @@ include:
   - ./compose/brain.yml
   - ./compose/scrutiny.yml
   - ./compose/autobase.yml
+  - ./compose/whisper.yml
