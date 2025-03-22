@@ -1,0 +1,59 @@
+
+
+services:
+  dozzle:
+    image: amir20/dozzle:latest
+    container_name: docker-logs
+    networks:
+      - services-net
+    restart: unless-stopped
+    ports:
+      - "8000:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  argo:
+    image: eu.gcr.io/dle-dev/argo:1.10.0
+    container_name: argo
+    restart: unless-stopped
+    depends_on:
+      - dozzle
+    networks:
+      - services-net
+    ports:
+      - "8099:8099"
+  proxy:
+    image: eu.gcr.io/dle-dev/proxy:latest
+    networks:
+      - services-net
+    container_name: proxy
+    restart: unless-stopped
+    volumes:
+      - ../volumes/proxy/certs:/etc/letsencrypt
+      - /home/dle/services-logs/nginx:/var/log/nginx
+      - ../volumes/proxy/acme:/etc/certbot
+    ports:
+      - "47808:47808"
+      - "47809:47809"
+    depends_on:
+      - certbot
+      - libre-backend
+      - libre-frontend
+      - libre-db
+      - libre-redis
+    env_file:
+      - ../.${SERVICES_ENVIRONMENT}.ssl.env
+
+  certbot:
+    image: eu.gcr.io/dle-dev/certbot:latest
+    networks:
+      - services-net
+    container_name: certbot
+    restart: unless-stopped
+    volumes:
+      - ../volumes/proxy/certs:/etc/letsencrypt
+      - ../volumes/proxy/acme:/etc/certbot
+    env_file:
+      - ../.${SERVICES_ENVIRONMENT}.ssl.env
+    ports:
+      - "12079:12079" 

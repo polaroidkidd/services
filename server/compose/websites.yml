@@ -1,0 +1,24 @@
+
+
+services:
+  joeltest:
+    image: eu.gcr.io/dle-dev/joeltest.com:latest
+    networks:
+      - services-net
+    container_name: joel-test
+    restart: unless-stopped
+    expose:
+      - 3000
+    depends_on:
+      - argo
+
+  santa:
+    image: eu.gcr.io/dle-dev/sm-frontend:latest
+    networks:
+      - services-net
+    container_name: santa
+    restart: unless-stopped
+    depends_on:
+      - argo
+    expose:
+      - 3000 

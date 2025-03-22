@@ -1,0 +1,63 @@
+
+
+services:
+  brain-mail:
+    container_name: brain-mail
+    image: bytemark/smtp
+    restart: unless-stopped
+    networks:
+      - services-net
+
+  brain-db:
+    container_name: brain-db
+    image: postgres:14-alpine
+    restart: unless-stopped
+    volumes:
+      - ../volumes/brain/brain-db/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${PLAUSIBLE_POSTGRES_PASSWORD}
+    networks:
+      - services-net
+
+  brain-events-db:
+    container_name: brain-events-db
+    image: clickhouse/clickhouse-server:22.6-alpine
+    restart: unless-stopped
+    volumes:
+      - ../volumes/brain/brain-events-db/db:/var/lib/clickhouse
+      - ../volumes/brain/brain-events-db/config/clickhouse-config.xml:/etc/clickhouse-server/config.d/logging.xml:ro
+      - ../volumes/brain/brain-events-db/config/clickhouse-user-config.xml:/etc/clickhouse-server/users.d/logging.xml:ro
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    networks:
+      - services-net
+
+  brain:
+    container_name: brain
+    image: plausible/analytics:latest
+    restart: unless-stopped
+    command: sh -c "sleep 10 && /entrypoint.sh db createdb && /entrypoint.sh db migrate && /entrypoint.sh run"
+    depends_on:
+      - brain-db
+      - brain-events-db
+      - brain-mail
+    expose:
+      - 8000
+    environment:
+      - CLICKHOUSE_DATABASE_URL=http://brain-events-db:8123/plausible_events_db
+      - DATABASE_URL=postgres://postgres:${PLAUSIBLE_POSTGRES_PASSWORD}@brain-db:5432/plausible_db
+      - BASE_URL=https://brain.dle.dev:443
+      - DISABLE_REGISTRATION=true
+      - MAILER_EMAIL=brain@dle.dev
+      - SMTP_HOST_ADDR=mail.runbox.com
+      - SMTP_HOST_PORT=465
+      - SMTP_USER_NAME=${RUNBOX_USR}
+      - SMTP_USER_PWD=${RUNBOX_PSW}
+      - SECRET_KEY_BASE=${PLAUSIBLE_SECRET_KEY_BASE}
+      - SMTP_HOST_SSL_ENABLED=false
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+    networks:
+      - services-net 

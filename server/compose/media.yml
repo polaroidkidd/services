@@ -1,0 +1,113 @@
+
+
+services:
+  deluge:
+    image: linuxserver/deluge:latest
+    container_name: deluge
+    depends_on:
+      - argo
+    networks:
+      - services-net
+    volumes:
+      - ../volumes/deluge/config:/config
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Series:/Media
+      - ../volumes/deluge/shared:/shared
+    restart: unless-stopped
+    env_file:
+      - ../.linuxserver.env
+    environment:
+      - UMASK_SET=022
+      - WEBUI_PORT=8112
+    ports:
+      - "6881:6881"
+      - "6881:6881/udp"
+
+  radarr:
+    image: linuxserver/radarr:latest
+    container_name: radarr
+    networks:
+      - services-net
+    depends_on:
+      - argo
+    volumes:
+      - ../volumes/radarr/config:/config
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Movies:/Media/Movies
+      - /etc/localtime:/etc/localtime:ro
+      - ../volumes/radarr/shared:/shared
+    expose:
+      - 7878
+    restart: unless-stopped
+    env_file:
+      - ../.linuxserver.env
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    networks:
+      - services-net
+    container_name: sonarr
+    depends_on:
+      - argo
+    volumes:
+      - ../volumes/sonarr/config:/config
+      - /mnt/md1/Media/downloads:/downloads
+      - /mnt/md1/Media/Series:/Media/Series
+      - /etc/localtime:/etc/localtime:ro
+      - ../volumes/sonarr/shared:/shared
+    expose:
+      - 8989
+    restart: unless-stopped
+    env_file:
+      - ../.linuxserver.env
+
+  prowlarr:
+    image: lscr.io/linuxserver/prowlarr:latest
+    container_name: prowlarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ../volumes/prowlarr/data:/config
+    expose:
+      - 9696
+    networks:
+      - services-net
+    restart: unless-stopped
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - ../volumes/bazarr/config:/config
+      - /mnt/md1/Media/Series:/tv
+      - /mnt/md1/Media/Movies:/movies
+    expose:
+      - 6767
+    networks:
+      - services-net
+    restart: unless-stopped
+    depends_on:
+      - argo
+
+  overseerr:
+    image: lscr.io/linuxserver/overseerr:latest
+    container_name: overseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ../volumes/overseerr/config:/config
+    expose:
+      - 5055
+    restart: unless-stopped
+    networks:
+      - services-net
+    depends_on:
+      - argo 

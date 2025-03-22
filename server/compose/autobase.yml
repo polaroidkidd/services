@@ -1,0 +1,58 @@
+
+
+services:
+  caddy:
+    image: lucaslorentz/caddy-docker-proxy:ci-alpine
+    container_name: caddy
+    ports:
+      - 8004:80
+    environment:
+      - CADDY_INGRESS_NETWORKS=services-net
+    networks:
+      - services-net
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ../volumes/autobase/caddy:/data
+    restart: unless-stopped
+    labels:
+      caddy.email: ${AUTOBASE_EMAIL}
+
+  autobase-console-api:
+    image: autobase/console_api:latest
+    container_name: autobase-console-api
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/ansible:/tmp/ansible
+    environment:
+      - PG_CONSOLE_AUTHORIZATION_TOKEN=${AUTOBASE_AUTH_TOKEN}
+      - PG_CONSOLE_DB_HOST=autobase-console-db
+      - PG_CONSOLE_LOGGER_LEVEL=${PG_CONSOLE_LOGGER_LEVEL:-INFO}
+      - PG_CONSOLE_DOCKER_IMAGE=autobase/automation:latest
+    networks:
+      - services-net
+
+  autobase-console-ui:
+    image: autobase/console_ui:latest
+    container_name: autobase-console-ui
+    restart: unless-stopped
+    labels:
+      caddy: "http://localhost:80"
+      caddy.route_0: /api/v1/*
+      caddy.route_0.reverse_proxy: autobase-console-api:8080
+      caddy.route_1: /*
+      caddy.route_1.reverse_proxy: autobase-console-ui:80
+    environment:
+      - PG_CONSOLE_API_URL=/api/v1
+      - PG_CONSOLE_AUTHORIZATION_TOKEN=${AUTOBASE_AUTH_TOKEN}
+    networks:
+      - services-net
+
+  autobase-console-db:
+    image: autobase/console_db:latest
+    container_name: autobase-console-db
+    restart: unless-stopped
+    volumes:
+      - ../volumes/autobase/postgres:/var/lib/postgresql
+    networks:
+      - services-net 

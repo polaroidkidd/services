@@ -1,0 +1,90 @@
+
+
+services:
+  libre-proxy:
+    image: eu.gcr.io/dle-dev/libre-proxy:latest
+    container_name: libre-proxy
+    restart: unless-stopped
+    networks:
+      - services-net
+    depends_on:
+      - libre-redis
+      - libre-frontend
+      - libre-db
+      - libre-backend
+    volumes:
+      - ${LIBRE_PHOTOS_DIR}:/data
+      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
+    expose:
+      - 80
+
+  libre-db:
+    image: postgres:13
+    container_name: libre-db
+    environment:
+      - POSTGRES_USER=${LIBRE_DB_USER}
+      - POSTGRES_PASSWORD=${LIBRE_DB_PASS}
+      - POSTGRES_DB=${LIBRE_DB_NAME}
+    volumes:
+      - ${LIBRE_DB_LOCATION}:/var/lib/postgresql/data
+    command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
+    networks:
+      - services-net
+    restart: unless-stopped
+
+  libre-frontend:
+    image: reallibrephotos/librephotos-frontend:${LIBRE_TAG}
+    container_name: libre-frontend
+    depends_on:
+      - libre-backend
+    networks:
+      - services-net
+    restart: unless-stopped
+
+  libre-backend:
+    image: reallibrephotos/librephotos-gpu:latest
+    container_name: libre-backend
+    volumes:
+      - ${LIBRE_PHOTOS_DIR}:/data
+      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
+      - ${LIBRE_LOG_DIR}:/logs
+      - ${LIBRE_CAHE_DIR}:/root/.cache
+    environment:
+      - SECRET_KEY=${LIBRE_SHHHH_KEY}
+      - BACKEND_HOST=libre-backend
+      - ADMIN_EMAIL=${LIBRE_ADMIN_EMAIL}
+      - ADMIN_USERNAME=${LIBRE_USER_NAME}
+      - ADMIN_PASSWORD=${LIBRE_USER_PASS}
+      - DB_BACKEND=postgresql
+      - DB_NAME=${LIBRE_DB_NAME}
+      - DB_USER=${LIBRE_DB_USER}
+      - DB_PASS=${LIBRE_DB_PASS}
+      - DB_HOST=${LIBRE_DB_HOST}
+      - DB_PORT=5432
+      - REDIS_HOST=libre-redis
+      - REDIS_PORT=6379
+      - MAPBOX_API_KEY=${LIBRE_MAP_API_KEY}
+      - WEB_CONCURRENCY=${LIBRE_GUNNI_WORKERS}
+      - SKIP_PATTERNS=${LIBRE_SKIP_PATTERNS}
+      - ALLOW_UPLOAD=${LIBRE_ALLOW_UPLOAD}
+      - DEBUG=0
+      - HEAVYWEIGHT_PROCESS=${LIBRE_HEAVYWEIGHT_PROCESS}
+    networks:
+      - services-net
+    restart: unless-stopped
+    depends_on:
+      - libre-db
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  libre-redis:
+    container_name: libre-redis
+    restart: unless-stopped
+    image: redis:6
+    networks:
+      - services-net 
