@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.71.0](https://github.com/polaroidkidd/services/compare/v1.70.0...v1.71.0) (2025-03-22)
+
+
+### Features
+
+* add autobase to stack ([0e9463b](https://github.com/polaroidkidd/services/commit/0e9463b59272d5ba007a56d89ddbbe1b83f98dc8))
+
 ## [1.70.0](https://github.com/polaroidkidd/services/compare/v1.69.0...v1.70.0) (2025-02-21)
 
 
