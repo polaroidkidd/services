@@ -13,8 +13,8 @@ services:
       - libre-db
       - libre-backend
     volumes:
-      - ${LIBRE_PHOTOS_DIR}:/data
-      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
+      - ../volumes/libre-photos/pictures:/data
+      - ../volumes/libre-photos/media:/protected_media
     expose:
       - 80
 
@@ -26,7 +26,7 @@ services:
       - POSTGRES_PASSWORD=${LIBRE_DB_PASS}
       - POSTGRES_DB=${LIBRE_DB_NAME}
     volumes:
-      - ${LIBRE_DB_LOCATION}:/var/lib/postgresql/data
+      - ../volumes/libre-photos/db:/var/lib/postgresql/data
     command: postgres -c fsync=off -c synchronous_commit=off -c full_page_writes=off -c random_page_cost=1.0
     networks:
       - services-net
@@ -45,10 +45,10 @@ services:
     image: reallibrephotos/librephotos-gpu:latest
     container_name: libre-backend
     volumes:
-      - ${LIBRE_PHOTOS_DIR}:/data
-      - ${LIBRE_PRO_MEDIA_DIR}:/protected_media
-      - ${LIBRE_LOG_DIR}:/logs
-      - ${LIBRE_CAHE_DIR}:/root/.cache
+      - ../volumes/libre-photos/pictures:/data
+      - ../volumes/libre-photos/media:/protected_media
+      - .../volumes/libre-photos/log:/logs
+      - /home/dle/libre-photos-cache:/root/.cache
     environment:
       - SECRET_KEY=${LIBRE_SHHHH_KEY}
       - BACKEND_HOST=libre-backend
