@@ -47,7 +47,7 @@ services:
     volumes:
       - ../volumes/libre-photos/pictures:/data
       - ../volumes/libre-photos/media:/protected_media
-      - .../volumes/libre-photos/log:/logs
+      - ../volumes/libre-photos/log:/logs
       - /home/dle/libre-photos-cache:/root/.cache
     environment:
       - SECRET_KEY=${LIBRE_SHHHH_KEY}
