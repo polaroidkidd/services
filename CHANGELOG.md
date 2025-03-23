@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.71.2](https://github.com/polaroidkidd/services/compare/v1.71.1...v1.71.2) (2025-03-23)
+
+
+### Bug Fixes
+
+* typo in path for libre-photos ([e3ffb10](https://github.com/polaroidkidd/services/commit/e3ffb10a5325486392ce38b641a4341cf9bed835))
+
 ### [1.71.1](https://github.com/polaroidkidd/services/compare/v1.71.0...v1.71.1) (2025-03-23)
 
 ## [1.71.0](https://github.com/polaroidkidd/services/compare/v1.70.0...v1.71.0) (2025-03-22)
