@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.72.0](https://github.com/polaroidkidd/services/compare/v1.71.2...v1.72.0) (2025-03-23)
+
+
+### Features
+
+* move services back to 1Gbits connection ([df3e8b2](https://github.com/polaroidkidd/services/commit/df3e8b2f917580de4a4fe76470dc1697e8208f29))
+
 ### [1.71.2](https://github.com/polaroidkidd/services/compare/v1.71.1...v1.71.2) (2025-03-23)
 
 
