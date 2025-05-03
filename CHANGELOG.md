@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.73.1](https://github.com/polaroidkidd/services/compare/v1.73.0...v1.73.1) (2025-05-03)
+
+
+### Bug Fixes
+
+* ipv6 configuration ([654edab](https://github.com/polaroidkidd/services/commit/654edab5df341d960886d04faab547cf58730f60))
+
 ## [1.73.0](https://github.com/polaroidkidd/services/compare/v1.72.0...v1.73.0) (2025-05-03)
 
 
