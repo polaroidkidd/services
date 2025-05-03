@@ -43,7 +43,7 @@ else
   echo "***************************************************"
   echo "****** BUILDING DEVELOPMENT DOCKER CONTAINER ******"
   echo "***************************************************"
-  docker build --no-cache . -t "${TAG_LATEST}"  -f ./Dockerfile
+  docker build . -t "${TAG_LATEST}"  -f ./Dockerfile
 
 
   if [[ -v PUSH ]]; then
