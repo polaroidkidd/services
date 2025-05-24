@@ -110,4 +110,39 @@ services:
     networks:
       - services-net
     depends_on:
-      - argo 
+      - argo
+  stats:
+    image: cyfershepard/jellystat:latest
+    container_name: dle-jellystat
+    depends_on:
+      - stats-db
+      - argo
+    networks:
+      - services-net
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
+      POSTGRES_IP: stats-db
+      POSTGRES_PORT: 5432
+      JWT_SECRET: ${JELLYSTAT_JWT_SECRET}
+    expose:
+      - 3000
+    volumes:
+      - ../volumes/stats/backup-data:/app/backend/backup-data 
+  stats-db:
+    image: postgres:15.2
+    container_name: dle-jellystat-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${JELLYSTAT_POSTGRES_NAME}
+      POSTGRES_USER: ${JELLYSTAT_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${JELLYSTAT_POSTGRES_PASSWORD}
+    volumes:
+      - ../volumes/stats/db:/var/lib/postgresql/data 
+    depends_on:
+      - argo
+    expose:
+      - 5432
+    networks:
+      - services-net      
