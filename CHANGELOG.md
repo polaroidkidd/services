@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.74.0](https://github.com/polaroidkidd/services/compare/v1.73.2...v1.74.0) (2025-05-28)
+
+
+### Features
+
+* replace libre-photos with immich ([d33c534](https://github.com/polaroidkidd/services/commit/d33c53451bd9d067fd45b41274226657e4d5b2db))
+
 ### [1.73.2](https://github.com/polaroidkidd/services/compare/v1.73.1...v1.73.2) (2025-05-24)
 
 
