@@ -81,9 +81,9 @@ ingress:
 
     # Photo Manager
   - hostname: pics.dle.dev
-    service: http://libre-proxy:80
+    service: http://immich-backend:2283
   - hostname: www.pics.dle.dev
-    service: http://libre-proxy:80
+    service: http://immich-backend:2283
 
     # Bazarr
   - hostname: bazarr.dle.dev

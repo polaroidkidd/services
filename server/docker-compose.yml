@@ -16,7 +16,7 @@ include:
   - ./compose/nextcloud.yml
   - ./compose/media.yml
   - ./compose/paperless.yml
-  - ./compose/libre-photos.yml
   - ./compose/brain.yml
   - ./compose/scrutiny.yml
   - ./compose/autobase.yml
+  - ./compose/immich.yml
