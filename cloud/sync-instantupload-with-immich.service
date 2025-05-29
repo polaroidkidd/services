@@ -1,0 +1,12 @@
+[Unit]
+Description=Sync Nextcloud InstantUpload with Immich
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/mnt/md1/services/cloud/sync-cloud-instantupload-with-immich.sh
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
