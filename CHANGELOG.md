@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.75.0](https://github.com/polaroidkidd/services/compare/v1.74.0...v1.75.0) (2025-05-29)
+
+
+### Features
+
+* sync Nextcloud's InstantUpload with Immich ([25ecd00](https://github.com/polaroidkidd/services/commit/25ecd0065fc45976877f4363921ee9cd3c346349))
+
 ## [1.74.0](https://github.com/polaroidkidd/services/compare/v1.73.2...v1.74.0) (2025-05-28)
 
 
