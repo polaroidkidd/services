@@ -10,8 +10,7 @@ while true; do
     --info=progress2 \
     --info=name0 \
     --stats \
+    --ignore-existing \
     --verbose \
-    --delete \
-    --dry-run \
     "$WATCH_DIR"/ "$DEST_DIR"/
 done
