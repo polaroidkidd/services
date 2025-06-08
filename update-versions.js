@@ -37,8 +37,8 @@ function getLatestTag(service) {
 function updateComposeFile(filePath, service, version) {
     try {
         let content = fs.readFileSync(filePath, 'utf8');
-        console.info('content: ', content);
-        const regex = new RegExp(`image: eu\\.gcr\\.io/dle-dev/${service}:(?:[0-9.]*|latest)`, 'g');
+        // handle images ending in a version tag as well as images ending in "latest"
+        const regex = new RegExp(`image: eu\\.gcr\\.io/dle-dev/${service}:(?:[0-9.]*|latest)$`, 'g');
         content = content.replace(regex, `image: eu.gcr.io/dle-dev/${service}:${version}`);
         fs.writeFileSync(filePath, content);
     } catch (error) {
