@@ -16,3 +16,4 @@ server/volumes/proxy/logs
 
 argo/config/cert.pem
 argo/config/d207d6c3-0a62-4bfa-a910-54bc92923be4.json
+.turbo
