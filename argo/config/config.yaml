@@ -32,10 +32,10 @@ ingress:
     service: http://santa:3000
 
     # nextcloud
-  - hostname: cloud.dle.dev
-    service: http://cloud:80
-  - hostname: www.cloud.dle.dev
-    service: http://cloud:80
+  # - hostname: cloud.dle.dev
+  #   service: http://cloud:80
+  # - hostname: www.cloud.dle.dev
+  #   service: http://cloud:80
 
     # Secret Santa Page
   - hostname: santa.dle.dev
@@ -61,17 +61,6 @@ ingress:
   - hostname: www.sonarr.dle.dev
     service: http://sonarr:8989
 
-    # Bitwarden (Julia)
-  - hostname: bw.dle.dev
-    service: http://bitwarden:80
-  - hostname: www.bw.dle.dev
-    service: http://bitwarden:80
-
-    # Bitwarden (Daniel)
-  - hostname: pw.dle.dev
-    service: http://bitwarden-private:80
-  - hostname: www.pw.dle.dev
-    service: http://bitwarden-private:80
 
     # Snail-Mail-Manager
   - hostname: paperless.dle.dev
@@ -79,11 +68,11 @@ ingress:
   - hostname: www.paperless.dle.dev
     service: http://paperless-webserver:8000
 
-    # Photo Manager
-  - hostname: pics.dle.dev
-    service: http://immich-backend:2283
-  - hostname: www.pics.dle.dev
-    service: http://immich-backend:2283
+  #   # Photo Manager
+  # - hostname: pics.dle.dev
+  #   service: http://immich-backend:2283
+  # - hostname: www.pics.dle.dev
+  #   service: http://immich-backend:2283
 
     # Bazarr
   - hostname: bazarr.dle.dev
@@ -109,10 +98,6 @@ ingress:
   - hostname: www.stats.dle.dev
     service: http://stats:3000
 
-    # trilium
-  - hostname: noted.dle.dev
-    service: http://trilium:8080
-  - hostname: www.noted.dle.dev
-    service: http://trilium:8080
+
 
   - service: http_status:404

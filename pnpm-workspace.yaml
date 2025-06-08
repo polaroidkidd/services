@@ -1,0 +1,5 @@
+packages:
+  - 'argo'
+  - 'certbot'
+  - 'proxy' 
+  - 'cloud'

@@ -13,7 +13,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   argo:
-    image: eu.gcr.io/dle-dev/argo:1.11.0
+    image: eu.gcr.io/dle-dev/argo:latestlatest
     container_name: argo
     restart: unless-stopped
     depends_on:
@@ -23,7 +23,7 @@ services:
     ports:
       - "8099:8099"
   proxy-ipv4:
-    image: eu.gcr.io/dle-dev/proxy:latest
+    image: eu.gcr.io/dle-dev/proxy:latestlatestlatest
     networks:
       - services-net
     container_name: proxy-ipv4
@@ -38,7 +38,7 @@ services:
     env_file:
       - ../.${SERVICES_ENVIRONMENT}.ssl.env
   proxy:
-    image: eu.gcr.io/dle-dev/proxy:latest
+    image: eu.gcr.io/dle-dev/proxy:latestlatest
     networks:
       - services-net
     container_name: proxy
