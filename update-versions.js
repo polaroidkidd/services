@@ -17,30 +17,23 @@ function getVersion(packageJsonPath) {
 
 // Function to get latest tag for a service
 function getLatestTag(service) {
-    try {
-        const output = execSync(`docker image ls eu.gcr.io/dle-dev/${service} --format "{{.Tag}}"`).toString();
-        const tags = output.trim().split('\n').filter(tag => tag);
-        return tags.sort((a, b) => {
-            const [aMajor, aMinor, aPatch] = a.split('.').map(Number);
-            const [bMajor, bMinor, bPatch] = b.split('.').map(Number);
-            if (aMajor !== bMajor) return bMajor - aMajor;
-            if (aMinor !== bMinor) return bMinor - aMinor;
-            return bPatch - aPatch;
-        })[0];
-    } catch (error) {
-        console.error(`Error getting latest tag for ${service}:`, error.message);
-        process.exit(1);
-    }
+    return 'latest';
 }
 
 // Function to update version in compose file
 function updateComposeFile(filePath, service, version) {
     try {
         let content = fs.readFileSync(filePath, 'utf8');
-        // handle images ending in a version tag as well as images ending in "latest"
-        const regex = new RegExp(`image: eu\\.gcr\\.io/dle-dev/${service}:(?:[0-9.]*|latest)$`, 'g');
-        content = content.replace(regex, `image: eu.gcr.io/dle-dev/${service}:${version}`);
-        fs.writeFileSync(filePath, content);
+        // Match the entire image line, including any version or 'latest'
+        const regex = new RegExp(`image: eu\\.gcr\\.io/dle-dev/${service}:[^\\s]*`, 'g');
+        const newContent = content.replace(regex, `image: eu.gcr.io/dle-dev/${service}:${version}`);
+        
+        if (content === newContent) {
+            console.warn(`Warning: No changes made for ${service} in ${filePath}`);
+        } else {
+            fs.writeFileSync(filePath, newContent);
+            console.log(`Updated ${service} to version ${version} in ${filePath}`);
+        }
     } catch (error) {
         console.error(`Error updating ${filePath}:`, error.message);
         process.exit(1);
