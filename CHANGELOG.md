@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.76.0](https://github.com/polaroidkidd/services/compare/v1.75.0...v1.76.0) (2025-06-09)
+
+
+### Features
+
+* upgrade nextcloud ([5125df3](https://github.com/polaroidkidd/services/commit/5125df357fbe6e00bf0c94cced9dc76fb1099cb2))
+
+
+### Bug Fixes
+
+* immich external library path ([f004c01](https://github.com/polaroidkidd/services/commit/f004c010f2fa75c7f98ac482bd34ac000c5625cd))
+* remove ipv6 configuration in nginx ([094f08b](https://github.com/polaroidkidd/services/commit/094f08bcea9ef58a2a848a4c0f1432fa405bab68))
+
 ## [1.75.0](https://github.com/polaroidkidd/services/compare/v1.74.0...v1.75.0) (2025-05-29)
 
 
