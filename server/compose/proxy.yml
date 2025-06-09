@@ -26,7 +26,7 @@ services:
     image: eu.gcr.io/dle-dev/proxy:latest
     networks:
       - services-net
-    container_name: proxy-ipv4
+    container_name: proxy
     restart: unless-stopped
     volumes:
       - ../volumes/proxy/certs:/etc/letsencrypt
