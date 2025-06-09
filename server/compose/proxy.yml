@@ -22,7 +22,7 @@ services:
       - services-net
     ports:
       - "8099:8099"
-  proxy-ipv4:
+  proxy:
     image: eu.gcr.io/dle-dev/proxy:latest
     networks:
       - services-net
@@ -30,31 +30,13 @@ services:
     restart: unless-stopped
     volumes:
       - ../volumes/proxy/certs:/etc/letsencrypt
-      - /home/dle/services-logs/nginx-ipv4:/var/log/nginx
+      - /home/dle/services-logs/nginx:/var/log/nginx
       - ../volumes/proxy/acme:/etc/certbot
     ports:
       - "47808:47808"
       - "47809:47809"
     env_file:
       - ../.${SERVICES_ENVIRONMENT}.ssl.env
-  proxy:
-    image: eu.gcr.io/dle-dev/proxy:latest
-    networks:
-      - services-net
-    container_name: proxy
-    restart: unless-stopped
-    volumes:
-      - ../volumes/proxy/certs:/etc/letsencrypt
-      - /home/dle/services-logs/nginx:/var/log/nginx
-      - ../volumes/proxy/acme:/etc/certbot
-    ports:
-      - "[::]:80:80"
-      - "[::]:443:443"
-    depends_on:
-      - certbot
-    env_file:
-      - ../.${SERVICES_ENVIRONMENT}.ssl.env
-
   certbot:
     image: eu.gcr.io/dle-dev/certbot:latest
     networks:
