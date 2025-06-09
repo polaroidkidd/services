@@ -33,8 +33,8 @@ services:
       - /home/dle/services-logs/nginx-ipv4:/var/log/nginx
       - ../volumes/proxy/acme:/etc/certbot
     ports:
-      - "47808:80"
-      - "47809:443"
+      - "47808:47808"
+      - "47809:47809"
     env_file:
       - ../.${SERVICES_ENVIRONMENT}.ssl.env
   proxy:
