@@ -1,4 +1,4 @@
-FROM nextcloud:30.0.4-apache
+FROM nextcloud:31.0.5-apache
 
 
 # Increse memory limits

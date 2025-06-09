@@ -13,7 +13,7 @@ networks:
 include:
   - ./compose/proxy.yml
   - ./compose/websites.yml
-  - ./compose/nextcloud.yml
+  - ./compose/cloud.yml
   - ./compose/media.yml
   - ./compose/paperless.yml
   - ./compose/brain.yml

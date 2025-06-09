@@ -2,7 +2,7 @@
 
 services:
   cloud:
-    image: eu.gcr.io/dle-dev/cloud:30.0.4
+    image: eu.gcr.io/dle-dev/cloud:latest
     container_name: cloud
     networks:
       services-net:
