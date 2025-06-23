@@ -12,20 +12,20 @@ services:
       - 6380
 
   paperless-db:
-    image: docker.io/library/postgres:17
+    image: docker.io/library/postgres:13
     restart: unless-stopped
     container_name: paperless-db
     networks:
       - services-net
     volumes:
-      - ../volumes/paperless/db-migrated:/var/lib/postgresql/data
+      - ../volumes/paperless/db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${PAPERLESS_POSTGRES_DB}
       POSTGRES_USER: ${PAPERLESS_POSTGRES_USER}
       POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
 
   paperless-webserver:
-    image: eu.gcr.io/dle-dev/paperless:latest
+    image: jonaswinkler/paperless-ng:latest
     restart: unless-stopped
     container_name: paperless-webserver
     networks:
