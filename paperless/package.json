@@ -1,0 +1,9 @@
+{
+  "name": "paperless",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "./docker.sh",
+    "release": "./docker.sh -p"
+  }
+}
