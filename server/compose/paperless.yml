@@ -2,7 +2,7 @@
 
 services:
   paperless-broker:
-    image: redis:6.0
+    image: docker.io/library/redis:8
     restart: unless-stopped
     networks:
       - services-net
@@ -12,7 +12,7 @@ services:
       - 6380
 
   paperless-db:
-    image: postgres:13
+    image: docker.io/library/postgres:17
     restart: unless-stopped
     container_name: paperless-db
     networks:
@@ -25,7 +25,7 @@ services:
       POSTGRES_PASSWORD: ${PAPERLESS_POSTGRES_PASSWORD}
 
   paperless-webserver:
-    image: jonaswinkler/paperless-ng:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
     restart: unless-stopped
     container_name: paperless-webserver
     networks:
