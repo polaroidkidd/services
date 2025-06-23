@@ -18,7 +18,7 @@ services:
     networks:
       - services-net
     volumes:
-      - ../volumes/paperless-db:/var/lib/postgresql/data
+      - ../volumes/paperless/db:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${PAPERLESS_POSTGRES_DB}
       POSTGRES_USER: ${PAPERLESS_POSTGRES_USER}
@@ -42,10 +42,10 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - ../volumes/paperless/data:/usr/src/paperless/data
-      - ../volumes/paperless/media:/usr/src/paperless/media
-      - ../volumes/paperless/export:/usr/src/paperless/export
-      - ../volumes/paperless/consume:/usr/src/paperless/consume
+      - ../volumes/paperless/web-server/data:/usr/src/paperless/data
+      - ../volumes/paperless/web-server/media:/usr/src/paperless/media
+      - ../volumes/paperless/web-server/export:/usr/src/paperless/export
+      - ../volumes/paperless/web-server/consume:/usr/src/paperless/consume
     env_file: ../.paperless-webserver.env
     environment:
       PAPERLESS_REDIS: redis://paperless-broker:6380
@@ -67,4 +67,4 @@ services:
       - "139:139"
       - "445:445"
     volumes:
-      - ../volumes/paperless/consume:/data 
+      - ../volumes/paperless/web-server/consume:/data 
