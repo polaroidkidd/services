@@ -18,7 +18,7 @@ services:
     networks:
       - services-net
     volumes:
-      - ../volumes/paperless/db:/var/lib/postgresql/data
+      - ../volumes/paperless/db-migrated:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${PAPERLESS_POSTGRES_DB}
       POSTGRES_USER: ${PAPERLESS_POSTGRES_USER}
